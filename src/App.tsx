@@ -1,26 +1,53 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import './App.scss'
+import { Login } from './components/auth/Login'
+import { Register } from './components/auth/Register'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { createTheme, ThemeProvider } from '@mui/material'
+import { CssBaseline } from '@mui/material'
+import { Dashboard } from './components/dashboard/Dashboard'
+
+import '@fontsource/roboto/300.css'
+import '@fontsource/roboto/400.css'
+import '@fontsource/roboto/500.css'
+import '@fontsource/roboto/700.css'
 
 function App() {
+  const theme = createTheme({
+  palette: {
+    mode: 'dark',
+    primary: {
+      main: '#311b92'
+    },
+    secondary: {
+      main: '#f77008'
+    },
+    background: {
+      default: '#0b0811'
+    },
+    error: {
+      main: '#ff0049'
+    },
+    warning: {
+      main: '#ffa305'
+    },
+  }
+  })
+
   return (
+  <ThemeProvider theme={theme}>
+    <CssBaseline />
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Login />} />
+          <Route path="/login" element={<Login/>} />
+          <Route path="/register" element={<Register/>} />
+          <Route path="/dashboard" element={<Dashboard/>} />
+        </Routes>
+      </BrowserRouter>
     </div>
-  );
+  </ThemeProvider>
+  )
 }
 
-export default App;
+export default App
