@@ -1,8 +1,10 @@
 import { Button, Card, CardActions, CardContent } from '@mui/material'
 import { AddCircle } from '@mui/icons-material'
+import '../../styles/add-user-card.scss'
+
 export function AddUserCard() {
   return (
-    <Card>
+    <Card className="login-card">
       <CardContent className="plus-icon">
         <AddCircle onClick={addUser} color="primary" />
       </CardContent>

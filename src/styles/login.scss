@@ -1,6 +1,9 @@
 @import 'variables';
 @import 'colors';
 
+.MuiContainer-root {
+  height: 100vh;
+}
 #login-main {
   text-align: center;
   #login-column {
