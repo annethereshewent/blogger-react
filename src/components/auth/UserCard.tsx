@@ -7,6 +7,10 @@ interface UserCardProps {
 }
 
 export function UserCard({user}: UserCardProps) {
+
+  function login() {
+
+  }
   return  (
     <Card>
       <img
@@ -19,8 +23,4 @@ export function UserCard({user}: UserCardProps) {
       </CardActions>
     </Card>
   )
-}
-
-function login() {
-  return false
 }
