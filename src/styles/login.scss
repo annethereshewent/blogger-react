@@ -13,6 +13,14 @@
     @media screen and (max-width: $md) {
       margin-left: 100px;
     }
+    @media screen and (max-width: $xs) {
+      margin: 60px auto;
+    }
+    @media screen and (min-width: $sm) {
+      margin: 60px auto;
+      padding-left: 50px;
+    }
+   
     #login-panel {
       width: 100%;
       .MuiTextField-root {
@@ -39,7 +47,7 @@
     }
   }
   #existing-user-section {
-    @media screen and (max-width: $md) {
+    @media screen and (max-width: $lg) {
       display: none;
     }
   }
