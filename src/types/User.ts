@@ -1,6 +1,17 @@
 
 
 export interface User {
-  avatar_src: string
-  username: string
+  email: string,
+  username: string,
+  description: string,
+  avatars: UserAvatars,
+  gender: string,
+  confirmed_at: string
+}
+
+interface UserAvatars {
+  thumb: string,
+  small: string,
+  medium: string,
+  large: string
 }

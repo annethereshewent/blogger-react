@@ -14,7 +14,7 @@ export function UserCard({user}: UserCardProps) {
   return  (
     <Card>
       <img
-        src={user.avatar_src}
+        src={user.avatars.medium}
         className="white--text align-end"
         alt="avatar"
       />

@@ -1,11 +1,12 @@
 import { Card, TextField, Divider, Button } from '@mui/material'
-import { Link } from 'react-router-dom'
-import { useState, useEffect } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { useState, } from 'react'
 import { AuthService } from '../../services/AuthService'
 
 export function LoginCard() {
   const [password, setPassword] = useState('')
   const [email, setEmail] = useState('')
+  const navigate = useNavigate()
 
   function handleEmail(e: React.ChangeEvent<HTMLInputElement>) {
     setEmail(e.target.value)
@@ -15,8 +16,20 @@ export function LoginCard() {
     setPassword(e.target.value)
   }
 
-  function login() {
+  async function login(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault()
 
+    const result = await new AuthService().login(email, password)
+
+    const { data } = result
+
+    const token = data.access_token
+
+    if (token != null) {
+      localStorage.setItem('apiToken', token)
+      // redirect to dashboard
+      navigate('/dashboard')
+    }
   }
 
   function register() {

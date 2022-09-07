@@ -1,16 +1,15 @@
-import { apiClient } from "./util/apiClient"
+import { BaseService } from "./BaseService"
 
-
-export class AuthService {
-  static async login(username: string, password: string) {
-    return await apiClient.post(`/oauth/token?client_id=${process.env.REACT_APP_CLIENT_ID}&client_secret=${process.env.REACT_APP_CLIENT_SECRET}`, {
-      username,
+export class AuthService extends BaseService {
+  async login(email: string, password: string) {
+    return await this.client.post(`/oauth/token?client_id=${process.env.REACT_APP_CLIENT_ID}&client_secret=${process.env.REACT_APP_CLIENT_SECRET}`, {
+      email,
       password,
       grant_type: 'password'
-  })
+    })
   }
 
-  static async reigster() {
-    return await apiClient.post(`/api/v1/auth/register`)
+  async reigster() {
+    return await this.client.post(`/api/v1/auth/register`)
   }
 }
