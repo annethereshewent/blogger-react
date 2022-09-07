@@ -1,6 +1,5 @@
 import './App.scss'
 import { Login } from './components/auth/Login'
-import { Register } from './components/auth/Register'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { createTheme, ThemeProvider } from '@mui/material'
 import { CssBaseline } from '@mui/material'
@@ -41,7 +40,6 @@ function App() {
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/login" element={<Login/>} />
-          <Route path="/register" element={<Register/>} />
           <Route path="/dashboard" element={<Dashboard/>} />
         </Routes>
       </BrowserRouter>

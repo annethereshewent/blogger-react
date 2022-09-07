@@ -3,7 +3,11 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useState, } from 'react'
 import { AuthService } from '../../services/AuthService'
 
-export function LoginCard() {
+interface LoginCardProps {
+  openRegisterModal: () => void
+}
+
+export function LoginCard({openRegisterModal}: LoginCardProps) {
   const [password, setPassword] = useState('')
   const [email, setEmail] = useState('')
   const navigate = useNavigate()
@@ -32,10 +36,6 @@ export function LoginCard() {
     }
   }
 
-  function register() {
-
-  }
-
   return (
     <Card id="login-panel">
       <form onSubmit={login}>
@@ -55,7 +55,7 @@ export function LoginCard() {
           </Link>
           <Divider />
           <div className="sign-up-link">
-            <Button variant="contained" color="secondary" style={{width: "50%"}} onClick={register}>
+            <Button variant="contained" color="secondary" style={{width: "50%"}} onClick={openRegisterModal}>
               Sign Up
             </Button>
           </div>
