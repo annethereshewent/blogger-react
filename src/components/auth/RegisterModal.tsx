@@ -1,8 +1,10 @@
 import { Button, Card, CardActions, CardContent, Container, FormControl, FormControlLabel, FormLabel, Grid, IconButton, Modal, Radio, RadioGroup, TextField } from '@mui/material'
-import React, { useEffect, useState } from 'react'
+import { useState } from 'react'
 import CloseIcon from '@mui/icons-material/Close'
 import { RegisterContainer } from './RegisterContainer'
 import { PasswordContainer } from './PasswordContainer'
+import { AuthService } from '../../services/AuthService'
+import { User } from '../../types/User'
 
 interface RegisterModalProps {
   open: boolean,
@@ -50,7 +52,7 @@ export function RegisterModal({open, setOpen}: RegisterModalProps) {
     setOpen(false)
   }
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     switch(buttonTxt) {
       case 'Next':
@@ -58,7 +60,14 @@ export function RegisterModal({open, setOpen}: RegisterModalProps) {
         setButtonTxt('Finish')
         break
       case 'Finish':
+        const result = await new AuthService().reigster(username, email, password, gender)
+        const { data } = result
 
+        const user: User = data.user
+
+        if (user != null) {
+          console.log(`successfully registered user! ${JSON.stringify(user)}`)
+        }
         break
     }
   }

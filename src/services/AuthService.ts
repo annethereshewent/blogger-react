@@ -9,7 +9,12 @@ export class AuthService extends BaseService {
     })
   }
 
-  async reigster() {
-    return await this.client.post(`/api/v1/auth/register`)
+  async reigster(username: string, email: string, password: string, gender: string) {
+    return await this.client.post(`/api/v1/auth/register`, {
+      username,
+      email,
+      password,
+      gender
+    })
   }
 }

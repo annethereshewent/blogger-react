@@ -60,9 +60,9 @@ export function RegisterContainer({username, email, setUsername, setEmail, setGe
         <FormControl>
           <FormLabel>Gender</FormLabel>
           <RadioGroup onChange={handleGender} row >
-            <FormControlLabel value="female" control={<Radio required />} label="Female" />
-            <FormControlLabel value="male" control={<Radio required />} label="Male" />
-            <FormControlLabel value="other" control={<Radio required />} label="Other" />
+            <FormControlLabel value="F" control={<Radio required />} label="Female" />
+            <FormControlLabel value="M" control={<Radio required />} label="Male" />
+            <FormControlLabel value="X" control={<Radio required />} label="Other" />
           </RadioGroup>
         </FormControl>
       </Grid>
