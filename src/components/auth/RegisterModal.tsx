@@ -2,6 +2,7 @@ import { Button, Card, CardActions, CardContent, Container, FormControl, FormCon
 import React, { useEffect, useState } from 'react'
 import CloseIcon from '@mui/icons-material/Close'
 import { RegisterContainer } from './RegisterContainer'
+import { PasswordContainer } from './PasswordContainer'
 
 interface RegisterModalProps {
   open: boolean,
@@ -24,29 +25,42 @@ export function RegisterModal({open, setOpen}: RegisterModalProps) {
 
   const [email, setEmail] = useState('')
   const [username, setUsername] = useState('')
+  const [gender, setGender] = useState('')
+  const [buttonTxt, setButtonTxt] = useState('Next')
+  const [password, setPassword] = useState('')
 
   const registerContainer = (
     <RegisterContainer
       setEmail={setEmail}
       setUsername={setUsername}
+      setGender={setGender}
       email={email}
       username={username}
+      gender={gender}
     />
   )
 
-  const passwordContainer = (
-    <div>Password container!</div>
-  )
+  const passwordContainer = <PasswordContainer password={password} setPassword={setPassword} />
 
   const [currentContainer, setContainer] = useState(registerContainer)
 
   function handleClose() {
+    setContainer(registerContainer)
+    setButtonTxt('Next')
     setOpen(false)
   }
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
-    setContainer(passwordContainer)
+    switch(buttonTxt) {
+      case 'Next':
+        setContainer(passwordContainer)
+        setButtonTxt('Finish')
+        break
+      case 'Finish':
+
+        break
+    }
   }
 
   return (
@@ -70,7 +84,7 @@ export function RegisterModal({open, setOpen}: RegisterModalProps) {
                 variant="contained"
                 color="primary"
               >
-                Next
+                {buttonTxt}
               </Button>
             </div>
           </CardActions>

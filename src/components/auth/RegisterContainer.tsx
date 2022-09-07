@@ -9,22 +9,29 @@ import {
   RadioGroup,
   Radio
 } from '@mui/material'
+import React from 'react'
 
 interface RegisterContainerProps {
   username: string,
   email: string,
+  gender: string,
   setUsername: (username: string) => void,
-  setEmail: (email: string) => void
+  setEmail: (email: string) => void,
+  setGender: (gender: string) => void
 }
 
 
-export function RegisterContainer({username, email, setUsername, setEmail}: RegisterContainerProps) {
+export function RegisterContainer({username, email, setUsername, setEmail, setGender}: RegisterContainerProps) {
   function handleEmail(e: React.ChangeEvent<HTMLInputElement>) {
     setEmail(e.target.value)
   }
 
   function handleUsername(e: React.ChangeEvent<HTMLInputElement>) {
     setUsername(e.target.value)
+  }
+
+  function handleGender(e: React.ChangeEvent<HTMLInputElement>) {
+    setGender(e.target.value)
   }
 
   return (
@@ -36,7 +43,8 @@ export function RegisterContainer({username, email, setUsername, setEmail}: Regi
             className="text-field"
             label="Username"
             onChange={handleUsername}
-            value={username} />
+            required
+          />
 
         </Grid>
         <Grid item xs={6}>
@@ -44,17 +52,17 @@ export function RegisterContainer({username, email, setUsername, setEmail}: Regi
             className="text-field"
             label="E-mail"
             onChange={handleEmail}
-            value={email}
+            required
           />
         </Grid>
       </Grid>
       <Grid className="new-row" item xs={12}>
         <FormControl>
           <FormLabel>Gender</FormLabel>
-          <RadioGroup row >
-            <FormControlLabel value="female" control={<Radio />} label="Female" />
-            <FormControlLabel value="male" control={<Radio />} label="Male" />
-            <FormControlLabel value="other" control={<Radio />} label="Other" />
+          <RadioGroup onChange={handleGender} row >
+            <FormControlLabel value="female" control={<Radio required />} label="Female" />
+            <FormControlLabel value="male" control={<Radio required />} label="Male" />
+            <FormControlLabel value="other" control={<Radio required />} label="Other" />
           </RadioGroup>
         </FormControl>
       </Grid>

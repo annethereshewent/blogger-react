@@ -72,8 +72,13 @@
       width: 90%;
     }
   }
-
-
+  .password-container {
+    margin-bottom: 20px;
+    margin-top: 20px;
+    .password-field {
+      width: 100%;
+    }
+  }
 }
 
 
