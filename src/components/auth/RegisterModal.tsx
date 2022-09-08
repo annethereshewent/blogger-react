@@ -1,4 +1,4 @@
-import { Button, Card, CardActions, CardContent, Container, FormControl, FormControlLabel, FormLabel, Grid, IconButton, Modal, Radio, RadioGroup, TextField } from '@mui/material'
+import { Button, Card, CardActions, CardContent, IconButton, Modal } from '@mui/material'
 import { useState } from 'react'
 import CloseIcon from '@mui/icons-material/Close'
 import { RegisterContainer } from './RegisterContainer'
@@ -67,6 +67,13 @@ export function RegisterModal({open, setOpen}: RegisterModalProps) {
 
         if (user != null) {
           console.log(`successfully registered user! ${JSON.stringify(user)}`)
+
+          setContainer(passwordContainer)
+          setButtonTxt('Next')
+          handleClose()
+
+          // finally open the email verification modal
+
         }
         break
     }

@@ -1,5 +1,4 @@
 import { Button, Card, CardActions } from '@mui/material'
-import { useState } from 'react'
 import { User } from '../../types/User'
 
 interface UserCardProps {
