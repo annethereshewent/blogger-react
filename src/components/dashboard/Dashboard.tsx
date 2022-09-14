@@ -32,7 +32,6 @@ export function Dashboard() {
         localStorage.removeItem('apiToken')
         navigate('/')
       }
-      console.log(e.response?.data?.code)
       if (e.response?.status == 400 && e.response?.data?.code == CODE_NOT_CONFIRMED) {
         setUser(e.response?.data?.user)
         setOpenConfirmation(true)
@@ -44,7 +43,6 @@ export function Dashboard() {
 
   async function checkAvatarDialog() {
     if (user != null) {
-      console.log(user.avatar_dialog)
       if (!user?.avatar_dialog) {
         await dashboardService.hideAvatarDialog()
         setOpenAvatar(true)
