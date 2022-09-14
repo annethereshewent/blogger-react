@@ -1,5 +1,5 @@
-import { IconButton, Input } from "@mui/material"
-import { useRef, useState } from "react"
+import { IconButton } from "@mui/material"
+import { useEffect, useRef, useState } from "react"
 import { CameraAlt }  from '@mui/icons-material'
 import { Picture } from "../../types/Picture"
 
@@ -14,7 +14,9 @@ interface AvatarUploadProps {
 export function AvatarUpload({ setPicture, setDisplayEditor, picture }: AvatarUploadProps) {
   const inputFileRef = useRef<HTMLInputElement>(null)
 
-  const [avatar, setAvatar] = useState(`${BASE_URL}/images/default_avatar.png`)
+  const defaultAvatar = `${BASE_URL}/images/default_avatar.png`
+
+  const [avatar, setAvatar] = useState(defaultAvatar)
 
 
   function handleImageClick() {
@@ -33,6 +35,11 @@ export function AvatarUpload({ setPicture, setDisplayEditor, picture }: AvatarUp
       setDisplayEditor(true)
     }
   }
+
+  useEffect(() => {
+    const avatar = typeof picture.img == 'string' ? picture.img : defaultAvatar
+    setAvatar(avatar)
+  }, [picture])
 
 
   return (

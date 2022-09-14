@@ -1,7 +1,7 @@
 import { Button, Card, CardActions, CardContent, Modal, Slider  } from "@mui/material";
 import { CloseButton } from "../shared/CloseButton";
 import AvatarEditor from 'react-avatar-editor'
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { AvatarUpload } from "./AvatarUpload";
 import { Picture } from "../../types/Picture";
 
