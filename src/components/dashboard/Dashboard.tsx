@@ -43,9 +43,12 @@ export function Dashboard() {
   }
 
   async function checkAvatarDialog() {
-    if (!user?.avatar_dialog) {
-      await dashboardService.hideAvatarDialog()
-      setOpenAvatar(true)
+    if (user != null) {
+      console.log(user.avatar_dialog)
+      if (!user?.avatar_dialog) {
+        await dashboardService.hideAvatarDialog()
+        setOpenAvatar(true)
+      }
     }
   }
 
@@ -54,9 +57,7 @@ export function Dashboard() {
   }, [])
 
   useEffect(() => {
-    if (user != null) {
-      checkAvatarDialog()
-    }
+    checkAvatarDialog()
   }, [user])
 
   if (loading || user == null) {
