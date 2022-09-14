@@ -17,6 +17,7 @@ export function Dashboard() {
     } catch (e: any) {
       // navigate back to the dashboard if status is 401
       if (e.response.status == 401) {
+        localStorage.removeItem('apiToken')
         navigate('/')
       }
     }

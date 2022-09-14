@@ -7,11 +7,12 @@ import { AuthService } from '../../services/AuthService'
 import { User } from '../../types/User'
 
 interface RegisterModalProps {
-  open: boolean,
-  setOpen: (active: boolean) => void
+  openRegister: boolean,
+  setOpenRegister: (active: boolean) => void
+  setOpenConfirmation: (active: boolean) => void
 }
 
-export function RegisterModal({open, setOpen}: RegisterModalProps) {
+export function RegisterModal({openRegister, setOpenRegister, setOpenConfirmation}: RegisterModalProps) {
 
   const style = {
     position: 'absolute' as 'absolute',
@@ -49,7 +50,7 @@ export function RegisterModal({open, setOpen}: RegisterModalProps) {
   function handleClose() {
     setContainer(registerContainer)
     setButtonTxt('Next')
-    setOpen(false)
+    setOpenRegister(false)
   }
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -73,7 +74,7 @@ export function RegisterModal({open, setOpen}: RegisterModalProps) {
           handleClose()
 
           // finally open the email verification modal
-
+          setOpenConfirmation(true)
         }
         break
     }
@@ -81,7 +82,7 @@ export function RegisterModal({open, setOpen}: RegisterModalProps) {
 
   return (
     <Modal
-      open={open}
+      open={openRegister}
       onClose={handleClose}
     >
       <Card id="register-modal" style={style}>

@@ -7,12 +7,15 @@ import { UserAccounts } from './UserAccounts'
 import { RegisterModal } from './RegisterModal'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { ConfirmationModal } from './ConfirmationModal'
 
 export function Login() {
-  const [open, setOpen] = useState(false)
+  const [openRegister, setOpenRegister] = useState(false)
+  const [openConfirmation, setOpenConfirmation] = useState(false)
+
 
   function openRegisterModal() {
-    setOpen(true)
+    setOpenRegister(true)
   }
 
   const navigate = useNavigate()
@@ -37,7 +40,8 @@ export function Login() {
           </Grid>
         </Grid>
       </Grid>
-      <RegisterModal open={open} setOpen={setOpen} />
+      <RegisterModal openRegister={openRegister} setOpenRegister={setOpenRegister} setOpenConfirmation={setOpenConfirmation} />
+      <ConfirmationModal openConfirmation={openConfirmation} setOpenConfirmation={setOpenConfirmation} />
     </Container>
   )
 }
