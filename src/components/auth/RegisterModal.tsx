@@ -1,10 +1,10 @@
-import { Button, Card, CardActions, CardContent, IconButton, Modal } from '@mui/material'
+import { Button, Card, CardActions, CardContent, Modal } from '@mui/material'
 import { useEffect, useState } from 'react'
-import CloseIcon from '@mui/icons-material/Close'
 import { RegisterContainer } from './RegisterContainer'
 import { PasswordContainer } from './PasswordContainer'
 import { AuthService } from '../../services/AuthService'
 import { User } from '../../types/User'
+import { CloseButton } from '../shared/CloseButton'
 
 interface RegisterModalProps {
   openRegister: boolean,
@@ -102,9 +102,7 @@ export function RegisterModal({openRegister, setOpenRegister, setOpenConfirmatio
       <Card id="register-modal" style={style}>
         <form onSubmit={handleSubmit}>
           <CardContent>
-            <IconButton onClick={handleClose}>
-              <CloseIcon />
-            </IconButton>
+            <CloseButton handleClose={handleClose} />
             { currentContainer }
           </CardContent>
           <CardActions>

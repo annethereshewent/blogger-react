@@ -1,6 +1,6 @@
 
 import { Card, CardContent, IconButton } from '@mui/material'
-import CloseIcon from '@mui/icons-material/Close'
+import { CloseButton } from './CloseButton'
 
 interface ConfirmationContentProps {
   handleClose: () => void
@@ -23,9 +23,7 @@ export function ConfirmationContent({handleClose}: ConfirmationContentProps) {
   return (
     <Card id="confirmation-modal" style={style}>
       <CardContent>
-        <IconButton onClick={handleClose}>
-          <CloseIcon />
-        </IconButton>
+        <CloseButton handleClose={handleClose} />
         <div className="confirmation-body">
           <h2 className="confirm-heading">Please confirm your email</h2>
           <p className="confirm-title">Once your email is confirmed, you will be redirected to the next screen.</p>

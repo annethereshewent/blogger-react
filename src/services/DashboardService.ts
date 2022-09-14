@@ -9,4 +9,8 @@ export class DashboardService extends BaseService {
   async getDashboardData() {
     return await this.client.get('/api/v1/users/dashboard')
   }
+
+  async hideAvatarDialog() {
+    return await this.client.post('/api/v1/users/hide_avatar_dialog')
+  }
 }

@@ -5,14 +5,14 @@ import { ConfirmationContent } from "../shared/ConfirmationContent";
 
 
 interface ConfirmationModalProps {
-  openConfirmation: boolean
-  setOpenConfirmation: (confirmed: boolean) => void
+  open: boolean
+  setOpen: (confirmed: boolean) => void
   user: User
 }
 
-export function ConfirmationModal({user, openConfirmation, setOpenConfirmation}: ConfirmationModalProps) {
+export function ConfirmationModal({user, open, setOpen}: ConfirmationModalProps) {
   function handleClose() {
-    setOpenConfirmation(false)
+    setOpen(false)
   }
 
   const userSocket = new UserSocket()
@@ -20,13 +20,13 @@ export function ConfirmationModal({user, openConfirmation, setOpenConfirmation}:
   userSocket.subscribeToUser(user.email, (confirmed) => {
     if (confirmed) {
       // close the modal!
-      setOpenConfirmation(false)
+      setOpen(false)
     }
   })
 
   return (
     <Modal
-      open={openConfirmation}
+      open={open}
       onClose={handleClose}
     >
       <div>

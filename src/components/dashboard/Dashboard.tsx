@@ -1,22 +1,28 @@
-import { useState, useEffect, ReactElement } from 'react'
+import { useState, useEffect } from 'react'
 import { User } from "../../types/User"
 import { DashboardService } from "../../services/DashboardService"
 import { CircularProgress } from "@mui/material"
 import { useNavigate } from 'react-router-dom'
 import { ConfirmationModal } from './ConfirmationModal'
+import { AvatarModal } from './AvatarModal'
+import '../../styles/dashboard.scss'
 
 const CODE_NOT_CONFIRMED = 100
+const BASE_URL = process.env.REACT_APP_BASE_URL
 
 export function Dashboard() {
   const [user, setUser] = useState<User>()
   const [openConfirmation, setOpenConfirmation] = useState(false)
+  const [openAvatar, setOpenAvatar] = useState(false)
   const [loading, setLoading] = useState(false)
 
   const navigate = useNavigate()
 
+  const dashboardService = new DashboardService()
+
   async function getUser() {
     try {
-      const result = await new DashboardService().getDashboardData()
+      const result = await dashboardService.getDashboardData()
       const { data } = result
 
       setUser(data.user)
@@ -36,9 +42,22 @@ export function Dashboard() {
     }
   }
 
+  async function checkAvatarDialog() {
+    if (!user?.avatar_dialog) {
+      await dashboardService.hideAvatarDialog()
+      setOpenAvatar(true)
+    }
+  }
+
   useEffect(() => {
     getUser()
   }, [])
+
+  useEffect(() => {
+    if (user != null) {
+      checkAvatarDialog()
+    }
+  }, [user])
 
   if (loading || user == null) {
     return (
@@ -51,7 +70,7 @@ export function Dashboard() {
   let avatarStr = <div></div>
   if (user.avatars.medium != null) {
     avatarStr = (
-      <p>Here is your avatar: <img src={`http://localhost:3007/${user.avatars.medium}`} /></p>
+      <p>Here is your avatar: <img src={`${BASE_URL}/${user.avatars.medium}`} /></p>
     )
   }
 
@@ -61,8 +80,12 @@ export function Dashboard() {
       { avatarStr }
       <ConfirmationModal
         user={user}
-        openConfirmation={openConfirmation}
-        setOpenConfirmation={setOpenConfirmation}
+        open={openConfirmation}
+        setOpen={setOpenConfirmation}
+      />
+      <AvatarModal
+        open={openAvatar}
+        setOpen={setOpenAvatar}
       />
     </div>
   )

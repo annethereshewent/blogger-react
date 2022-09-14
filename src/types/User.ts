@@ -6,7 +6,8 @@ export interface User {
   description: string,
   avatars: UserAvatars,
   gender: string,
-  confirmed_at: string
+  confirmed_at: string,
+  avatar_dialog: boolean
 }
 
 interface UserAvatars {
