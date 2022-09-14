@@ -1,7 +1,8 @@
-import { Modal } from "@mui/material";
-import { User } from "../../types/User";
-import { UserSocket } from "../../util/UserSocket";
-import { ConfirmationContent } from "../shared/ConfirmationContent";
+import { Modal } from "@mui/material"
+import { useEffect } from "react"
+import { User } from "../../types/User"
+import { UserSocket } from "../../util/UserSocket"
+import { ConfirmationContent } from "../shared/ConfirmationContent"
 
 
 interface ConfirmationModalProps {
@@ -15,14 +16,20 @@ export function ConfirmationModal({user, open, setOpen}: ConfirmationModalProps)
     setOpen(false)
   }
 
-  const userSocket = new UserSocket()
+  useEffect(() => {
+    if (!user.confirmed_at) {
+      const userSocket = new UserSocket()
 
-  userSocket.subscribeToUser(user.email, (confirmed) => {
-    if (confirmed) {
-      // close the modal!
-      setOpen(false)
+      userSocket.subscribeToUser(user.email, (confirmed) => {
+        if (confirmed) {
+          // close the modal!
+          setOpen(false)
+        }
+      })
     }
-  })
+  }, [])
+
+
 
   return (
     <Modal

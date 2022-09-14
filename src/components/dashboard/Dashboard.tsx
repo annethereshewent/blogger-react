@@ -69,7 +69,15 @@ export function Dashboard() {
   let avatarStr = <div></div>
   if (user.avatars.medium != null) {
     avatarStr = (
-      <p>Here is your avatar: <img src={`${BASE_URL}/${user.avatars.medium}`} /></p>
+      <p>
+        Here is your avatar: <img src={`${BASE_URL}${user.avatars.large}`} />
+        <br />
+        medium avatar: <img src={`${BASE_URL}${user.avatars.medium}`} />
+        <br />
+        small avatar: <img src={`${BASE_URL}${user.avatars.small}`} />
+        <br />
+        thumb avatar: <img src={`${BASE_URL}${user.avatars.thumb}`} />
+      </p>
     )
   }
 
