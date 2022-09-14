@@ -1,5 +1,5 @@
 import { Button, Card, CardActions, CardContent, IconButton, Modal } from '@mui/material'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import CloseIcon from '@mui/icons-material/Close'
 import { RegisterContainer } from './RegisterContainer'
 import { PasswordContainer } from './PasswordContainer'
@@ -10,9 +10,12 @@ interface RegisterModalProps {
   openRegister: boolean,
   setOpenRegister: (active: boolean) => void
   setOpenConfirmation: (active: boolean) => void
+  onChangeEmail: (email: string) => void
+  onChangePassword: (password: string) => void
+  onFinishRegister: () => void
 }
 
-export function RegisterModal({openRegister, setOpenRegister, setOpenConfirmation}: RegisterModalProps) {
+export function RegisterModal({openRegister, setOpenRegister, setOpenConfirmation, onChangeEmail, onChangePassword, onFinishRegister}: RegisterModalProps) {
 
   const style = {
     position: 'absolute' as 'absolute',
@@ -31,6 +34,7 @@ export function RegisterModal({openRegister, setOpenRegister, setOpenConfirmatio
   const [gender, setGender] = useState('')
   const [buttonTxt, setButtonTxt] = useState('Next')
   const [password, setPassword] = useState('')
+  const [finished, setFinished] = useState(false)
 
   const registerContainer = (
     <RegisterContainer
@@ -42,6 +46,17 @@ export function RegisterModal({openRegister, setOpenRegister, setOpenConfirmatio
       gender={gender}
     />
   )
+
+  useEffect(() => {
+    onChangeEmail(email)
+    onChangePassword(password)
+  }, [email, password])
+
+  useEffect(() => {
+    if (finished) {
+      onFinishRegister()
+    }
+  }, [finished])
 
   const passwordContainer = <PasswordContainer password={password} setPassword={setPassword} />
 
@@ -67,13 +82,12 @@ export function RegisterModal({openRegister, setOpenRegister, setOpenConfirmatio
         const user: User = data.user
 
         if (user != null) {
-          console.log(`successfully registered user! ${JSON.stringify(user)}`)
-
           setContainer(passwordContainer)
           setButtonTxt('Next')
           handleClose()
 
           // finally open the email verification modal
+          setFinished(true)
           setOpenConfirmation(true)
         }
         break

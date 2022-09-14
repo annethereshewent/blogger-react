@@ -1,7 +1,7 @@
 import { Card, TextField, Divider, Button } from '@mui/material'
 import { Link, useNavigate } from 'react-router-dom'
 import { useState, } from 'react'
-import { AuthService } from '../../services/AuthService'
+import { loginUser } from '../../util/loginUser'
 
 interface LoginCardProps {
   openRegisterModal: () => void
@@ -23,17 +23,11 @@ export function LoginCard({openRegisterModal}: LoginCardProps) {
   async function login(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
 
-    const result = await new AuthService().login(email, password)
+    const isLoggedIn = await loginUser(email, password)
 
-    const { data } = result
-
-    const token = data.access_token
-
-    if (token != null) {
-      localStorage.setItem('apiToken', token)
-      // redirect to dashboard
-      navigate('/dashboard')
-    }
+   if (isLoggedIn) {
+    navigate('/dashboard')
+   }
   }
 
   return (

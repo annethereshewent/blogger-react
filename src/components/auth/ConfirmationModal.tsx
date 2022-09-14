@@ -1,12 +1,42 @@
-import { Button, Card, CardActions, CardContent, IconButton, Modal } from "@mui/material"
+import { Card, CardContent, IconButton, Modal } from "@mui/material"
 import CloseIcon from '@mui/icons-material/Close'
 
+import { useNavigate } from "react-router-dom"
+import { useEffect } from "react"
+import { UserSocket } from "../../util/UserSocket"
+import { loginUser } from "../../util/loginUser"
+
+
 interface ConfirmationModalProps {
+  email: string
+  password: string
   openConfirmation: boolean
+  finished: boolean
   setOpenConfirmation: (open: boolean) => void
 }
 
-export function ConfirmationModal({openConfirmation, setOpenConfirmation}: ConfirmationModalProps) {
+export function ConfirmationModal({finished, email, password,  openConfirmation, setOpenConfirmation}: ConfirmationModalProps) {
+
+  const navigate = useNavigate()
+
+  const userSocket = new UserSocket()
+
+  function finishRegistering() {
+    userSocket.subscribeToUser(email, async (confirmed) => {
+      if (confirmed) {
+        const isLoggedIn = await loginUser(email, password)
+        if (isLoggedIn) {
+          navigate('/dashboard')
+        }
+      }
+    })
+  }
+
+  useEffect(() => {
+    if (finished) {
+      finishRegistering()
+    }
+  }, [finished])
 
   const style = {
     position: 'absolute' as 'absolute',

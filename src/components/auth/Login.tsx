@@ -12,10 +12,24 @@ import { ConfirmationModal } from './ConfirmationModal'
 export function Login() {
   const [openRegister, setOpenRegister] = useState(false)
   const [openConfirmation, setOpenConfirmation] = useState(false)
-
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [finished, setFinished] = useState(false)
 
   function openRegisterModal() {
     setOpenRegister(true)
+  }
+
+  function onChangeEmail(email: string) {
+    setEmail(email)
+  }
+
+  function onChangePassword(password: string) {
+    setPassword(password)
+  }
+
+  function onFinishRegister() {
+    setFinished(true)
   }
 
   const navigate = useNavigate()
@@ -40,8 +54,21 @@ export function Login() {
           </Grid>
         </Grid>
       </Grid>
-      <RegisterModal openRegister={openRegister} setOpenRegister={setOpenRegister} setOpenConfirmation={setOpenConfirmation} />
-      <ConfirmationModal openConfirmation={openConfirmation} setOpenConfirmation={setOpenConfirmation} />
+      <RegisterModal
+        openRegister={openRegister}
+        setOpenRegister={setOpenRegister}
+        setOpenConfirmation={setOpenConfirmation}
+        onChangeEmail={onChangeEmail}
+        onChangePassword={onChangePassword}
+        onFinishRegister={onFinishRegister}
+      />
+      <ConfirmationModal
+        email={email}
+        password={password}
+        finished={finished}
+        openConfirmation={openConfirmation}
+        setOpenConfirmation={setOpenConfirmation}
+      />
     </Container>
   )
 }
