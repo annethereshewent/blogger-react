@@ -4,15 +4,18 @@ import AvatarEditor from 'react-avatar-editor'
 import { useRef, useState } from "react";
 import { AvatarUpload } from "./AvatarUpload";
 import { Picture } from "../../types/Picture";
+import { UserService } from "../../services/UserService";
+import { User } from "../../types/User";
 
 interface AvatarModalProps {
   open: boolean
   setOpen: (open: boolean) => void
+  setUser: (user: User) => void
 }
 
 const BASE_URL = process.env.REACT_APP_BASE_URL
 
-export function AvatarModal({open, setOpen}: AvatarModalProps) {
+export function AvatarModal({open, setOpen, setUser}: AvatarModalProps) {
   const defaultAvatar = `${BASE_URL}/images/default_avatar.png`
 
   const editor = useRef<AvatarEditor>(null)
@@ -79,12 +82,22 @@ export function AvatarModal({open, setOpen}: AvatarModalProps) {
 
   }
 
-  function savePicture() {
+  async function savePicture() {
+    if (typeof picture.img == 'string') {
+      const result = await new UserService().updateAvatar(picture.img)
 
+      const { data } = result
+
+      if (data.user != null) {
+        setUser(data.user)
+      }
+
+      setOpen(false)
+    }
   }
 
   function handleSkip() {
-
+    setOpen(false)
   }
 
   return (
@@ -133,7 +146,7 @@ export function AvatarModal({open, setOpen}: AvatarModalProps) {
               <CloseButton handleClose={handleClose} />
               <div className="modal-body">
                 <h2>Choose a profile picture</h2>
-                <p>Have a favorite avatar? An awesome selfie? Upload it here!</p>
+                <p>Have a selfie you'd like to share? Upload it here!</p>
               </div>
               <AvatarUpload picture={picture} setPicture={setPicture} setDisplayEditor={setDisplayEditor} />
             </CardContent>

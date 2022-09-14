@@ -1,6 +1,7 @@
 import { IconButton } from "@mui/material"
 import { useEffect, useRef, useState } from "react"
-import { CameraAlt }  from '@mui/icons-material'
+import { CameraAltOutlined }  from '@mui/icons-material'
+import { CloseOutlined } from '@mui/icons-material';
 import { Picture } from "../../types/Picture"
 
 const BASE_URL = process.env.REACT_APP_BASE_URL
@@ -46,8 +47,19 @@ export function AvatarUpload({ setPicture, setDisplayEditor, picture }: AvatarUp
     <div>
       <div className="avatar-image-container">
         <IconButton className="camera-button" onClick={handleImageClick}>
-          <CameraAlt />
+          <CameraAltOutlined />
         </IconButton>
+        { picture.img != defaultAvatar && (
+              <IconButton className="avatar-upload-close" onClick={() => {
+                setPicture({
+                  ...picture,
+                  img: defaultAvatar
+                })
+              }}>
+              <CloseOutlined />
+            </IconButton>
+          )
+        }
         <img className="avatar-upload-image" src={avatar} />
       </div>
       <input

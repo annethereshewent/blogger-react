@@ -85,6 +85,7 @@ export function Dashboard() {
       <AvatarModal
         open={openAvatar}
         setOpen={setOpenAvatar}
+        setUser={setUser}
       />
     </div>
   )
