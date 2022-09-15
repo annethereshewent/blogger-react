@@ -1,11 +1,14 @@
 import { useState, useEffect } from 'react'
 import { User } from "../../types/User"
 import { DashboardService } from "../../services/DashboardService"
-import { CircularProgress } from "@mui/material"
+import { CircularProgress, Grid } from "@mui/material"
 import { useNavigate } from 'react-router-dom'
 import { ConfirmationModal } from './ConfirmationModal'
 import { AvatarModal } from './AvatarModal'
 import '../../styles/dashboard.scss'
+import { DashboardContainer } from './DashboardContainer'
+import { PostModal } from './PostModal'
+import { Post } from '../../types/Post'
 
 const CODE_NOT_CONFIRMED = 100
 const BASE_URL = process.env.REACT_APP_BASE_URL
@@ -13,12 +16,26 @@ const BASE_URL = process.env.REACT_APP_BASE_URL
 export function Dashboard() {
   const [user, setUser] = useState<User>()
   const [openConfirmation, setOpenConfirmation] = useState(false)
+  const [openPostModal, setOpenPostModal] = useState(false)
   const [openAvatar, setOpenAvatar] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [posts, setPosts] = useState<Post[]>([])
 
   const navigate = useNavigate()
 
   const dashboardService = new DashboardService()
+
+  async function getPosts() {
+    try {
+      const result = await dashboardService.fetchPosts()
+
+      const { data } = result
+
+      setPosts(data.posts)
+    } catch (e: any) {
+      // @TODO: add error handling
+    }
+  }
 
   async function getUser() {
     try {
@@ -44,14 +61,19 @@ export function Dashboard() {
   async function checkAvatarDialog() {
     if (user != null) {
       if (!user?.avatar_dialog) {
-        await dashboardService.hideAvatarDialog()
-        setOpenAvatar(true)
+        try {
+          await dashboardService.hideAvatarDialog()
+          setOpenAvatar(true)
+        } catch (e: any) {
+          // @TODO: add error handling
+        }
       }
     }
   }
 
   useEffect(() => {
     getUser()
+    getPosts()
   }, [])
 
   useEffect(() => {
@@ -83,8 +105,13 @@ export function Dashboard() {
 
   return (
     <div>
-      You are logged in user: { user.username }
-      { avatarStr }
+      {/* You are logged in user: { user.username }
+      { avatarStr } */}
+      <DashboardContainer
+        user={user}
+        setOpenPostModal={setOpenPostModal}
+        posts={posts}
+      />
       <ConfirmationModal
         user={user}
         open={openConfirmation}
@@ -94,6 +121,13 @@ export function Dashboard() {
         open={openAvatar}
         setOpen={setOpenAvatar}
         setUser={setUser}
+      />
+      <PostModal
+        open={openPostModal}
+        avatar={user.avatars.small}
+        setOpen={setOpenPostModal}
+        posts={posts}
+        setPosts={setPosts}
       />
     </div>
   )

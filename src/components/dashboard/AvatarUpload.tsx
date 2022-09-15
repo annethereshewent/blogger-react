@@ -1,7 +1,7 @@
 import { IconButton } from "@mui/material"
 import { useEffect, useRef, useState } from "react"
 import { CameraAltOutlined }  from '@mui/icons-material'
-import { CloseOutlined } from '@mui/icons-material';
+import { CloseOutlined } from '@mui/icons-material'
 import { Picture } from "../../types/Picture"
 
 const BASE_URL = process.env.REACT_APP_BASE_URL
@@ -37,6 +37,13 @@ export function AvatarUpload({ setPicture, setDisplayEditor, picture }: AvatarUp
     }
   }
 
+  function removeAvatar() {
+    setPicture({
+      ...picture,
+      img: defaultAvatar
+    })
+  }
+
   useEffect(() => {
     const avatar = typeof picture.img == 'string' ? picture.img : defaultAvatar
     setAvatar(avatar)
@@ -50,14 +57,9 @@ export function AvatarUpload({ setPicture, setDisplayEditor, picture }: AvatarUp
           <CameraAltOutlined />
         </IconButton>
         { picture.img != defaultAvatar && (
-              <IconButton className="avatar-upload-close" onClick={() => {
-                setPicture({
-                  ...picture,
-                  img: defaultAvatar
-                })
-              }}>
-              <CloseOutlined />
-            </IconButton>
+              <IconButton className="avatar-upload-close" onClick={removeAvatar}>
+                <CloseOutlined />
+              </IconButton>
           )
         }
         <img className="avatar-upload-image" src={avatar} />

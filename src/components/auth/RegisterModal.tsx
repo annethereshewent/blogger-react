@@ -5,6 +5,7 @@ import { PasswordContainer } from './PasswordContainer'
 import { AuthService } from '../../services/AuthService'
 import { User } from '../../types/User'
 import { CloseButton } from '../shared/CloseButton'
+import { modalStyle } from '../../util/modalStyles'
 
 interface RegisterModalProps {
   openRegister: boolean,
@@ -16,19 +17,6 @@ interface RegisterModalProps {
 }
 
 export function RegisterModal({openRegister, setOpenRegister, setOpenConfirmation, onChangeEmail, onChangePassword, onFinishRegister}: RegisterModalProps) {
-
-  const style = {
-    position: 'absolute' as 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: "400px",
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
-    boxShadow: "24px",
-    p: 4,
-  }
-
   const [email, setEmail] = useState('')
   const [username, setUsername] = useState('')
   const [gender, setGender] = useState('')
@@ -99,7 +87,7 @@ export function RegisterModal({openRegister, setOpenRegister, setOpenConfirmatio
       open={openRegister}
       onClose={handleClose}
     >
-      <Card id="register-modal" style={style}>
+      <Card id="register-modal" style={modalStyle}>
         <form onSubmit={handleSubmit}>
           <CardContent>
             <CloseButton handleClose={handleClose} />

@@ -1,5 +1,5 @@
 import { IconButton } from "@mui/material"
-import CloseIcon from '@mui/icons-material/Close'
+import { CloseRounded } from '@mui/icons-material'
 
 interface CloseButtonProps {
   handleClose: () => void
@@ -9,7 +9,7 @@ export function CloseButton({handleClose}: CloseButtonProps) {
 
   return (
     <IconButton onClick={handleClose}>
-      <CloseIcon />
+      <CloseRounded />
     </IconButton>
   )
 }

@@ -1,0 +1,34 @@
+@import 'variables';
+
+.login-card {
+  margin-top: 20px;
+  width: 175px;
+  height: 175px;
+  @media screen and (max-width: $md) {
+    width: 125px;
+    height: 125px;
+    .v-btn {
+      font-size: 10px;
+    }
+  }
+  .plus-icon {
+    .MuiSvgIcon-root {
+      margin-top: 10px;
+      font-size: 80px !important;
+      @media screen and (max-width: $md) {
+        margin-left: 15px;
+        margin-top: 0px;
+        font-size: 64px !important;
+      }
+    }
+    .MuiSvgIcon-root::after {
+      background: none !important;
+      opacity: 1 !important;
+    }
+  }
+}
+.card-actions {
+  width: 100%;
+  position: relative;
+  bottom: 0;
+}

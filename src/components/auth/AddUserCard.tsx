@@ -1,6 +1,6 @@
 import { Button, Card, CardActions, CardContent } from '@mui/material'
 import { AddCircle } from '@mui/icons-material'
-import '../../styles/add-user-card.scss'
+import '../../styles/user-card.scss'
 
 export function AddUserCard() {
   return (

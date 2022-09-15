@@ -1,11 +1,12 @@
-import { Button, Card, CardActions, CardContent, Modal, Slider  } from "@mui/material";
-import { CloseButton } from "../shared/CloseButton";
+import { Button, Card, CardActions, CardContent, Modal, Slider  } from "@mui/material"
+import { CloseButton } from "../shared/CloseButton"
 import AvatarEditor from 'react-avatar-editor'
-import { useRef, useState } from "react";
-import { AvatarUpload } from "./AvatarUpload";
-import { Picture } from "../../types/Picture";
-import { UserService } from "../../services/UserService";
-import { User } from "../../types/User";
+import { useRef, useState } from "react"
+import { AvatarUpload } from "./AvatarUpload"
+import { Picture } from "../../types/Picture"
+import { UserService } from "../../services/UserService"
+import { User } from "../../types/User"
+import { modalStyle } from "../../util/modalStyles"
 
 interface AvatarModalProps {
   open: boolean
@@ -66,21 +67,6 @@ export function AvatarModal({open, setOpen, setUser}: AvatarModalProps) {
     setDisplayEditor(false)
   }
 
-  const style = {
-    position: 'absolute' as 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    maxWidth: "600px",
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
-    boxShadow: "24px",
-    p: 4,
-  }
-
-  function changeImage() {
-
-  }
 
   async function savePicture() {
     if (typeof picture.img == 'string') {
@@ -105,7 +91,7 @@ export function AvatarModal({open, setOpen, setUser}: AvatarModalProps) {
       open={open}
       onClose={handleClose}
     >
-      <Card id="avatar-modal" style={style}>
+      <Card id="avatar-modal" style={modalStyle}>
         { displayEditor &&
           <div className="avatar-editor">
             <CloseButton handleClose={handleClose} />
