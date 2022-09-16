@@ -3,8 +3,6 @@ import { Avatar, IconButton } from "@mui/material";
 import linkifyHtml from "linkifyjs/lib/linkify-html";
 import { Post } from "../../types/Post";
 
-
-
 interface PostCardProps {
   post: Post
 }

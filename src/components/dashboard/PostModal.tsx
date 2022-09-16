@@ -44,8 +44,6 @@ export function PostModal({open, setOpen, avatar, posts, setPosts}: PostModalPro
     }
   }
 
-  console.log(avatar)
-
   return (
     <Modal
       onClose={onClose}

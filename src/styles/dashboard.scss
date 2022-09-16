@@ -80,6 +80,10 @@ html, body, root {
       padding-top: 20px;
       padding-left: 40px;
       .post {
+        a, a:visited {
+          color: $blogger_link;
+          text-decoration: none;
+        }
         display: flex;
         .post-body {
           margin-left: 20px;
