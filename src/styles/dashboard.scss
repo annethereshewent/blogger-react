@@ -1,3 +1,9 @@
+@import 'colors';
+
+html, body, root {
+  height: 100vh;
+}
+
 #avatar-modal {
   .modal-body {
     margin-top: -20px;
@@ -54,8 +60,42 @@
 #dashboard-container {
   max-width: 60%;
   margin: 20px auto;
-}
+  height: 100vh;
+  .dashboard-body {
+    height: 100%;
+    .actions-column {
+      border-right: 1px solid $blogger_border_gray;
+    }
+    .posts-column {
+      border-right: 1px solid $blogger_border_gray;
+      overflow: scroll;
+    }
+    .dashbord-column {
+      height: 100%;
+    }
+  }
+  #posts-container {
+    .post-card {
+      padding-top: 20px;
+      padding-left: 40px;
+      .post {
+        display: flex;
+        .post-body {
+          margin-left: 20px;
+        }
+      }
+      border-bottom: 1px solid $blogger_border_gray;
+    }
+    .post-actions {
+      margin-top: 20px;
+      padding-left: 50px;
+      .icon-button {
+        margin-right: 100px;
+      }
+    }
 
+  }
+}
 #post-modal {
   .post-content {
     display: flex;

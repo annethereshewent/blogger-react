@@ -1,4 +1,4 @@
-import { Button, Card, CardActions, CardContent, Modal, TextField } from "@mui/material"
+import { Avatar, Button, Card, CardActions, CardContent, CircularProgress, Modal, TextField } from "@mui/material"
 import React, { useState } from "react"
 import { DashboardService } from "../../services/DashboardService"
 import { Post } from "../../types/Post"
@@ -14,12 +14,10 @@ interface PostModalProps {
   setPosts: (posts: Post[]) => void
 }
 
-const BASE_URL = process.env.REACT_APP_BASE_URL
-
-
 export function PostModal({open, setOpen, avatar, posts, setPosts}: PostModalProps) {
 
   const [post, setPost] = useState('')
+  const [loading, setLoading] = useState(false)
 
   function onClose() {
     setOpen(false)
@@ -30,14 +28,23 @@ export function PostModal({open, setOpen, avatar, posts, setPosts}: PostModalPro
   }
 
   async function submitPost() {
-    const result = await new DashboardService().submitPost(post)
+    try {
+      setLoading(true)
+      const result = await new DashboardService().submitPost(post)
 
-    const { data } = result
+      const { data } = result
 
-    setPosts([data.post, ...posts])
+      setPosts([data.post, ...posts])
+
+      setOpen(false)
+    } catch (e) {
+
+    } finally {
+      setLoading(false)
+    }
   }
 
-  const avatarUrl = `${BASE_URL}${avatar}`
+  console.log(avatar)
 
   return (
     <Modal
@@ -47,7 +54,7 @@ export function PostModal({open, setOpen, avatar, posts, setPosts}: PostModalPro
       <Card id="post-modal" style={modalStyleRounded}>
         <CloseButton handleClose={onClose} />
         <CardContent className="post-content">
-          <img src={avatarUrl} className="post-avatar" />
+          <Avatar src={avatar} className="post-avatar" />
           <TextField
             className="post-text-field"
             multiline
@@ -69,6 +76,7 @@ export function PostModal({open, setOpen, avatar, posts, setPosts}: PostModalPro
               Post
             </Button>
           </div>
+          { loading && <CircularProgress color="success" /> }
         </CardActions>
       </Card>
     </Modal>

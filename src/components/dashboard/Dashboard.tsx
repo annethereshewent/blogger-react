@@ -11,7 +11,6 @@ import { PostModal } from './PostModal'
 import { Post } from '../../types/Post'
 
 const CODE_NOT_CONFIRMED = 100
-const BASE_URL = process.env.REACT_APP_BASE_URL
 
 export function Dashboard() {
   const [user, setUser] = useState<User>()
@@ -88,25 +87,8 @@ export function Dashboard() {
     )
   }
 
-  let avatarStr = <div></div>
-  if (user.avatars.medium != null) {
-    avatarStr = (
-      <p>
-        Here is your avatar: <img src={`${BASE_URL}${user.avatars.large}`} />
-        <br />
-        medium avatar: <img src={`${BASE_URL}${user.avatars.medium}`} />
-        <br />
-        small avatar: <img src={`${BASE_URL}${user.avatars.small}`} />
-        <br />
-        thumb avatar: <img src={`${BASE_URL}${user.avatars.thumb}`} />
-      </p>
-    )
-  }
-
   return (
     <div>
-      {/* You are logged in user: { user.username }
-      { avatarStr } */}
       <DashboardContainer
         user={user}
         setOpenPostModal={setOpenPostModal}

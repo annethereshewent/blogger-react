@@ -17,14 +17,14 @@ export function DashboardContainer({ user, posts, setOpenPostModal }: DashboardC
 
   return (
     <Box id="dashboard-container">
-      <Grid container xs={12}>
-        <Grid className="dashboard-column" item xs={4}>
+      <Grid className="dashboard-body" container>
+        <Grid className="dashboard-column actions-column" item xs={2}>
           <Button type="button" variant="contained" onClick={openPostModal}>New Post</Button>
         </Grid>
-        <Grid className="dashboard-column" item xs={4}>
+        <Grid className="dashboard-column posts-column" item xs={5}>
           <PostsContainer posts={posts} />
         </Grid>
-        <Grid className="dashboard-column" item xs={4}>
+        <Grid className="dashboard-column misc-column" item xs={3}>
 
         </Grid>
       </Grid>

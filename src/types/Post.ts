@@ -1,4 +1,5 @@
 export interface Post {
+  id: number
   body: string
   avatar: string
   images: PostImage[]
