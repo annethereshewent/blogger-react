@@ -58,11 +58,10 @@ export function PostModal({open, setOpen, avatar, posts, setPosts}: PostModalPro
             multiline
             fullWidth
             minRows={4}
-            maxRows={12}
+            maxRows={25}
             variant="standard"
             placeholder="What's on your mind?"
             onChange={handlePostChange}
-            disabled={post == ''}
           />
         </CardContent>
         <CardActions>
@@ -72,6 +71,7 @@ export function PostModal({open, setOpen, avatar, posts, setPosts}: PostModalPro
               onClick={submitPost}
               variant="contained"
               color="success"
+              disabled={post == ''}
             >
               Post
             </Button>

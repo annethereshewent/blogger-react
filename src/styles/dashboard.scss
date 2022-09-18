@@ -73,13 +73,13 @@ html, body, root {
     }
     .search-column {
       .search-text-field {
-        @media screen and (max-width: 990px) {
+        @media screen and (max-width: 1200px) {
           display: none;
         }
-        margin-left: 20px;
         .MuiOutlinedInput-root {
           border-radius: 60px;
         }
+        margin-left: 20px;
       }
 
     }
@@ -88,7 +88,10 @@ html, body, root {
     max-width: 65%;
   }
   @media screen and (min-width: $xl) {
-    max-width: 45%;
+    max-width: 55%;
+  }
+  @media screen and (min-width: $xxl) {
+    max-width: 46%;
   }
   @media screen and (max-width: $lg) {
     max-width: 70%;
@@ -113,9 +116,13 @@ html, body, root {
         @media screen and (max-width: 1200px) {
           display: none;
         }
-        border-radius: 60px;
       }
       .actions-container {
+        .search-action {
+          @media screen and (min-width: 1200px) {
+            display: none;
+          }
+        }
         .action {
           margin-bottom: 25px;
           @media screen and (max-width: 1200px) {
@@ -204,7 +211,7 @@ html, body, root {
       margin-top: 20px;
       padding-left: 50px;
       .icon-button {
-        margin-right: 90px;
+        margin-right: 30%;
       }
     }
 
@@ -216,12 +223,6 @@ html, body, root {
   }
   .post-text-field {
     margin-bottom: 20px;
-  }
-  .post-avatar {
-    align-self: flex-start;
-    border-radius: 50px;
-    max-width: 50px;
-    margin-right: 20px;
   }
   .post-buttons {
     width: 100%;

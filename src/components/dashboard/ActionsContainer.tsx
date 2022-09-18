@@ -1,5 +1,5 @@
 import { IconButton } from "@mui/material";
-import { HomeOutlined, MailOutline, NotificationsOutlined, PersonOutlined } from '@mui/icons-material'
+import { HomeOutlined, MailOutline, NotificationsOutlined, PersonOutlined, SearchOutlined } from '@mui/icons-material'
 
 export function ActionsContainer() {
 
@@ -9,6 +9,12 @@ export function ActionsContainer() {
         <IconButton className="icon">
           <HomeOutlined />
           <span className="icon-text">Home</span>
+        </IconButton>
+      </div>
+      <div style={{ clear: 'both' }} />
+      <div className="action search-action">
+        <IconButton className="icon">
+          <SearchOutlined />
         </IconButton>
       </div>
       <div style={{ clear: 'both' }} />
