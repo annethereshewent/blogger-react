@@ -1,5 +1,5 @@
 @import 'colors';
-
+@import 'variables';
 html, body, root {
   height: 100vh;
 }
@@ -58,21 +58,45 @@ html, body, root {
 }
 
 #dashboard-container {
-  max-width: 60%;
+  @media screen and (min-width: $xl) {
+    max-width: 50%;
+  }
+  @media screen and (max-width: $lg) {
+    max-width: 65%;
+  }
+  @media screen and (max-width: $md) {
+    max-width: 85%;
+  }
+  @media screen and (max-width: $sm) {
+    max-width: 100%;
+  }
   margin: 20px auto;
   height: 100vh;
   .dashboard-body {
     height: 100%;
     .actions-column {
+      @media screen and (max-width: $xs) {
+        display: none;
+      }
       border-right: 1px solid $blogger_border_gray;
+      .post-button {
+        @media screen and (max-width: $md) {
+          display: none;
+        }
+      }
     }
     .posts-column {
       height: 99%;
       border-right: 1px solid $blogger_border_gray;
       overflow: scroll;
+      @media screen and (max-width: $sm) {
+        border-right: none;
+      }
     }
-    .dashbord-column {
-      height: 100%;
+    .misc-column {
+      @media screen and (max-width: $md) {
+        display: none;
+      }
     }
   }
   #posts-container {
@@ -80,12 +104,16 @@ html, body, root {
       padding-top: 20px;
       padding-left: 40px;
       .post {
+        .post-avatar {
+          margin-top: 20px;
+        }
         a, a:visited {
           color: $blogger_link;
           text-decoration: none;
         }
         display: flex;
         .post-body {
+          margin-right: 20px;
           margin-left: 20px;
         }
       }
@@ -95,7 +123,11 @@ html, body, root {
       margin-top: 20px;
       padding-left: 50px;
       .icon-button {
-        margin-right: 100px;
+        @media screen and (max-width: $md) {
+          margin-right: 90px;
+        }
+        margin-right: 120px;
+
       }
     }
 

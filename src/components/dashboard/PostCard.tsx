@@ -35,7 +35,7 @@ export function PostCard({post}: PostCardProps) {
         <IconButton className="icon-button">
           < ReplyOutlined />
         </IconButton>
-        <IconButton className="icon-button">
+        <IconButton >
           <FavoriteOutlined />
         </IconButton>
       </div>
