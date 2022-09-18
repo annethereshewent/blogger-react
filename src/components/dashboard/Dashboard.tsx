@@ -38,7 +38,7 @@ export function Dashboard() {
 
   async function getUser() {
     try {
-      const result = await dashboardService.getDashboardData()
+      const result = await dashboardService.getUserData()
       const { data } = result
 
       setUser(data.user)

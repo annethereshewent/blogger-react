@@ -21,6 +21,7 @@ export function PostModal({open, setOpen, avatar, posts, setPosts}: PostModalPro
   const [loading, setLoading] = useState(false)
 
   function onClose() {
+    setPost('')
     setOpen(false)
   }
 
@@ -60,6 +61,7 @@ export function PostModal({open, setOpen, avatar, posts, setPosts}: PostModalPro
             fullWidth
             minRows={4}
             maxRows={25}
+            value={post}
             variant="standard"
             placeholder="What's on your mind?"
             onChange={handlePostChange}
