@@ -25,7 +25,7 @@ export function DashboardContainer({ user, posts, setOpenPostModal, setPosts }: 
       <DashboardHeader />
       <Grid className="dashboard-body" container>
         <Grid className="dashboard-column actions-column" item xs={1} lg={3}>
-          <ActionsContainer />
+          <ActionsContainer user={user} />
           <Button className="post-button" type="button" fullWidth  variant="contained" onClick={openPostModal}>CREATE</Button>
         </Grid>
         <Grid className="dashboard-column posts-column" item xs={11} md={8} lg={6} >

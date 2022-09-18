@@ -1,7 +1,14 @@
 import { IconButton } from "@mui/material";
 import { HomeOutlined, MailOutline, NotificationsOutlined, PersonOutlined, SearchOutlined } from '@mui/icons-material'
+import { UserAccounts } from "./UserAccounts";
+import { User } from "../../types/User";
+import { AccountMenu } from "./AccountMenu";
 
-export function ActionsContainer() {
+interface ActionsContainerProps {
+  user: User
+}
+
+export function ActionsContainer({user}: ActionsContainerProps) {
 
   return (
     <div className="actions-container">
@@ -37,6 +44,10 @@ export function ActionsContainer() {
           <PersonOutlined />
           <span className="icon-text">Profile</span>
         </IconButton>
+      </div>
+      <div className="user-accounts-wrapper">
+        {/* <AccountMenu /> */}
+        <UserAccounts user={user} />
       </div>
     </div>
   )

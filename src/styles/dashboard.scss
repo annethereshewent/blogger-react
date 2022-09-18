@@ -118,6 +118,26 @@ html, body, root {
         }
       }
       .actions-container {
+        .user-card {
+          font-size: 12x;
+          cursor: pointer;
+          border-radius: 40px;
+          position: absolute;
+          bottom: 40px;
+          height: 75px;
+          margin-right: 10px;
+          .user-card-content {
+            display: flex;
+            .avatar {
+              margin-right: 20px;
+            }
+          }
+        }
+        .account-menu {
+          position: absolute;
+          bottom: 60px;
+          left: 120px;
+        }
         .search-action {
           @media screen and (min-width: 1200px) {
             display: none;
@@ -225,6 +245,9 @@ html, body, root {
 #post-modal {
   .post-content {
     display: flex;
+    .post-avatar {
+      margin-right: 10px;
+    }
   }
   .post-text-field {
     margin-bottom: 20px;
