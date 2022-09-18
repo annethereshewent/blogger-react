@@ -4,6 +4,7 @@ import { DashboardService } from "../../services/DashboardService"
 import { Post } from "../../types/Post"
 import { modalStyleRounded } from '../../util/modalStyles'
 import { CloseButton } from "../shared/CloseButton"
+import { PostAddons } from "./PostAddons"
 
 
 interface PostModalProps {
@@ -64,7 +65,10 @@ export function PostModal({open, setOpen, avatar, posts, setPosts}: PostModalPro
             onChange={handlePostChange}
           />
         </CardContent>
-        <CardActions>
+        <CardActions className="post-actions">
+          <div>
+            <PostAddons />
+          </div>
           <div className="post-buttons">
             <Button
               className="submit-button"

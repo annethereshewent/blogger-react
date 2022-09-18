@@ -1,7 +1,8 @@
-import { Avatar, Button, InputProps, StandardTextFieldProps, TextField } from "@mui/material"
+import { Avatar, Button, InputProps, TextField } from "@mui/material"
 import { useState } from "react"
 import { DashboardService } from "../../services/DashboardService"
 import { Post } from "../../types/Post"
+import { PostAddons } from "./PostAddons"
 
 interface PostFieldProps {
   avatar: string
@@ -68,17 +69,20 @@ export function PostField({avatar, posts, setPosts}: PostFieldProps) {
           onChange={handlePostChange}
         />
       </div>
-      <div className="post-buttons">
-        <Button
-          className="submit-button"
-          onClick={submitPost}
-          variant="contained"
-          color="success"
-          disabled={post == ''}
-        >
-          Post
-        </Button>
-        <div style={{ clear: 'both' }} />
+      <div className="post-buttons-wrapper">
+        <PostAddons />
+        <div className="post-buttons">
+          <Button
+            className="submit-button"
+            onClick={submitPost}
+            variant="contained"
+            color="success"
+            disabled={post == ''}
+          >
+            Post
+          </Button>
+          <div style={{ clear: 'both' }} />
+        </div>
       </div>
     </div>
   )

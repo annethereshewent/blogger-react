@@ -155,12 +155,17 @@ html, body, root {
           }
           display: flex;
         }
-        .post-buttons {
-          margin-top: 10px;
-          .submit-button {
-            float: right;
-            margin-right: 20px;
-            margin-bottom: 10px;
+        .post-buttons-wrapper {
+          display: flex;
+          .post-buttons {
+            width: 100%;
+            display: block;
+            margin-top: 10px;
+            .submit-button {
+              float: right;
+              margin-right: 20px;
+              margin-bottom: 10px;
+            }
           }
         }
       }
@@ -224,13 +229,26 @@ html, body, root {
   .post-text-field {
     margin-bottom: 20px;
   }
-  .post-buttons {
-    width: 100%;
-    margin-bottom: 10px;
-    margin-top: -30px;
-    .submit-button {
-      width: 25%;
-      float: right;
+  .post-actions {
+    margin-top: -35px;
+    .post-buttons {
+      width: 100%;
+      margin-bottom: 10px;
+      .submit-button {
+        width: 25%;
+        float: right;
+      }
+    }
+  }
+}
+.post-addons {
+  display: flex;
+  margin-left: 50px;
+  .item {
+    margin-right: 5px;
+    > * {
+      font-size: 24px;
+      color: $blogger_primary;
     }
   }
 }
