@@ -4,13 +4,16 @@
 #title.dashboard {
   margin-left: 10px;
   font-size: 1.5rem;
+  @media screen and (max-width: 1200px) {
+    float: right;
+  }
   .bracket {
-    @media screen and (max-width: $md) {
+    @media screen and (max-width: 1200px) {
       display: none;
     }
   }
   .period {
-    @media screen and (max-width: $md) {
+    @media screen and (max-width: 1200px) {
       display: none;
     }
   }
