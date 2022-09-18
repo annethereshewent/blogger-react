@@ -6,25 +6,28 @@ export function ActionsContainer() {
   return (
     <div className="actions-container">
       <div className="action">
-        <IconButton>
+        <IconButton className="icon">
           <HomeOutlined />
         </IconButton>
         <span className="icon-text">Home</span>
       </div>
+      <div style={{ clear: 'both' }} />
       <div className="action">
-        <IconButton>
+        <IconButton className="icon">
           <NotificationsOutlined />
         </IconButton>
         <span className="icon-text">Notifications</span>
       </div>
+      <div style={{ clear: 'both' }} />
       <div className="action">
-        <IconButton>
+        <IconButton className="icon">
           <MailOutline />
         </IconButton>
         <span className="icon-text">Messages</span>
       </div>
+      <div style={{ clear: 'both' }} />
       <div className="action">
-        <IconButton>
+        <IconButton className="icon">
           <PersonOutlined />
         </IconButton>
         <span className="icon-text">Profile</span>
