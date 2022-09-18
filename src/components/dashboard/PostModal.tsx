@@ -38,7 +38,7 @@ export function PostModal({open, setOpen, avatar, posts, setPosts}: PostModalPro
 
       setOpen(false)
     } catch (e) {
-
+      // @TODO: add error handling
     } finally {
       setLoading(false)
     }

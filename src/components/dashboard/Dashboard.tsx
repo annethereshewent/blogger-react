@@ -93,6 +93,7 @@ export function Dashboard() {
         user={user}
         setOpenPostModal={setOpenPostModal}
         posts={posts}
+        setPosts={setPosts}
       />
       <ConfirmationModal
         user={user}

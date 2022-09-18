@@ -92,6 +92,25 @@ html, body, root {
       @media screen and (max-width: $sm) {
         border-right: none;
       }
+      #post-field {
+        border-bottom: 1px solid $blogger_border_gray;
+        padding-left: 40px;
+        padding-top: 20px;
+        .input-area {
+          .post-avatar {
+            margin-right: 20px;
+          }
+          display: flex;
+        }
+        .post-buttons {
+          margin-top: 10px;
+          .submit-button {
+            float: right;
+            margin-right: 20px;
+            margin-bottom: 10px;
+          }
+        }
+      }
     }
     .misc-column {
       @media screen and (max-width: $md) {
