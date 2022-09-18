@@ -1,8 +1,8 @@
-import { AddCommentRounded, FavoriteOutlined, ReplyOutlined } from "@mui/icons-material";
-import { Avatar, IconButton } from "@mui/material";
-import linkifyHtml from "linkifyjs/lib/linkify-html";
-import { Post } from "../../types/Post";
-import { User } from "../../types/User";
+import { AddCommentRounded, FavoriteOutlined, ReplyOutlined } from "@mui/icons-material"
+import { Avatar, IconButton } from "@mui/material"
+import linkifyHtml from "linkifyjs/lib/linkify-html"
+import { Post } from "../../types/Post"
+import { User } from "../../types/User"
 
 interface PostCardProps {
   post: Post,

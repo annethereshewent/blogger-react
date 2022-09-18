@@ -1,8 +1,8 @@
-import { IconButton } from "@mui/material";
+import { IconButton } from "@mui/material"
 import { HomeOutlined, MailOutline, NotificationsOutlined, PersonOutlined, SearchOutlined } from '@mui/icons-material'
-import { UserAccounts } from "./UserAccounts";
-import { User } from "../../types/User";
-import { AccountMenu } from "./AccountMenu";
+import { UserAccounts } from "./UserAccounts"
+import { User } from "../../types/User"
+import { AccountMenu } from "./AccountMenu"
 
 interface ActionsContainerProps {
   user: User

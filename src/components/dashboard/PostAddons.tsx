@@ -1,5 +1,5 @@
-import { EmojiEmotionsOutlined, GifOutlined, ImageOutlined, YouTube } from "@mui/icons-material";
-import { IconButton } from "@mui/material";
+import { EmojiEmotionsOutlined, GifOutlined, ImageOutlined, YouTube } from "@mui/icons-material"
+import { IconButton } from "@mui/material"
 
 
 export function PostAddons() {

@@ -1,4 +1,4 @@
-import { MoreHoriz } from "@mui/icons-material";
+import { MoreHoriz } from "@mui/icons-material"
 import { Avatar, Card, CardContent, IconButton } from "@mui/material"
 import { User } from "../../types/User"
 
