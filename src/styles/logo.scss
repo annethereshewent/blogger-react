@@ -1,7 +1,19 @@
 @import 'colors';
+@import 'variables';
 @import url('https://fonts.googleapis.com/css2?family=Baloo+Tammudu+2:wght@800&display=swap');
 #title.dashboard {
-  font-size: 2.0rem;
+  margin-left: 10px;
+  font-size: 1.5rem;
+  .bracket {
+    @media screen and (max-width: $md) {
+      display: none;
+    }
+  }
+  .period {
+    @media screen and (max-width: $md) {
+      display: none;
+    }
+  }
 }
 #title {
   font-weight: 800;

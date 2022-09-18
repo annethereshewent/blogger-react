@@ -62,7 +62,8 @@ export function PostField({avatar, posts, setPosts}: PostFieldProps) {
           multiline
           fullWidth
           value={post}
-          rows={3}
+          minRows={4}
+          maxRows={12}
           variant="standard"
           placeholder="What's on your mind?"
           onChange={handlePostChange}

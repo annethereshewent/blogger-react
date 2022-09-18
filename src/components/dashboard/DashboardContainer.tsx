@@ -28,7 +28,7 @@ export function DashboardContainer({ user, posts, setOpenPostModal, setPosts }: 
           <Button className="post-button" type="button" fullWidth  variant="contained" onClick={openPostModal}>CREATE</Button>
         </Grid>
         {/* <Grid className="dashboard-column posts-column" item sm={11} md={8} lg={8} xl={6}> */}
-        <Grid className="dashboard-column posts-column" item xs={11} md={8} lg={6} >
+        <Grid className="dashboard-column posts-column" item xs={11} md={8} lg={5} >
           <PostField
             posts={posts}
             setPosts={setPosts}

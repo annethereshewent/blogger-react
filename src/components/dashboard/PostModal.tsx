@@ -57,7 +57,8 @@ export function PostModal({open, setOpen, avatar, posts, setPosts}: PostModalPro
             className="post-text-field"
             multiline
             fullWidth
-            rows={4}
+            minRows={4}
+            maxRows={12}
             variant="standard"
             placeholder="What's on your mind?"
             onChange={handlePostChange}
