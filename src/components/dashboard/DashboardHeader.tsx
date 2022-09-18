@@ -1,12 +1,13 @@
 import { SearchOutlined } from "@mui/icons-material"
 import { Box, Grid, InputAdornment, TextField } from "@mui/material"
 import { DashboardLogo } from "./DashboardLogo"
+import { MiscContainer } from "./MiscContainer"
 
 export function DashboardHeader() {
 
   return (
     <Grid id="dashboard-header" container>
-      <Grid className="logo-column" item xs={1} lg={2}>
+      <Grid className="logo-column" item xs={1} lg={3}>
         <DashboardLogo />
       </Grid>
       <Grid className="heading-column" item xs={11} md={8} lg={6} >
