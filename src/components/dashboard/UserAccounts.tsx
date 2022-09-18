@@ -4,9 +4,11 @@ import { User } from "../../types/User"
 
 interface UserAccountsProps {
   user: User
+  open: boolean
+  setOpen: (open: boolean) => void
 }
 
-export function UserAccounts({user}: UserAccountsProps) {
+export function UserAccounts({user, open, setOpen}: UserAccountsProps) {
 
   function formatStr(str: string): string {
     if (str.length > 15) {
@@ -16,8 +18,8 @@ export function UserAccounts({user}: UserAccountsProps) {
     return str
   }
 
-  function openMenu() {
-
+  function toggleMenu() {
+    setOpen(true)
   }
 
   return (
@@ -29,7 +31,7 @@ export function UserAccounts({user}: UserAccountsProps) {
             <strong>{ formatStr(user.username) }</strong>
             <div>{formatStr(user.email)}</div>
           </div>
-          <IconButton onClick={openMenu}>
+          <IconButton onClick={toggleMenu}>
             <MoreHoriz />
           </IconButton>
         </CardContent>
