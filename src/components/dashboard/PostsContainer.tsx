@@ -4,10 +4,9 @@ import { PostCard } from "./PostCard"
 
 interface PostsContainerProps {
   posts: Post[]
-  user: User
 }
 
-export function PostsContainer({ posts, user }: PostsContainerProps) {
+export function PostsContainer({ posts }: PostsContainerProps) {
 
   return (
     <div id="posts-container">
@@ -16,7 +15,6 @@ export function PostsContainer({ posts, user }: PostsContainerProps) {
           <PostCard
             key={post.id}
             post={post}
-            user={user}
           />
         )
       })}

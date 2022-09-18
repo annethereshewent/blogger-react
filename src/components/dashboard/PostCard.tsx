@@ -6,10 +6,9 @@ import { User } from "../../types/User";
 
 interface PostCardProps {
   post: Post,
-  user: User
 }
 
-export function PostCard({post, user}: PostCardProps) {
+export function PostCard({post}: PostCardProps) {
 
   /*
   * Replaces new lines with br tags and auto links urls.
@@ -24,9 +23,9 @@ export function PostCard({post, user}: PostCardProps) {
   return (
     <div className="post-card">
       <div className="post">
-        <Avatar src={post.avatar} className="post-avatar" />
+        <Avatar src={post.user.avatars.small} className="post-avatar" />
         <div className="post-wrapper">
-          <strong>{user.username}</strong>
+          <strong>{post.user.username}</strong>
           <p
             className="post-body"
             dangerouslySetInnerHTML={{ __html: convertPost(post.body) }}

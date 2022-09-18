@@ -16,6 +16,7 @@ export function DashboardHeader() {
         <TextField
           className="search-text-field"
           fullWidth
+          placeholder="Search Blogger"
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">

@@ -73,6 +73,9 @@ html, body, root {
     }
     .search-column {
       .search-text-field {
+        @media screen and (max-width: 990px) {
+          display: none;
+        }
         margin-left: 20px;
         .MuiOutlinedInput-root {
           border-radius: 60px;
@@ -110,6 +113,7 @@ html, body, root {
         @media screen and (max-width: 1200px) {
           display: none;
         }
+        border-radius: 60px;
       }
       .actions-container {
         .action {
