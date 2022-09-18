@@ -134,6 +134,21 @@ html, body, root {
       @media screen and (max-width: $md) {
         display: none;
       }
+      #misc-container {
+        .legal {
+          margin-left: 10px;
+          margin-top: 20px;
+          display: flex;
+          flex-wrap: wrap;
+          width: 350px;
+          .item {
+            line-height: 20px;
+            color: $blogger_border_gray;
+            font-size: 12px;
+            margin-right: 20px;
+          }
+        }
+      }
     }
   }
   #posts-container {

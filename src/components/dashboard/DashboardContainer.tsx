@@ -3,6 +3,7 @@ import { Post } from "../../types/Post"
 import { User } from "../../types/User"
 import { ActionsContainer } from "./ActionsContainer"
 import { DashboardLogo } from "./DashboardLogo"
+import { MiscContainer } from "./MiscContainer"
 import { PostField } from "./PostField"
 import { PostsContainer } from "./PostsContainer"
 
@@ -40,7 +41,7 @@ export function DashboardContainer({ user, posts, setOpenPostModal, setPosts }: 
           />
         </Grid>
         <Grid className="dashboard-column misc-column" item xs={1} lg={2}>
-
+          <MiscContainer />
         </Grid>
       </Grid>
     </Box>
