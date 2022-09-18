@@ -84,6 +84,17 @@ html, body, root {
           display: none;
         }
       }
+      .actions-container {
+        .action {
+          font-size: 18px;
+          margin-bottom: 25px;
+          .icon-text {
+            @media screen and (max-width: $md) {
+              display: none;
+            }
+          }
+        }
+      }
     }
     .posts-column {
       height: 99%;

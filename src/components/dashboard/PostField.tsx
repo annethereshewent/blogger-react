@@ -1,4 +1,4 @@
-import { Avatar, Button, TextField } from "@mui/material"
+import { Avatar, Button, InputProps, StandardTextFieldProps, TextField } from "@mui/material"
 import { useState } from "react"
 import { DashboardService } from "../../services/DashboardService"
 import { Post } from "../../types/Post"
@@ -13,6 +13,9 @@ export function PostField({avatar, posts, setPosts}: PostFieldProps) {
 
   const [post, setPost] = useState('')
   const [loading, setLoading] = useState(false)
+  const [inputProps, setInputProps] = useState<Partial<InputProps>>({
+    disableUnderline: true
+  })
 
   function handlePostChange(e: React.ChangeEvent<HTMLInputElement>) {
     setPost(e.target.value)
@@ -35,12 +38,26 @@ export function PostField({avatar, posts, setPosts}: PostFieldProps) {
     }
   }
 
+  function handleFocus() {
+    setInputProps({
+      disableUnderline: false
+    })
+  }
+
+  function handleBlur() {
+    setInputProps({
+      disableUnderline: true
+    })
+  }
+
   return (
     <div id="post-field">
       <div className="input-area">
         <Avatar src={avatar} className="post-avatar" />
         <TextField
-          InputProps={{ disableUnderline: true }}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
+          InputProps={inputProps}
           className="post-text-field"
           multiline
           fullWidth
