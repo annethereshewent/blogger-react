@@ -9,6 +9,7 @@ import '../../styles/dashboard.scss'
 import { DashboardContainer } from './DashboardContainer'
 import { PostModal } from './PostModal'
 import { Post } from '../../types/Post'
+import { DashboardHeader } from './DashboardHeader'
 
 const CODE_NOT_CONFIRMED = 100
 

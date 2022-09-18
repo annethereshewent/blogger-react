@@ -58,6 +58,29 @@ html, body, root {
 }
 
 #dashboard-container {
+  position: relative;
+  #dashboard-header {
+    position: absolute;
+    top: 0;
+    height: 40px;
+    width: 100%;
+    .heading-column {
+      border-left: 1px solid $blogger_border_gray;
+      border-right: 1px solid $blogger_border_gray;
+      .heading-title {
+        margin-left: 40px;
+      }
+    }
+    .search-column {
+      .search-text-field {
+        margin-left: 20px;
+        .MuiOutlinedInput-root {
+          border-radius: 60px;
+        }
+      }
+
+    }
+  }
   @media screen and (min-width: $lg) {
     max-width: 65%;
   }
@@ -73,9 +96,10 @@ html, body, root {
   @media screen and (max-width: $sm) {
     max-width: 100%;
   }
-  margin: 20px auto;
+  margin: auto;
   height: 100vh;
   .dashboard-body {
+    padding-top: 60px;
     height: 100%;
     .actions-column {
       @media screen and (max-width: $xs) {

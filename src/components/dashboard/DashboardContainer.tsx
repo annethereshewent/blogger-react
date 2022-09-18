@@ -2,7 +2,7 @@ import { Box, Button, Grid } from "@mui/material"
 import { Post } from "../../types/Post"
 import { User } from "../../types/User"
 import { ActionsContainer } from "./ActionsContainer"
-import { DashboardLogo } from "./DashboardLogo"
+import { DashboardHeader } from "./DashboardHeader"
 import { MiscContainer } from "./MiscContainer"
 import { PostField } from "./PostField"
 import { PostsContainer } from "./PostsContainer"
@@ -22,13 +22,12 @@ export function DashboardContainer({ user, posts, setOpenPostModal, setPosts }: 
 
   return (
     <Box id="dashboard-container">
+      <DashboardHeader />
       <Grid className="dashboard-body" container>
         <Grid className="dashboard-column actions-column" item xs={1} lg={2}>
-          <DashboardLogo />
           <ActionsContainer />
           <Button className="post-button" type="button" fullWidth  variant="contained" onClick={openPostModal}>CREATE</Button>
         </Grid>
-        {/* <Grid className="dashboard-column posts-column" item sm={11} md={8} lg={8} xl={6}> */}
         <Grid className="dashboard-column posts-column" item xs={11} md={8} lg={6} >
           <PostField
             posts={posts}
