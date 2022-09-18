@@ -89,12 +89,13 @@ html, body, root {
       }
       .actions-container {
         .action {
-          font-size: 18px;
           margin-bottom: 25px;
           @media screen and (max-width: 1200px) {
             float: right;
           }
           .icon-text {
+            font-size: 18px;
+            margin-left: 30px;
             @media screen and (max-width: 1200px) {
               display: none;
             }

@@ -1,20 +1,23 @@
 @import 'colors';
 @import url('https://fonts.googleapis.com/css2?family=Baloo+Tammudu+2:wght@800&display=swap');
+#title.dashboard {
+  font-size: 2.0rem;
+}
 #title {
-  .title-text {
-  // font-family: 'Ranchers';
-  font-family: 'Baloo Tammudu 2';
-  // font-weight: 400;
   font-weight: 800;
   font-size: 2.5rem;
-  color: white;
-  margin-right: 10px;
+  .title-text {
+    // font-family: 'Ranchers';
+    font-family: 'Baloo Tammudu 2';
+    // font-weight: 400;
+    color: white;
+    margin-right: 10px;
   }
   .bracket {
-  color: $blogger_primary;
-  margin-right: 10px;
+    color: $blogger_primary;
+    margin-right: 10px;
   }
   .period {
-  color: $blogger_secondary;
+    color: $blogger_secondary;
   }
 }

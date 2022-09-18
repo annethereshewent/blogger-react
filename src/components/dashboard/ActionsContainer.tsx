@@ -8,29 +8,29 @@ export function ActionsContainer() {
       <div className="action">
         <IconButton className="icon">
           <HomeOutlined />
+          <span className="icon-text">Home</span>
         </IconButton>
-        <span className="icon-text">Home</span>
       </div>
       <div style={{ clear: 'both' }} />
       <div className="action">
         <IconButton className="icon">
           <NotificationsOutlined />
+          <span className="icon-text">Notifications</span>
         </IconButton>
-        <span className="icon-text">Notifications</span>
       </div>
       <div style={{ clear: 'both' }} />
       <div className="action">
         <IconButton className="icon">
           <MailOutline />
+          <span className="icon-text">Messages</span>
         </IconButton>
-        <span className="icon-text">Messages</span>
       </div>
       <div style={{ clear: 'both' }} />
       <div className="action">
         <IconButton className="icon">
           <PersonOutlined />
+          <span className="icon-text">Profile</span>
         </IconButton>
-        <span className="icon-text">Profile</span>
       </div>
     </div>
   )
