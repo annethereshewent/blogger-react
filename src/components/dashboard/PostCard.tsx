@@ -2,12 +2,14 @@ import { AddCommentRounded, FavoriteOutlined, ReplyOutlined } from "@mui/icons-m
 import { Avatar, IconButton } from "@mui/material";
 import linkifyHtml from "linkifyjs/lib/linkify-html";
 import { Post } from "../../types/Post";
+import { User } from "../../types/User";
 
 interface PostCardProps {
-  post: Post
+  post: Post,
+  user: User
 }
 
-export function PostCard({post}: PostCardProps) {
+export function PostCard({post, user}: PostCardProps) {
 
   /*
   * Replaces new lines with br tags and auto links urls.
@@ -23,10 +25,14 @@ export function PostCard({post}: PostCardProps) {
     <div className="post-card">
       <div className="post">
         <Avatar src={post.avatar} className="post-avatar" />
-        <p
-          className="post-body"
-          dangerouslySetInnerHTML={{ __html: convertPost(post.body) }}
-        />
+        <div className="post-wrapper">
+          <strong>{user.username}</strong>
+          <p
+            className="post-body"
+            dangerouslySetInnerHTML={{ __html: convertPost(post.body) }}
+          />
+        </div>
+
       </div>
       <div className="post-actions">
         <IconButton className="icon-button">

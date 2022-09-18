@@ -149,7 +149,8 @@ html, body, root {
           text-decoration: none;
         }
         display: flex;
-        .post-body {
+        .post-wrapper {
+          margin-top: 20px;
           margin-right: 20px;
           margin-left: 20px;
         }

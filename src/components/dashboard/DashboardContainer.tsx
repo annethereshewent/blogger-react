@@ -34,7 +34,10 @@ export function DashboardContainer({ user, posts, setOpenPostModal, setPosts }: 
             setPosts={setPosts}
             avatar={user.avatars.small}
           />
-          <PostsContainer posts={posts} />
+          <PostsContainer
+            posts={posts}
+            user={user}
+          />
         </Grid>
         <Grid className="dashboard-column misc-column" item xs={1} lg={2}>
 

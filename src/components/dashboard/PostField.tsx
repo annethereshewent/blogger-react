@@ -29,11 +29,10 @@ export function PostField({avatar, posts, setPosts}: PostFieldProps) {
       const { data } = result
 
       setPosts([data.post, ...posts])
-
-      setPost('')
     } catch (e) {
       // @ TODO: add error handling
     } finally {
+      setPost('')
       setLoading(false)
     }
   }
@@ -75,6 +74,7 @@ export function PostField({avatar, posts, setPosts}: PostFieldProps) {
           onClick={submitPost}
           variant="contained"
           color="success"
+          disabled={post == ''}
         >
           Post
         </Button>

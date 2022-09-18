@@ -35,12 +35,12 @@ export function PostModal({open, setOpen, avatar, posts, setPosts}: PostModalPro
       const { data } = result
 
       setPosts([data.post, ...posts])
-
-      setOpen(false)
     } catch (e) {
       // @TODO: add error handling
     } finally {
       setLoading(false)
+      setPost('')
+      setOpen(false)
     }
   }
 
@@ -62,6 +62,7 @@ export function PostModal({open, setOpen, avatar, posts, setPosts}: PostModalPro
             variant="standard"
             placeholder="What's on your mind?"
             onChange={handlePostChange}
+            disabled={post == ''}
           />
         </CardContent>
         <CardActions>
