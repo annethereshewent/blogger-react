@@ -80,12 +80,10 @@ export function RegisterModal({openRegister, setOpenRegister, setOpenConfirmatio
     let currentAlerts: ReactNode[] = [...alerts]
 
     if (username.length < 4) {
-      console.log('username invalid')
       currentAlerts.push(userAlert)
       validationErrors = true
     }
     if (!emailRegex.test(email)) {
-      console.log('email invalid')
       currentAlerts.push(emailAlert)
       validationErrors = true
     }
@@ -133,10 +131,9 @@ export function RegisterModal({openRegister, setOpenRegister, setOpenConfirmatio
         <form onSubmit={handleSubmit}>
           <CardContent>
             <CloseButton handleClose={handleClose} />
-            { alerts.map((alert) => {
-              console.log(alert)
-              return alert
-            })}
+            { alerts.map((alert) => (
+              alert
+            ))}
             { currentContainer }
           </CardContent>
           <CardActions>
