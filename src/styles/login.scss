@@ -58,10 +58,17 @@
   .register-container {
     margin: auto;
     .text-field {
-      width: 100%;
+      width: 91%;
+      margin-right: 3px;
     }
     .new-row {
       margin-top: 20px
+    }
+    .username-ok {
+      color: green;
+    }
+    .username-exists {
+      color: red;
     }
   }
   .button-row {

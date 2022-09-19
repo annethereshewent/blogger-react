@@ -1,4 +1,5 @@
 
+import { Check, Close } from '@mui/icons-material'
 import {
   Container,
   Grid,
@@ -7,25 +8,71 @@ import {
   FormLabel,
   FormControlLabel,
   RadioGroup,
-  Radio
+  Radio,
+  CircularProgress
 } from '@mui/material'
+import { useEffect, useState } from 'react'
+import { UserService } from '../../../services/UserService'
 
 interface RegisterContainerProps {
-  username: string,
-  email: string,
-  gender: string,
-  setUsername: (username: string) => void,
-  setEmail: (email: string) => void,
+  username: string
+  email: string
+  gender: string
+  setUsername: (username: string) => void
+  setEmail: (email: string) => void
   setGender: (gender: string) => void
+  setEmailExists: (exists: boolean) => void
+  setUsernameExists: (exists: boolean) => void
 }
 
 
-export function RegisterContainer({username, email, setUsername, setEmail, setGender}: RegisterContainerProps) {
+export function RegisterContainer({
+  username,
+  email,
+  setUsername,
+  setEmail,
+  setGender,
+  setEmailExists,
+  setUsernameExists
+}: RegisterContainerProps) {
+
+  const [usernameLoading, setUsernameLoading] = useState(false)
+  const [emailLoading, setEmailLoading] = useState(false)
+  const [usernameIcon, setUsernameIcon] = useState<JSX.Element|null>(null)
+
+  let timer: NodeJS.Timeout|null = null
   function handleEmail(e: React.ChangeEvent<HTMLInputElement>) {
     setEmail(e.target.value)
   }
 
   function handleUsername(e: React.ChangeEvent<HTMLInputElement>) {
+    if (timer != null) {
+      clearTimeout(timer)
+    }
+
+    timer = setTimeout(async () => {
+      // check if the username exists in database
+      setUsernameIcon(null)
+      if (e.target.value != '') {
+        try {
+          setUsernameLoading(true)
+
+          const result = await new UserService().userExists(e.target.value)
+          const { data } = result
+
+          let icon: JSX.Element|null = null
+
+          icon = data.exists ? <Close className="username-exists" /> : <Check className="username-ok" />
+          setUsernameIcon(icon)
+          setUsernameExists(data.exists)
+        } catch (e) {
+          // @TODO: add error handling
+        } finally {
+          setUsernameLoading(false)
+        }
+      }
+
+    }, 500)
     setUsername(e.target.value)
   }
 
@@ -43,8 +90,10 @@ export function RegisterContainer({username, email, setUsername, setEmail, setGe
             label="Username"
             onChange={handleUsername}
             required
-          />
 
+          />
+          { usernameLoading && <CircularProgress color="primary" /> }
+          { usernameIcon }
         </Grid>
         <Grid item xs={6}>
           <TextField
@@ -53,6 +102,7 @@ export function RegisterContainer({username, email, setUsername, setEmail, setGe
             onChange={handleEmail}
             required
           />
+          { emailLoading && <CircularProgress color="secondary" /> }
         </Grid>
       </Grid>
       <Grid className="new-row" item xs={12}>

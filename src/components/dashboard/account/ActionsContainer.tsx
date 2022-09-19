@@ -15,7 +15,6 @@ export function ActionsContainer({user}: ActionsContainerProps) {
   const [open, setOpen] = useState(false)
 
   function handleMenuClick() {
-    console.log('wut')
     setOpen(!open)
   }
 

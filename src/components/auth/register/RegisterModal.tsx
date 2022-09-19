@@ -23,6 +23,8 @@ export function RegisterModal({openRegister, setOpenRegister, setOpenConfirmatio
   const [buttonTxt, setButtonTxt] = useState('Next')
   const [password, setPassword] = useState('')
   const [finished, setFinished] = useState(false)
+  const [emailExists, setEmailExists] = useState(false)
+  const [usernameExists, setUsernameExists] = useState(false)
 
   const registerContainer = (
     <RegisterContainer
@@ -32,6 +34,8 @@ export function RegisterModal({openRegister, setOpenRegister, setOpenConfirmatio
       email={email}
       username={username}
       gender={gender}
+      setUsernameExists={setUsernameExists}
+      setEmailExists={setEmailExists}
     />
   )
 
@@ -100,6 +104,7 @@ export function RegisterModal({openRegister, setOpenRegister, setOpenConfirmatio
                 type="submit"
                 variant="contained"
                 color="primary"
+                disabled={usernameExists || emailExists}
               >
                 {buttonTxt}
               </Button>
