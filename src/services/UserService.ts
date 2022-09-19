@@ -13,4 +13,8 @@ export class UserService extends BaseService {
   async userExists(username: string) {
     return this.client.post('/api/v1/users/user_exists', { username })
   }
+
+  async emailExists(email: string) {
+    return this.client.post('/api/v1/users/email_exists', { email })
+  }
 }

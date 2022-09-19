@@ -39,9 +39,39 @@ export function RegisterContainer({
   const [usernameLoading, setUsernameLoading] = useState(false)
   const [emailLoading, setEmailLoading] = useState(false)
   const [usernameIcon, setUsernameIcon] = useState<JSX.Element|null>(null)
+  const [emailIcon, setEmailIcon] = useState<JSX.Element|null>(null)
 
   let timer: NodeJS.Timeout|null = null
   function handleEmail(e: React.ChangeEvent<HTMLInputElement>) {
+    if (timer != null) {
+      clearTimeout(timer)
+    }
+
+
+    timer = setTimeout(async () => {
+      // check if the username exists in database
+      setEmailIcon(null)
+      if (e.target.value != '') {
+        try {
+          setEmailLoading(true)
+
+          const result = await new UserService().emailExists(e.target.value)
+          const { data } = result
+
+          let icon: JSX.Element|null = null
+
+          icon = data.exists ? <Close className="username-exists" /> : <Check className="username-ok" />
+          setEmailIcon(icon)
+          setEmailExists(data.exists)
+        } catch (e) {
+          // @TODO: add error handling
+        } finally {
+          setEmailLoading(false)
+        }
+      }
+
+    }, 500)
+
     setEmail(e.target.value)
   }
 
@@ -103,6 +133,7 @@ export function RegisterContainer({
             required
           />
           { emailLoading && <CircularProgress color="secondary" /> }
+          { emailIcon }
         </Grid>
       </Grid>
       <Grid className="new-row" item xs={12}>

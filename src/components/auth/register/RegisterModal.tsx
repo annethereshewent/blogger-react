@@ -77,7 +77,7 @@ export function RegisterModal({openRegister, setOpenRegister, setOpenConfirmatio
 
     let validationErrors = false
 
-    let currentAlerts: ReactNode[] = [...alerts]
+    let currentAlerts: ReactNode[] = []
 
     if (username.length < 4) {
       currentAlerts.push(userAlert)

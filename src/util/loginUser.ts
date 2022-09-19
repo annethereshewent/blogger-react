@@ -1,17 +1,22 @@
 import { AuthService } from "../services/AuthService"
 
 export async function loginUser(email: string, password: string) {
-  const result = await new AuthService().login(email, password)
+  try {
+    const result = await new AuthService().login(email, password)
 
-  const { data } = result
+    const { data } = result
 
-  const token = data.access_token
+    const token = data.access_token
 
-  if (token != null) {
-    localStorage.setItem('apiToken', token)
-    // redirect to dashboard
-    return true
+    if (token != null) {
+      localStorage.setItem('apiToken', token)
+      // redirect to dashboard
+      return true
+    }
+
+
+    return false
+  } catch (e) {
+    return false
   }
-
-  return false
 }
