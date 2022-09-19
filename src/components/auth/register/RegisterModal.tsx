@@ -1,5 +1,5 @@
-import { Button, Card, CardActions, CardContent, Modal } from '@mui/material'
-import { useEffect, useState } from 'react'
+import { Alert, Button, Card, CardActions, CardContent, Modal } from '@mui/material'
+import { ReactNode, useEffect, useState } from 'react'
 import { RegisterContainer } from './RegisterContainer'
 import { PasswordContainer } from './PasswordContainer'
 import { AuthService } from '../../../services/AuthService'
@@ -40,9 +40,14 @@ export function RegisterModal({openRegister, setOpenRegister, setOpenConfirmatio
   )
 
   useEffect(() => {
+    setAlerts([])
     onChangeEmail(email)
     onChangePassword(password)
   }, [email, password])
+
+  useEffect(() => {
+    setAlerts([])
+  }, [username])
 
   useEffect(() => {
     if (finished) {
@@ -53,6 +58,7 @@ export function RegisterModal({openRegister, setOpenRegister, setOpenConfirmatio
   const passwordContainer = <PasswordContainer password={password} setPassword={setPassword} />
 
   const [currentContainer, setContainer] = useState(registerContainer)
+  const [alerts, setAlerts] = useState<ReactNode[]>([])
 
   function handleClose() {
     setContainer(registerContainer)
@@ -60,8 +66,40 @@ export function RegisterModal({openRegister, setOpenRegister, setOpenConfirmatio
     setOpenRegister(false)
   }
 
+  const userAlert = (<Alert severity="error" key="username-alert">Username length is less than 4 characters.</Alert>)
+  const emailAlert = (<Alert severity="error" key="email-alert">Email address is invalid.</Alert>)
+
+  /** See: https://stackoverflow.com/questions/201323/how-can-i-validate-an-email-address-using-a-regular-expression?page=1&tab=scoredesc */
+  const emailRegex = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/
+
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
+
+    let validationErrors = false
+
+    let currentAlerts: ReactNode[] = [...alerts]
+
+    if (username.length < 4) {
+      console.log('username invalid')
+      currentAlerts.push(userAlert)
+      validationErrors = true
+    }
+    if (!emailRegex.test(email)) {
+      console.log('email invalid')
+      currentAlerts.push(emailAlert)
+      validationErrors = true
+    }
+
+    setAlerts(currentAlerts)
+
+    setTimeout(() => {
+      setAlerts([])
+    }, 1500)
+
+    if (validationErrors) {
+      return
+    }
+
     switch(buttonTxt) {
       case 'Next':
         setContainer(passwordContainer)
@@ -95,6 +133,10 @@ export function RegisterModal({openRegister, setOpenRegister, setOpenConfirmatio
         <form onSubmit={handleSubmit}>
           <CardContent>
             <CloseButton handleClose={handleClose} />
+            { alerts.map((alert) => {
+              console.log(alert)
+              return alert
+            })}
             { currentContainer }
           </CardContent>
           <CardActions>
