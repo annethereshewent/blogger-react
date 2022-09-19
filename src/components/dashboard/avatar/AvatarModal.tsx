@@ -1,12 +1,13 @@
 import { Button, Card, CardActions, CardContent, Modal, Slider  } from "@mui/material"
-import { CloseButton } from "../shared/CloseButton"
+import { CloseButton } from "../../shared/CloseButton"
 import AvatarEditor from 'react-avatar-editor'
 import { useRef, useState } from "react"
-import { AvatarUpload } from "./AvatarUpload"
-import { Picture } from "../../types/Picture"
-import { UserService } from "../../services/UserService"
-import { User } from "../../types/User"
-import { modalStyle } from "../../util/modalStyles"
+import { Picture } from "../../../types/Picture"
+import { UserService } from "../../../services/UserService"
+import { User } from "../../../types/User"
+import { modalStyleLarge } from "../../../util/modalStyles"
+import { AvatarUploadContainer } from "./AvatarUploadContainer"
+import { AvatarEditorContainer } from "./AvatarEditorContainer"
 
 interface AvatarModalProps {
   open: boolean
@@ -91,57 +92,25 @@ export function AvatarModal({open, setOpen, setUser}: AvatarModalProps) {
       open={open}
       onClose={handleClose}
     >
-      <Card id="avatar-modal" style={modalStyle}>
+      <Card id="avatar-modal" style={modalStyleLarge}>
         { displayEditor &&
-          <div className="avatar-editor">
-            <CloseButton handleClose={handleClose} />
-            <Button
-              className="avatar-apply-btn"
-              color="secondary"
-              variant="contained"
-              onClick={updateAvatar}
-            >
-              Apply
-            </Button>
-            <CardContent>
-              <AvatarEditor
-                ref={editor}
-                image={picture.img}
-                width={400}
-                height={400}
-                rotate={0}
-                scale={picture.zoom}
-              />
-
-            </CardContent>
-            <CardActions>
-              <Slider
-                className="avatar-editor-slider"
-                min={1}
-                max={3}
-                step={0.02}
-                onChange={handleSlider}
-              />
-            </CardActions>
-          </div>
+          <AvatarEditorContainer
+            handleClose={handleClose}
+            picture={picture}
+            handleSlider={handleSlider}
+            editor={editor}
+            updateAvatar={updateAvatar}
+          />
         }
         {
           !displayEditor &&
-          <div>
-            <CardContent>
-              <CloseButton handleClose={handleClose} />
-              <div className="modal-body">
-                <h2>Choose a profile picture</h2>
-                <p>Have a selfie you'd like to share? Upload it here!</p>
-              </div>
-              <AvatarUpload picture={picture} setPicture={setPicture} setDisplayEditor={setDisplayEditor} />
-            </CardContent>
-            <CardActions>
-              <div className="button-row">
-                { currentBtn }
-              </div>
-            </CardActions>
-          </div>
+          <AvatarUploadContainer
+            picture={picture}
+            setPicture={setPicture}
+            setOpen={setOpen}
+            setDisplayEditor={setDisplayEditor}
+            currentBtn={currentBtn}
+          />
         }
       </Card>
     </Modal>

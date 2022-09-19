@@ -1,9 +1,9 @@
 import { Avatar, Button, Card, CardActions, CardContent, CircularProgress, Modal, TextField } from "@mui/material"
 import React, { useState } from "react"
-import { DashboardService } from "../../services/DashboardService"
-import { Post } from "../../types/Post"
-import { modalStyleRounded } from '../../util/modalStyles'
-import { CloseButton } from "../shared/CloseButton"
+import { DashboardService } from "../../../services/DashboardService"
+import { Post } from "../../../types/Post"
+import { modalStyleRounded } from '../../../util/modalStyles'
+import { CloseButton } from "../../shared/CloseButton"
 import { PostAddons } from "./PostAddons"
 
 

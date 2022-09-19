@@ -17,7 +17,7 @@ export const modalStyleLarge = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: "650px",
+  width: "525px",
   bgcolor: 'background.paper',
   border: '2px solid #000',
   boxShadow: "24px",

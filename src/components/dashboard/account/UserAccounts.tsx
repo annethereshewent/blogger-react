@@ -1,6 +1,6 @@
 import { MoreHoriz } from "@mui/icons-material"
 import { Avatar, Card, CardContent, IconButton } from "@mui/material"
-import { User } from "../../types/User"
+import { User } from "../../../types/User"
 
 interface UserAccountsProps {
   user: User

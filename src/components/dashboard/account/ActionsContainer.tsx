@@ -1,7 +1,7 @@
 import { IconButton } from "@mui/material"
 import { HomeOutlined, MailOutline, NotificationsOutlined, PersonOutlined, SearchOutlined } from '@mui/icons-material'
 import { UserAccounts } from "./UserAccounts"
-import { User } from "../../types/User"
+import { User } from "../../../types/User"
 import { AccountMenu } from "./AccountMenu"
 import { useRef, useState } from "react"
 

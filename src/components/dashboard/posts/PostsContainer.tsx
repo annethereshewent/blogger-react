@@ -1,5 +1,5 @@
-import { Post } from "../../types/Post"
-import { User } from "../../types/User"
+import { Post } from "../../../types/Post"
+import { User } from "../../../types/User"
 import { PostCard } from "./PostCard"
 
 interface PostsContainerProps {

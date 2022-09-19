@@ -4,10 +4,10 @@ import { DashboardService } from "../../services/DashboardService"
 import { CircularProgress, Grid } from "@mui/material"
 import { useNavigate } from 'react-router-dom'
 import { ConfirmationModal } from './ConfirmationModal'
-import { AvatarModal } from './AvatarModal'
+import { AvatarModal } from './avatar/AvatarModal'
 import '../../styles/dashboard.scss'
 import { DashboardContainer } from './DashboardContainer'
-import { PostModal } from './PostModal'
+import { PostModal } from './posts/PostModal'
 import { Post } from '../../types/Post'
 
 const CODE_NOT_CONFIRMED = 100

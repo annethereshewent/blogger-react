@@ -1,7 +1,7 @@
 import { Avatar, Button, InputProps, TextField } from "@mui/material"
 import { useState } from "react"
-import { DashboardService } from "../../services/DashboardService"
-import { Post } from "../../types/Post"
+import { DashboardService } from "../../../services/DashboardService"
+import { Post } from "../../../types/Post"
 import { PostAddons } from "./PostAddons"
 
 interface PostFieldProps {
