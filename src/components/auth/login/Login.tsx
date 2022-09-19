@@ -1,13 +1,13 @@
 
 import { Container, Grid } from '@mui/material'
-import { Logo } from '../shared/Logo'
-import '../../styles/login.scss'
+import { Logo } from '../../shared/Logo'
+import '../../../styles/login.scss'
 import { LoginCard } from './LoginCard'
 import { UserAccounts } from './UserAccounts'
-import { RegisterModal } from './RegisterModal'
+import { RegisterModal } from '../register/RegisterModal'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { ConfirmationModal } from './ConfirmationModal'
+import { ConfirmationModal } from '../register/ConfirmationModal'
 
 export function Login() {
   const [openRegister, setOpenRegister] = useState(false)

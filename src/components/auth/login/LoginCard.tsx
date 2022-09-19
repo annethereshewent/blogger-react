@@ -1,7 +1,7 @@
 import { Card, TextField, Divider, Button } from '@mui/material'
 import { Link, useNavigate } from 'react-router-dom'
 import { useState, } from 'react'
-import { loginUser } from '../../util/loginUser'
+import { loginUser } from '../../../util/loginUser'
 
 interface LoginCardProps {
   openRegisterModal: () => void

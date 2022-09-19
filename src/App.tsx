@@ -1,4 +1,4 @@
-import { Login } from './components/auth/Login'
+import { Login } from './components/auth/login/Login'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { createTheme, ThemeProvider } from '@mui/material'
 import { CssBaseline } from '@mui/material'

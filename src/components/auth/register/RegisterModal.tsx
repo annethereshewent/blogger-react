@@ -2,10 +2,10 @@ import { Button, Card, CardActions, CardContent, Modal } from '@mui/material'
 import { useEffect, useState } from 'react'
 import { RegisterContainer } from './RegisterContainer'
 import { PasswordContainer } from './PasswordContainer'
-import { AuthService } from '../../services/AuthService'
-import { User } from '../../types/User'
-import { CloseButton } from '../shared/CloseButton'
-import { modalStyle } from '../../util/modalStyles'
+import { AuthService } from '../../../services/AuthService'
+import { User } from '../../../types/User'
+import { CloseButton } from '../../shared/CloseButton'
+import { modalStyle } from '../../../util/modalStyles'
 
 interface RegisterModalProps {
   openRegister: boolean,

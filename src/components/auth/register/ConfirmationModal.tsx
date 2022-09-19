@@ -1,9 +1,9 @@
 import { Modal } from "@mui/material"
 import { useNavigate } from "react-router-dom"
 import { useEffect } from "react"
-import { UserSocket } from "../../util/UserSocket"
-import { loginUser } from "../../util/loginUser"
-import { ConfirmationContent } from "../shared/ConfirmationContent"
+import { UserSocket } from "../../../util/UserSocket"
+import { loginUser } from "../../../util/loginUser"
+import { ConfirmationContent } from "../../shared/ConfirmationContent"
 
 
 interface ConfirmationModalProps {

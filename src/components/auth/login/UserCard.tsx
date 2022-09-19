@@ -1,5 +1,5 @@
 import { Button, Card, CardActions } from '@mui/material'
-import { User } from '../../types/User'
+import { User } from '../../../types/User'
 
 interface UserCardProps {
   user: User
