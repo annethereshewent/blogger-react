@@ -2,7 +2,7 @@ import { AddCommentRounded, FavoriteOutlined, ReplyOutlined } from "@mui/icons-m
 import { Avatar, IconButton } from "@mui/material"
 import linkifyHtml from "linkifyjs/lib/linkify-html"
 import { Post } from "../../../types/Post"
-import { User } from "../../../types/User"
+import moment from 'moment'
 
 interface PostCardProps {
   post: Post,
@@ -26,6 +26,7 @@ export function PostCard({post}: PostCardProps) {
         <Avatar src={post.user.avatars.small} className="post-avatar" />
         <div className="post-wrapper">
           <strong>{post.user.username}</strong>
+          <span className="post-date">{ moment(post.created_at).fromNow() }</span>
           <p
             className="post-body"
             dangerouslySetInnerHTML={{ __html: convertPost(post.body) }}
