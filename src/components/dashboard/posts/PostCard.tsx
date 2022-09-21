@@ -9,7 +9,6 @@ interface PostCardProps {
 }
 
 export function PostCard({post}: PostCardProps) {
-
   /*
   * Replaces new lines with br tags and auto links urls.
   * @TODO: sanitization already happens

@@ -1,8 +1,10 @@
-import { Avatar, Button, InputProps, TextField } from "@mui/material"
+import { Avatar, Button, CircularProgress, InputProps, TextField } from "@mui/material"
 import { useState } from "react"
 import { DashboardService } from "../../../services/DashboardService"
 import { Post } from "../../../types/Post"
 import { PostAddons } from "./PostAddons"
+import { IGif } from '@giphy/js-types'
+import { Gif } from "@giphy/react-components"
 
 interface PostFieldProps {
   avatar: string
@@ -17,6 +19,8 @@ export function PostField({avatar, posts, setPosts}: PostFieldProps) {
   const [inputProps, setInputProps] = useState<Partial<InputProps>>({
     disableUnderline: true
   })
+  const [gifs, setGifs] = useState<IGif[]>([])
+
 
   function handlePostChange(e: React.ChangeEvent<HTMLInputElement>) {
     setPost(e.target.value)
@@ -69,8 +73,18 @@ export function PostField({avatar, posts, setPosts}: PostFieldProps) {
           onChange={handlePostChange}
         />
       </div>
+      <div className="images">
+        <div>
+          {gifs.map((gif) => (
+            <Gif gif={gif} width={250} key={gif.id} />
+          ))}
+        </div>
+      </div>
       <div className="post-buttons-wrapper">
-        <PostAddons />
+        <PostAddons
+          gifs={gifs}
+          setGifs={setGifs}
+        />
         <div className="post-buttons">
           <Button
             className="submit-button"
@@ -83,6 +97,7 @@ export function PostField({avatar, posts, setPosts}: PostFieldProps) {
           </Button>
           <div style={{ clear: 'both' }} />
         </div>
+        { loading && <CircularProgress color="success" /> }
       </div>
     </div>
   )

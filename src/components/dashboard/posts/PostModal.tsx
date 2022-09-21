@@ -5,6 +5,7 @@ import { Post } from "../../../types/Post"
 import { modalStyleRounded } from '../../../util/modalStyles'
 import { CloseButton } from "../../shared/CloseButton"
 import { PostAddons } from "./PostAddons"
+import { PostField } from "./PostField"
 
 
 interface PostModalProps {
@@ -53,37 +54,13 @@ export function PostModal({open, setOpen, avatar, posts, setPosts}: PostModalPro
     >
       <Card id="post-modal" style={modalStyleRounded}>
         <CloseButton handleClose={onClose} />
-        <CardContent className="post-content">
-          <Avatar src={avatar} className="post-avatar" />
-          <TextField
-            className="post-text-field"
-            multiline
-            fullWidth
-            minRows={4}
-            maxRows={25}
-            value={post}
-            variant="standard"
-            placeholder="What's on your mind?"
-            onChange={handlePostChange}
+        <CardContent>
+          <PostField
+            avatar={avatar}
+            posts={posts}
+            setPosts={setPosts}
           />
         </CardContent>
-        <CardActions className="post-actions">
-          <div>
-            <PostAddons />
-          </div>
-          <div className="post-buttons">
-            <Button
-              className="submit-button"
-              onClick={submitPost}
-              variant="contained"
-              color="success"
-              disabled={post == ''}
-            >
-              Post
-            </Button>
-          </div>
-          { loading && <CircularProgress color="success" /> }
-        </CardActions>
       </Card>
     </Modal>
   )

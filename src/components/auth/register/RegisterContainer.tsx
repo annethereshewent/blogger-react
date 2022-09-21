@@ -117,6 +117,7 @@ export function RegisterContainer({
         <Grid item xs={6}>
           <TextField
             className="text-field"
+            style={{ marginBottom: '10px' }}
             label="Username"
             onChange={handleUsername}
             required
