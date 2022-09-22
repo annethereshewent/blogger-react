@@ -36,6 +36,7 @@ export function GifComponent({setGif, open, setOpen}: GifComponentProps) {
 
 
   function handleClose() {
+    setGifResults([])
     setOpen(false)
   }
   return (
@@ -62,7 +63,7 @@ export function GifComponent({setGif, open, setOpen}: GifComponentProps) {
           <GifResults
             gifResults={gifResults}
             setGif={setGif}
-            setOpen={setOpen}
+            handleClose={handleClose}
           />
         </CardContent>
       </Card>

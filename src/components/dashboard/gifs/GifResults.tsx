@@ -6,10 +6,10 @@ import { GifItem } from "./GifItem"
 interface GifResultsProps {
   gifResults: GifTenorResult[]
   setGif: (gif: string) => void
-  setOpen: (open: boolean) => void
+  handleClose: () => void
 }
 
-export function GifResults({gifResults, setGif, setOpen}: GifResultsProps) {
+export function GifResults({gifResults, setGif, handleClose}: GifResultsProps) {
   return (
 
     <Masonry columnsCount={3}>
@@ -21,7 +21,7 @@ export function GifResults({gifResults, setGif, setOpen}: GifResultsProps) {
           gif={gif}
           key={gif}
           setGif={setGif}
-          setOpen={setOpen}
+          handleClose={handleClose}
         />
       })}
     </Masonry>
