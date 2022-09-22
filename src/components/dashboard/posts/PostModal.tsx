@@ -2,6 +2,7 @@ import { Avatar, Button, Card, CardActions, CardContent, CircularProgress, Modal
 import React, { useState } from "react"
 import { DashboardService } from "../../../services/DashboardService"
 import { Post } from "../../../types/Post"
+import { PostRequest } from "../../../types/PostRequest"
 import { modalStyleRounded } from '../../../util/modalStyles'
 import { CloseButton } from "../../shared/CloseButton"
 import { PostAddons } from "./PostAddons"
@@ -33,7 +34,12 @@ export function PostModal({open, setOpen, avatar, posts, setPosts}: PostModalPro
   async function submitPost() {
     try {
       setLoading(true)
-      const result = await new DashboardService().submitPost(post)
+
+      const postRequest: PostRequest = {
+        body: post
+      }
+
+      const result = await new DashboardService().submitPost(postRequest)
 
       const { data } = result
 

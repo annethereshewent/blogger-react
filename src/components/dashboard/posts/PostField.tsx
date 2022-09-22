@@ -5,6 +5,9 @@ import { Post } from "../../../types/Post"
 import { PostAddons } from "./PostAddons"
 import { IGif } from '@giphy/js-types'
 import { Gif } from "@giphy/react-components"
+import { GifItem } from "../gifs/GifItem"
+import { GifElement } from "./GifElement"
+import { PostRequest } from "../../../types/PostRequest"
 
 interface PostFieldProps {
   avatar: string
@@ -19,7 +22,7 @@ export function PostField({avatar, posts, setPosts}: PostFieldProps) {
   const [inputProps, setInputProps] = useState<Partial<InputProps>>({
     disableUnderline: true
   })
-  const [gifs, setGifs] = useState<IGif[]>([])
+  const [gif, setGif] = useState('')
 
 
   function handlePostChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -29,7 +32,19 @@ export function PostField({avatar, posts, setPosts}: PostFieldProps) {
   async function submitPost() {
     try {
       setLoading(true)
-      const result = await new DashboardService().submitPost(post)
+
+      const postRequest: PostRequest = {
+        body: post
+      }
+
+      if (gif != '') {
+        console.log('should be going in here')
+        postRequest.gif = gif
+      }
+
+      //@TODO: handle images here
+
+      const result = await new DashboardService().submitPost(postRequest)
 
       const { data } = result
 
@@ -38,6 +53,7 @@ export function PostField({avatar, posts, setPosts}: PostFieldProps) {
       // @ TODO: add error handling
     } finally {
       setPost('')
+      setGif('')
       setLoading(false)
     }
   }
@@ -73,17 +89,11 @@ export function PostField({avatar, posts, setPosts}: PostFieldProps) {
           onChange={handlePostChange}
         />
       </div>
-      <div className="images">
-        <div>
-          {gifs.map((gif) => (
-            <Gif gif={gif} width={250} key={gif.id} />
-          ))}
-        </div>
-      </div>
+      <div className="images" />
+      { gif != '' && <GifElement src={gif} /> }
       <div className="post-buttons-wrapper">
         <PostAddons
-          gifs={gifs}
-          setGifs={setGifs}
+          setGif={setGif}
         />
         <div className="post-buttons">
           <Button

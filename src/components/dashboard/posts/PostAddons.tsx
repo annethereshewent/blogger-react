@@ -5,11 +5,10 @@ import { IGif } from '@giphy/js-types'
 import { GifComponent } from "../gifs/GifComponent"
 
 interface PostAddonsProps {
-  gifs: IGif[]
-  setGifs: (gifs: IGif[]) => void
+  setGif: (gif: string) => void
 }
 
-export function PostAddons({gifs, setGifs}: PostAddonsProps) {
+export function PostAddons({setGif}: PostAddonsProps) {
   const [open, setOpen] = useState(false)
 
   return (
@@ -32,8 +31,7 @@ export function PostAddons({gifs, setGifs}: PostAddonsProps) {
         </IconButton>
       </div>
       <GifComponent
-        gifs={gifs}
-        setGifs={setGifs}
+        setGif={setGif}
         open={open}
         setOpen={setOpen}
       />

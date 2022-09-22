@@ -254,6 +254,10 @@ html, body, root {
   }
 }
 
+.gif-container {
+  cursor: pointer;
+}
+
 #post-field {
   border-bottom: 1px solid $blogger_border_gray;
   padding-left: 40px;

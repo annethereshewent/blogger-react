@@ -30,6 +30,13 @@ export function PostCard({post}: PostCardProps) {
             className="post-body"
             dangerouslySetInnerHTML={{ __html: convertPost(post.body) }}
           />
+          <div className="gifs">
+            { post.gifs.map((gif) => (
+              <video width={450}  loop muted autoPlay key={gif}>
+                <source src={gif} type="video/mp4" />
+              </video>
+            ))}
+          </div>
         </div>
 
       </div>

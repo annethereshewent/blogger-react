@@ -3,8 +3,9 @@ export interface GifTenorResult {
 }
 
 interface GifTenorMediaFormat {
-  mp4: GifTenorFile
-  gif: GifTenorFile
+  mp4?: GifTenorFile
+  gif?: GifTenorFile
+  loopedmp4?: GifTenorFile
 }
 
 interface GifTenorFile {

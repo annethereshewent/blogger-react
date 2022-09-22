@@ -1,43 +1,25 @@
-import { GiphyFetch } from "@giphy/js-fetch-api"
-import { Grid } from "@giphy/react-components"
 import { Card, CardContent, InputAdornment, Modal, TextField } from "@mui/material"
-import { modalStyleLarge } from "../../../util/modalStyles"
-import { IGif } from '@giphy/js-types'
-import { SyntheticEvent, useState } from "react"
+import { modalStyleXL } from "../../../util/modalStyles"
+import { useState } from "react"
 import { CloseButton } from "../../shared/CloseButton"
 import { SearchOutlined } from "@mui/icons-material"
 import { GifTenorService } from "../../../services/GifTenorService"
 import { GifTenorResult } from "../../../types/GifTenorResult"
+import { GifResults } from "./GifResults"
 
 interface GifComponentProps {
-  gifs: IGif[],
-  setGifs: (gifs: IGif[]) => void
+  setGif: (gif: string) => void
   open: boolean
   setOpen: (open: boolean) => void
 }
 
 const GIPHY_API_KEY = process.env.REACT_APP_GIPHY_API_KEY || ''
 
-export function GifComponent({gifs, setGifs, open, setOpen}: GifComponentProps) {
-  const gf = new GiphyFetch(GIPHY_API_KEY)
-
+export function GifComponent({setGif, open, setOpen}: GifComponentProps) {
   const [term, setTerm] = useState('')
+  const [gifResults, setGifResults] = useState<GifTenorResult[]>([])
 
   let timeout: NodeJS.Timeout|null = null
-
-  function fetchGifs(offset: number) {
-    return gf.search(term, { offset, limit: 20, type: 'videos' })
-  }
-
-  function parseGif(gif: IGif, e: SyntheticEvent<HTMLElement, Event>) {
-    e.preventDefault()
-
-    const currentGifs = [...gifs]
-
-    currentGifs.push(gif)
-
-    setGifs(currentGifs)
-  }
 
   function handleTextChange(e: React.ChangeEvent<HTMLInputElement>) {
     if (timeout != null) {
@@ -48,7 +30,7 @@ export function GifComponent({gifs, setGifs, open, setOpen}: GifComponentProps) 
       setTerm(e.target.value)
       const result = await new GifTenorService().searchGifs(e.target.value, 1)
 
-      console.log(result.data.results.map((media: GifTenorResult) => media.media_formats.mp4.url))
+      setGifResults(result.data.results)
     }, 500)
   }
 
@@ -61,7 +43,7 @@ export function GifComponent({gifs, setGifs, open, setOpen}: GifComponentProps) 
       open={open}
       onClose={handleClose}
     >
-      <Card className="gif-search-card" style={{...modalStyleLarge, overflow: 'scroll', height: '400px' }}>
+      <Card className="gif-search-card" style={{...modalStyleXL, overflow: 'scroll', height: '400px' }}>
         <CardContent>
           <CloseButton handleClose={() => setOpen(false)}/>
           <TextField
@@ -77,12 +59,10 @@ export function GifComponent({gifs, setGifs, open, setOpen}: GifComponentProps) 
               )
             }}
           />
-          <Grid
-            width={500}
-            columns={3}
-            fetchGifs={fetchGifs}
-            key={term}
-            onGifClick={parseGif}
+          <GifResults
+            gifResults={gifResults}
+            setGif={setGif}
+            setOpen={setOpen}
           />
         </CardContent>
       </Card>
