@@ -38,7 +38,6 @@ export function PostField({avatar, posts, setPosts}: PostFieldProps) {
       }
 
       if (gif != '') {
-        console.log('should be going in here')
         postRequest.gif = gif
       }
 
@@ -101,7 +100,7 @@ export function PostField({avatar, posts, setPosts}: PostFieldProps) {
             onClick={submitPost}
             variant="contained"
             color="success"
-            disabled={post == ''}
+            disabled={post == '' && gif == ''}
           >
             Post
           </Button>

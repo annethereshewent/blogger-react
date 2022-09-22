@@ -1,4 +1,4 @@
-import { Card, CardContent, InputAdornment, Modal, TextField } from "@mui/material"
+import { Card, CardContent, CircularProgress, InputAdornment, Modal, TextField } from "@mui/material"
 import { modalStyleXL } from "../../../util/modalStyles"
 import { useState } from "react"
 import { CloseButton } from "../../shared/CloseButton"
@@ -16,8 +16,8 @@ interface GifComponentProps {
 const GIPHY_API_KEY = process.env.REACT_APP_GIPHY_API_KEY || ''
 
 export function GifComponent({setGif, open, setOpen}: GifComponentProps) {
-  const [term, setTerm] = useState('')
   const [gifResults, setGifResults] = useState<GifTenorResult[]>([])
+  const [loading, setLoading] = useState(false)
 
   let timeout: NodeJS.Timeout|null = null
 
@@ -27,18 +27,29 @@ export function GifComponent({setGif, open, setOpen}: GifComponentProps) {
     }
 
     timeout = setTimeout(async ()=> {
-      setTerm(e.target.value)
-      const result = await new GifTenorService().searchGifs(e.target.value, 1)
+      try {
+        setGifResults([])
 
-      setGifResults(result.data.results)
+        if (e.target.value != '') {
+          setLoading(true)
+          const result = await new GifTenorService().searchGifs(e.target.value, 1)
+
+          setGifResults(result.data.results)
+        }
+
+      } catch (e) {
+        // @TODO
+      } finally {
+        setLoading(false)
+      }
     }, 500)
   }
-
 
   function handleClose() {
     setGifResults([])
     setOpen(false)
   }
+
   return (
     <Modal
       open={open}
@@ -60,6 +71,7 @@ export function GifComponent({setGif, open, setOpen}: GifComponentProps) {
               )
             }}
           />
+          { loading && <div style={{ textAlign: 'center' }}><CircularProgress style={{ textAlign: 'center' }} color="secondary" /></div> }
           <GifResults
             gifResults={gifResults}
             setGif={setGif}
