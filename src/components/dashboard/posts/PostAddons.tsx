@@ -1,10 +1,8 @@
 import { EmojiEmotionsOutlined, GifOutlined, ImageOutlined, YouTube } from "@mui/icons-material"
 import { IconButton } from "@mui/material"
-import { Gif, Grid } from "@giphy/react-components"
-import { GiphyFetch } from "@giphy/js-fetch-api"
-import { SyntheticEvent, useState } from "react"
+import { useState } from "react"
 import { IGif } from '@giphy/js-types'
-import { GifComponent } from "./GifComponent"
+import { GifComponent } from "../gifs/GifComponent"
 
 interface PostAddonsProps {
   gifs: IGif[]

@@ -16,12 +16,10 @@ interface GifComponentProps {
   setOpen: (open: boolean) => void
 }
 
-
-
-const TENOR_API_TOKEN = process.env.REACT_APP_GIF_TENOR_API_TOKEN
+const GIPHY_API_KEY = process.env.REACT_APP_GIPHY_API_KEY || ''
 
 export function GifComponent({gifs, setGifs, open, setOpen}: GifComponentProps) {
-  const gf = new GiphyFetch('X8gfWYGdfGPrltWvnXDmoV4UUi5NeTxL')
+  const gf = new GiphyFetch(GIPHY_API_KEY)
 
   const [term, setTerm] = useState('')
 
