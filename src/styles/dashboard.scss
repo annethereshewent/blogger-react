@@ -240,6 +240,11 @@ html, body, root {
 .post-addons {
   display: flex;
   margin-left: 50px;
+  .gif-search-card {
+    .gif-search-field {
+      border-radius: 20px;
+    }
+  }
   .item {
     margin-right: 5px;
     > * {
