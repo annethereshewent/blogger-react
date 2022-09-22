@@ -33,7 +33,7 @@ export function PostCard({post}: PostCardProps) {
           />
           <div className="gifs">
             { post.gif &&
-              <GifElement src={post.gif} key={post.gif} />
+              <GifElement src={post.gif} originalSrc={post.original_gif_url} key={post.gif} />
             }
           </div>
         </div>

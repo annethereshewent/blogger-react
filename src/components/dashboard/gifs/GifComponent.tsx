@@ -6,9 +6,10 @@ import { SearchOutlined } from "@mui/icons-material"
 import { GifTenorService } from "../../../services/GifTenorService"
 import { GifTenorResult } from "../../../types/GifTenorResult"
 import { GifResults } from "./GifResults"
+import { Gif } from "../../../types/Gif"
 
 interface GifComponentProps {
-  setGif: (gif: string) => void
+  setGif: (gif: Gif) => void
   open: boolean
   setOpen: (open: boolean) => void
 }

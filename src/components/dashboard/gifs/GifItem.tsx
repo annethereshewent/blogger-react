@@ -1,16 +1,21 @@
+import { Gif } from "../../../types/Gif"
 
 interface GifItemProps {
   gif: string
-  setGif: (gif: string) => void
+  originalGif: string
+  setGif: (gif: Gif) => void
   handleClose: () => void
 }
 
 
-export function GifItem({gif, setGif, handleClose}: GifItemProps) {
+export function GifItem({gif, originalGif, setGif, handleClose}: GifItemProps) {
 
 
   function handleGifClick() {
-    setGif(gif)
+    setGif({
+      src: gif,
+      original_src: originalGif
+    })
     handleClose()
   }
 

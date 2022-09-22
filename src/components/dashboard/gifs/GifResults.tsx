@@ -1,11 +1,12 @@
 import { GifTenorResult } from "../../../types/GifTenorResult"
 import Masonry from "react-responsive-masonry"
 import { GifItem } from "./GifItem"
+import { Gif } from "../../../types/Gif"
 
 
 interface GifResultsProps {
   gifResults: GifTenorResult[]
-  setGif: (gif: string) => void
+  setGif: (gif: Gif) => void
   handleClose: () => void
 }
 
@@ -19,6 +20,7 @@ export function GifResults({gifResults, setGif, handleClose}: GifResultsProps) {
 
         return <GifItem
           gif={gif}
+          originalGif={result.media_formats.gif?.url || ''}
           key={gif}
           setGif={setGif}
           handleClose={handleClose}

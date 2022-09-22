@@ -3,9 +3,10 @@ import { IconButton } from "@mui/material"
 import { useState } from "react"
 import { IGif } from '@giphy/js-types'
 import { GifComponent } from "../gifs/GifComponent"
+import { Gif } from "../../../types/Gif"
 
 interface PostAddonsProps {
-  setGif: (gif: string) => void
+  setGif: (gif: Gif) => void
 }
 
 export function PostAddons({setGif}: PostAddonsProps) {

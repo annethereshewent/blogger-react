@@ -3,11 +3,9 @@ import { useState } from "react"
 import { DashboardService } from "../../../services/DashboardService"
 import { Post } from "../../../types/Post"
 import { PostAddons } from "./PostAddons"
-import { IGif } from '@giphy/js-types'
-import { Gif } from "@giphy/react-components"
-import { GifItem } from "../gifs/GifItem"
 import { GifElement } from "./GifElement"
 import { PostRequest } from "../../../types/PostRequest"
+import { Gif } from "../../../types/Gif"
 
 interface PostFieldProps {
   avatar: string
@@ -22,7 +20,10 @@ export function PostField({avatar, posts, setPosts}: PostFieldProps) {
   const [inputProps, setInputProps] = useState<Partial<InputProps>>({
     disableUnderline: true
   })
-  const [gif, setGif] = useState('')
+  const [gif, setGif] = useState<Gif>({
+    src: '',
+    original_src: ''
+  })
 
 
   function handlePostChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -37,8 +38,9 @@ export function PostField({avatar, posts, setPosts}: PostFieldProps) {
         body: post
       }
 
-      if (gif != '') {
-        postRequest.gif = gif
+      if (gif.src != '') {
+        postRequest.gif = gif.src
+        postRequest.original_gif_url = gif.original_src
       }
 
       //@TODO: handle images here
@@ -52,7 +54,10 @@ export function PostField({avatar, posts, setPosts}: PostFieldProps) {
       // @ TODO: add error handling
     } finally {
       setPost('')
-      setGif('')
+      setGif({
+        src: '',
+        original_src: ''
+      })
       setLoading(false)
     }
   }
@@ -89,7 +94,7 @@ export function PostField({avatar, posts, setPosts}: PostFieldProps) {
         />
       </div>
       <div className="images" />
-      { gif != '' && <GifElement src={gif} /> }
+      { gif.src != '' && <GifElement src={gif.src} originalSrc={gif.original_src} /> }
       <div className="post-buttons-wrapper">
         <PostAddons
           setGif={setGif}
@@ -100,7 +105,7 @@ export function PostField({avatar, posts, setPosts}: PostFieldProps) {
             onClick={submitPost}
             variant="contained"
             color="success"
-            disabled={post == '' && gif == ''}
+            disabled={post == '' && gif.src == ''}
           >
             Post
           </Button>

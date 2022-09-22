@@ -8,6 +8,7 @@ export interface Post {
   created_at: string
   updated_at: string
   gif: string
+  original_gif_url: string
 }
 
 interface PostImage {

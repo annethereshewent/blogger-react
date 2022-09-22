@@ -11,8 +11,8 @@ interface UserAccountsProps {
 export function UserAccounts({user, open, setOpen}: UserAccountsProps) {
 
   function formatStr(str: string): string {
-    if (str.length > 8) {
-      return str.substring(0,8) + '...'
+    if (str.length > 15) {
+      return str.substring(0,15) + '...'
     }
 
     return str
