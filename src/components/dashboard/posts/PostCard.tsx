@@ -3,6 +3,7 @@ import { Avatar, IconButton } from "@mui/material"
 import linkifyHtml from "linkifyjs/lib/linkify-html"
 import { Post } from "../../../types/Post"
 import moment from 'moment'
+import { GifElement } from "./GifElement"
 
 interface PostCardProps {
   post: Post,
@@ -32,9 +33,7 @@ export function PostCard({post}: PostCardProps) {
           />
           <div className="gifs">
             { post.gifs.map((gif) => (
-              <video width={450}  loop muted autoPlay key={gif}>
-                <source src={gif} type="video/mp4" />
-              </video>
+              <GifElement src={gif} key={gif} />
             ))}
           </div>
         </div>
