@@ -32,9 +32,9 @@ export function PostCard({post}: PostCardProps) {
             dangerouslySetInnerHTML={{ __html: convertPost(post.body) }}
           />
           <div className="gifs">
-            { post.gifs.map((gif) => (
-              <GifElement src={gif} key={gif} />
-            ))}
+            { post.gif &&
+              <GifElement src={post.gif} key={post.gif} />
+            }
           </div>
         </div>
 

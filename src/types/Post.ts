@@ -7,7 +7,7 @@ export interface Post {
   images: PostImage[]
   created_at: string
   updated_at: string
-  gifs: string[]
+  gif: string
 }
 
 interface PostImage {
