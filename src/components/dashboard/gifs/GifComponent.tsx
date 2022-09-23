@@ -14,8 +14,6 @@ interface GifComponentProps {
   setOpen: (open: boolean) => void
 }
 
-const GIPHY_API_KEY = process.env.REACT_APP_GIPHY_API_KEY || ''
-
 export function GifComponent({setGif, open, setOpen}: GifComponentProps) {
   const [gifResults, setGifResults] = useState<GifTenorResult[]>([])
   const [loading, setLoading] = useState(false)
@@ -31,7 +29,7 @@ export function GifComponent({setGif, open, setOpen}: GifComponentProps) {
       try {
         setGifResults([])
 
-        if (e.target.value != '') {
+        if (e.target.value !== '') {
           setLoading(true)
           const result = await new GifTenorService().searchGifs(e.target.value, 1)
 

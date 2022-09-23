@@ -29,22 +29,22 @@ function App() {
       warning: {
         main: '#ffa305'
       }
-    },
+    }
   })
 
   return (
-  <ThemeProvider theme={theme}>
-    <CssBaseline />
-    <div className="App">
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Login />} />
-          <Route path="/login" element={<Login/>} />
-          <Route path="/dashboard" element={<Dashboard/>} />
-        </Routes>
-      </BrowserRouter>
-    </div>
-  </ThemeProvider>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <div className="App">
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Login />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+          </Routes>
+        </BrowserRouter>
+      </div>
+    </ThemeProvider>
   )
 }
 

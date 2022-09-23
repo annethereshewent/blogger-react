@@ -1,4 +1,3 @@
-
 import { Container, Grid } from '@mui/material'
 import { Logo } from '../../shared/Logo'
 import '../../../styles/login.scss'
@@ -41,7 +40,7 @@ export function Login() {
     }
   })
 
-  return  (
+  return (
     <Container id="login-main">
       <Grid container>
         <Logo />

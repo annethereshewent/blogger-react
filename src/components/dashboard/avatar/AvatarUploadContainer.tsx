@@ -1,7 +1,7 @@
-import { CardActions, CardContent } from "@mui/material";
-import { Picture } from "../../../types/Picture";
-import { CloseButton } from "../../shared/CloseButton";
-import { AvatarUpload } from "./AvatarUpload";
+import { CardActions, CardContent } from "@mui/material"
+import { Picture } from "../../../types/Picture"
+import { CloseButton } from "../../shared/CloseButton"
+import { AvatarUpload } from "./AvatarUpload"
 
 interface AvatarUploadContainerProps {
   picture: Picture
@@ -34,7 +34,7 @@ export function AvatarUploadContainer({
       </CardContent>
       <CardActions>
         <div className="button-row">
-          { currentBtn }
+          {currentBtn}
         </div>
       </CardActions>
     </div>

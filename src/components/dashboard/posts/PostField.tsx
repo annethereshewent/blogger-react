@@ -1,11 +1,11 @@
-import { Avatar, Button, CircularProgress, InputProps, TextField } from "@mui/material"
-import { useState } from "react"
-import { DashboardService } from "../../../services/DashboardService"
-import { Post } from "../../../types/Post"
-import { PostAddons } from "./PostAddons"
-import { GifElement } from "./GifElement"
-import { PostRequest } from "../../../types/PostRequest"
-import { Gif } from "../../../types/Gif"
+import { Avatar, Button, CircularProgress, InputProps, TextField } from '@mui/material'
+import { useState } from 'react'
+import { DashboardService } from '../../../services/DashboardService'
+import { Post } from '../../../types/Post'
+import { PostAddons } from './PostAddons'
+import { GifElement } from './GifElement'
+import { PostRequest } from '../../../types/PostRequest'
+import { Gif } from '../../../types/Gif'
 
 interface PostFieldProps {
   avatar: string
@@ -13,8 +13,7 @@ interface PostFieldProps {
   setPosts: (posts: Post[]) => void
 }
 
-export function PostField({avatar, posts, setPosts}: PostFieldProps) {
-
+export function PostField({ avatar, posts, setPosts }: PostFieldProps) {
   const [post, setPost] = useState('')
   const [loading, setLoading] = useState(false)
   const [inputProps, setInputProps] = useState<Partial<InputProps>>({
@@ -24,7 +23,6 @@ export function PostField({avatar, posts, setPosts}: PostFieldProps) {
     src: '',
     original_src: ''
   })
-
 
   function handlePostChange(e: React.ChangeEvent<HTMLInputElement>) {
     setPost(e.target.value)
@@ -38,7 +36,7 @@ export function PostField({avatar, posts, setPosts}: PostFieldProps) {
         body: post
       }
 
-      if (gif.src != '') {
+      if (gif.src !== '') {
         postRequest.gif = gif.src
         postRequest.original_gif_url = gif.original_src
       }
@@ -94,24 +92,23 @@ export function PostField({avatar, posts, setPosts}: PostFieldProps) {
         />
       </div>
       <div className="images" />
-      { gif.src != '' && <GifElement src={gif.src} originalSrc={gif.original_src} /> }
+      {gif.src !== '' && <GifElement src={gif.src} originalSrc={gif.original_src} />}
       <div className="post-buttons-wrapper">
-        <PostAddons
-          setGif={setGif}
-        />
+        <PostAddons setGif={setGif} />
         <div className="post-buttons">
+          {/* prettier-ignore */}
           <Button
             className="submit-button"
             onClick={submitPost}
             variant="contained"
             color="success"
-            disabled={post == '' && gif.src == ''}
+            disabled={post === '' && gif.src === ''}
           >
             Post
           </Button>
           <div style={{ clear: 'both' }} />
         </div>
-        { loading && <CircularProgress color="success" /> }
+        {loading && <CircularProgress color="success" />}
       </div>
     </div>
   )

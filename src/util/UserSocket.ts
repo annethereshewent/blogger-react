@@ -9,10 +9,13 @@ export class UserSocket {
   }
 
   subscribeToUser(email: string, setConfirmed: (confirmed: boolean) => void) {
-    this.cable.subscriptions.create({ channel: 'UsersChannel', email }, {
-      received(data) {
-        setConfirmed(data.confirmed)
+    this.cable.subscriptions.create(
+      { channel: 'UsersChannel', email },
+      {
+        received(data) {
+          setConfirmed(data.confirmed)
+        }
       }
-    })
+    )
   }
 }

@@ -1,12 +1,7 @@
-import { AxiosInstance } from "axios"
-import { PostRequest } from "../types/PostRequest"
-import { BaseService } from "./BaseService"
+import { PostRequest } from '../types/PostRequest'
+import { BaseService } from './BaseService'
 
 export class DashboardService extends BaseService {
-  constructor() {
-    super()
-  }
-
   async getUserData() {
     return await this.client.get('/api/v1/users/user')
   }

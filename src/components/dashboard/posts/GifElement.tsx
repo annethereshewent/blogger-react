@@ -1,16 +1,15 @@
-import { Menu, MenuItem } from "@mui/material"
-import { useRef, useState } from "react"
+import { Menu, MenuItem } from '@mui/material'
+import { useRef, useState } from 'react'
 
 interface GifElementProps {
   src: string
   originalSrc: string
 }
 
-export function GifElement({src, originalSrc}: GifElementProps) {
+export function GifElement({ src, originalSrc }: GifElementProps) {
   const videoRef = useRef<HTMLVideoElement>(null)
   const [isPlaying, setPlaying] = useState(true)
   const [menuOpen, setMenu] = useState(false)
-
 
   function handleClick() {
     if (videoRef != null) {
@@ -40,33 +39,35 @@ export function GifElement({src, originalSrc}: GifElementProps) {
   }
 
   return (
-    <div
-      className="gif-element"
-      onClick={handleClick}
-    >
+    <div className="gif-element" onClick={handleClick}>
+      {/* prettier-ignore */}
       <video
         key={src}
+        preload="auto"
+        playsInline
+        disablePictureInPicture
         ref={videoRef}
         onContextMenu={openMenu}
         className="video"
-        style={{ maxWidth: '400px' }}
+        style={{ maxWidth: '95%' }}
         loop
         muted
         autoPlay
       >
         <source src={src} type="video/mp4" />
       </video>
+      {/* prettier-ignore */}
       <Menu
         open={menuOpen}
         onBlur={closeMenu}
         anchorEl={videoRef.current}
         anchorOrigin={{
           vertical: 'center',
-          horizontal: 'center',
+          horizontal: 'center'
         }}
         transformOrigin={{
           vertical: 'center',
-          horizontal: 'center',
+          horizontal: 'center'
         }}
       >
         <MenuItem onClick={getGifUrl}>Copy GIF url</MenuItem>

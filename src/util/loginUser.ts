@@ -1,4 +1,4 @@
-import { AuthService } from "../services/AuthService"
+import { AuthService } from '../services/AuthService'
 
 export async function loginUser(email: string, password: string) {
   try {
@@ -13,7 +13,6 @@ export async function loginUser(email: string, password: string) {
       // redirect to dashboard
       return true
     }
-
 
     return false
   } catch (e) {

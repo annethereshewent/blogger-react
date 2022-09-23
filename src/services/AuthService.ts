@@ -1,12 +1,15 @@
-import { BaseService } from "./BaseService"
+import { BaseService } from './BaseService'
 
 export class AuthService extends BaseService {
   async login(email: string, password: string) {
-    return await this.client.post(`/oauth/token?client_id=${process.env.REACT_APP_CLIENT_ID}&client_secret=${process.env.REACT_APP_CLIENT_SECRET}`, {
-      email,
-      password,
-      grant_type: 'password'
-    })
+    return await this.client.post(
+      `/oauth/token?client_id=${process.env.REACT_APP_CLIENT_ID}&client_secret=${process.env.REACT_APP_CLIENT_SECRET}`,
+      {
+        email,
+        password,
+        grant_type: 'password'
+      }
+    )
   }
 
   async reigster(username: string, email: string, password: string, gender: string) {

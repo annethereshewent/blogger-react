@@ -1,7 +1,6 @@
 import { SearchOutlined } from "@mui/icons-material"
-import { Box, Grid, InputAdornment, TextField } from "@mui/material"
+import { Grid, InputAdornment, TextField } from "@mui/material"
 import { DashboardLogo } from "./DashboardLogo"
-import { MiscContainer } from "./MiscContainer"
 
 export function DashboardHeader() {
 

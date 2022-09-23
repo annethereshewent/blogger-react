@@ -1,4 +1,4 @@
 export interface Picture {
-  img: string|File
+  img: string | File
   zoom: number
 }
