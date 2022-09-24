@@ -1,4 +1,3 @@
-
 import { Check, Close } from '@mui/icons-material'
 import {
   Container,
@@ -25,7 +24,6 @@ interface RegisterContainerProps {
   setUsernameExists: (exists: boolean) => void
 }
 
-
 export function RegisterContainer({
   username,
   email,
@@ -35,18 +33,16 @@ export function RegisterContainer({
   setEmailExists,
   setUsernameExists
 }: RegisterContainerProps) {
-
   const [usernameLoading, setUsernameLoading] = useState(false)
   const [emailLoading, setEmailLoading] = useState(false)
-  const [usernameIcon, setUsernameIcon] = useState<JSX.Element|null>(null)
-  const [emailIcon, setEmailIcon] = useState<JSX.Element|null>(null)
+  const [usernameIcon, setUsernameIcon] = useState<JSX.Element | null>(null)
+  const [emailIcon, setEmailIcon] = useState<JSX.Element | null>(null)
 
-  let timer: NodeJS.Timeout|null = null
+  let timer: NodeJS.Timeout | null = null
   function handleEmail(e: React.ChangeEvent<HTMLInputElement>) {
     if (timer != null) {
       clearTimeout(timer)
     }
-
 
     timer = setTimeout(async () => {
       // check if the username exists in database
@@ -58,9 +54,13 @@ export function RegisterContainer({
           const result = await new UserService().emailExists(e.target.value)
           const { data } = result
 
-          let icon: JSX.Element|null = null
+          let icon: JSX.Element | null = null
 
-          icon = data.exists ? <Close className="username-exists" /> : <Check className="username-ok" />
+          icon = data.exists ? (
+            <Close className="username-exists" />
+          ) : (
+            <Check className="username-ok" />
+          )
           setEmailIcon(icon)
           setEmailExists(data.exists)
         } catch (e) {
@@ -69,7 +69,6 @@ export function RegisterContainer({
           setEmailLoading(false)
         }
       }
-
     }, 500)
 
     setEmail(e.target.value)
@@ -90,9 +89,13 @@ export function RegisterContainer({
           const result = await new UserService().userExists(e.target.value)
           const { data } = result
 
-          let icon: JSX.Element|null = null
+          let icon: JSX.Element | null = null
 
-          icon = data.exists ? <Close className="username-exists" /> : <Check className="username-ok" />
+          icon = data.exists ? (
+            <Close className="username-exists" />
+          ) : (
+            <Check className="username-ok" />
+          )
           setUsernameIcon(icon)
           setUsernameExists(data.exists)
         } catch (e) {
@@ -101,7 +104,6 @@ export function RegisterContainer({
           setUsernameLoading(false)
         }
       }
-
     }, 500)
     setUsername(e.target.value)
   }
@@ -121,26 +123,20 @@ export function RegisterContainer({
             label="Username"
             onChange={handleUsername}
             required
-
           />
-          { usernameLoading && <CircularProgress color="primary" /> }
-          { usernameIcon }
+          {usernameLoading && <CircularProgress color="primary" />}
+          {usernameIcon}
         </Grid>
         <Grid item xs={6}>
-          <TextField
-            className="text-field"
-            label="E-mail"
-            onChange={handleEmail}
-            required
-          />
-          { emailLoading && <CircularProgress color="secondary" /> }
-          { emailIcon }
+          <TextField className="text-field" label="E-mail" onChange={handleEmail} required />
+          {emailLoading && <CircularProgress color="secondary" />}
+          {emailIcon}
         </Grid>
       </Grid>
       <Grid className="new-row" item xs={12}>
         <FormControl>
           <FormLabel>Gender</FormLabel>
-          <RadioGroup onChange={handleGender} row >
+          <RadioGroup onChange={handleGender} row>
             <FormControlLabel value="F" control={<Radio required />} label="Female" />
             <FormControlLabel value="M" control={<Radio required />} label="Male" />
             <FormControlLabel value="X" control={<Radio required />} label="Other" />

@@ -1,11 +1,11 @@
-import { TextField } from "@mui/material"
+import { TextField } from '@mui/material'
 
 interface PasswordContainerProps {
-  password: string,
+  password: string
   setPassword: (password: string) => void
 }
 
-export function PasswordContainer({password, setPassword}: PasswordContainerProps) {
+export function PasswordContainer({ password, setPassword }: PasswordContainerProps) {
   function handlePassword(e: React.ChangeEvent<HTMLInputElement>) {
     setPassword(e.target.value)
   }

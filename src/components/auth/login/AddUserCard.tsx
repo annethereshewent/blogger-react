@@ -9,7 +9,9 @@ export function AddUserCard() {
         <AddCircle onClick={addUser} color="primary" />
       </CardContent>
       <CardActions className="card-actions justify-center">
-        <Button variant="text" color="secondary" onClick={addUser}>Add Existing User</Button>
+        <Button variant="text" color="secondary" onClick={addUser}>
+          Add Existing User
+        </Button>
       </CardActions>
     </Card>
   )

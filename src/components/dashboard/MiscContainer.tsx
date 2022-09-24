@@ -1,5 +1,4 @@
 export function MiscContainer() {
-
   return (
     <div id="misc-container">
       <div className="legal">

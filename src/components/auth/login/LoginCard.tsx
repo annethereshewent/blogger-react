@@ -1,13 +1,13 @@
 import { Card, TextField, Divider, Button } from '@mui/material'
 import { Link, useNavigate } from 'react-router-dom'
-import { useState, } from 'react'
+import { useState } from 'react'
 import { loginUser } from '../../../util/loginUser'
 
 interface LoginCardProps {
   openRegisterModal: () => void
 }
 
-export function LoginCard({openRegisterModal}: LoginCardProps) {
+export function LoginCard({ openRegisterModal }: LoginCardProps) {
   const [password, setPassword] = useState('')
   const [email, setEmail] = useState('')
   const navigate = useNavigate()
@@ -25,9 +25,9 @@ export function LoginCard({openRegisterModal}: LoginCardProps) {
 
     const isLoggedIn = await loginUser(email, password)
 
-   if (isLoggedIn) {
-    navigate('/dashboard')
-   }
+    if (isLoggedIn) {
+      navigate('/dashboard')
+    }
   }
 
   return (
@@ -41,7 +41,9 @@ export function LoginCard({openRegisterModal}: LoginCardProps) {
           onChange={handlePassword}
         />
         <div id="button-row">
-          <Button variant="contained" color="primary" type="submit" style={{width: "90%"}}>Sign In</Button>
+          <Button variant="contained" color="primary" type="submit" style={{ width: '90%' }}>
+            Sign In
+          </Button>
         </div>
         <div className="links">
           <Link className="blogger-link" to="/forgot-password">
@@ -49,7 +51,12 @@ export function LoginCard({openRegisterModal}: LoginCardProps) {
           </Link>
           <Divider />
           <div className="sign-up-link">
-            <Button variant="contained" color="secondary" style={{width: "50%"}} onClick={openRegisterModal}>
+            <Button
+              variant="contained"
+              color="secondary"
+              style={{ width: '50%' }}
+              onClick={openRegisterModal}
+            >
               Sign Up
             </Button>
           </div>

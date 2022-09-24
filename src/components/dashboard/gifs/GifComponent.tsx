@@ -1,12 +1,19 @@
-import { Card, CardContent, CircularProgress, InputAdornment, Modal, TextField } from "@mui/material"
-import { modalStyleXL } from "../../../util/modalStyles"
-import { useState } from "react"
-import { CloseButton } from "../../shared/CloseButton"
-import { SearchOutlined } from "@mui/icons-material"
-import { GifTenorService } from "../../../services/GifTenorService"
-import { GifTenorResult } from "../../../types/GifTenorResult"
-import { GifResults } from "./GifResults"
-import { Gif } from "../../../types/Gif"
+import {
+  Card,
+  CardContent,
+  CircularProgress,
+  InputAdornment,
+  Modal,
+  TextField
+} from '@mui/material'
+import { modalStyleXL } from '../../../util/modalStyles'
+import { useState } from 'react'
+import { CloseButton } from '../../shared/CloseButton'
+import { SearchOutlined } from '@mui/icons-material'
+import { GifTenorService } from '../../../services/GifTenorService'
+import { GifTenorResult } from '../../../types/GifTenorResult'
+import { GifResults } from './GifResults'
+import { Gif } from '../../../types/Gif'
 
 interface GifComponentProps {
   setGif: (gif: Gif) => void
@@ -14,18 +21,18 @@ interface GifComponentProps {
   setOpen: (open: boolean) => void
 }
 
-export function GifComponent({setGif, open, setOpen}: GifComponentProps) {
+export function GifComponent({ setGif, open, setOpen }: GifComponentProps) {
   const [gifResults, setGifResults] = useState<GifTenorResult[]>([])
   const [loading, setLoading] = useState(false)
 
-  let timeout: NodeJS.Timeout|null = null
+  let timeout: NodeJS.Timeout | null = null
 
   function handleTextChange(e: React.ChangeEvent<HTMLInputElement>) {
     if (timeout != null) {
       clearTimeout(timeout)
     }
 
-    timeout = setTimeout(async ()=> {
+    timeout = setTimeout(async () => {
       try {
         setGifResults([])
 
@@ -35,7 +42,6 @@ export function GifComponent({setGif, open, setOpen}: GifComponentProps) {
 
           setGifResults(result.data.results)
         }
-
       } catch (e) {
         // @TODO
       } finally {
@@ -50,13 +56,13 @@ export function GifComponent({setGif, open, setOpen}: GifComponentProps) {
   }
 
   return (
-    <Modal
-      open={open}
-      onClose={handleClose}
-    >
-      <Card className="gif-search-card" style={{...modalStyleXL, overflow: 'scroll', height: '400px' }}>
+    <Modal open={open} onClose={handleClose}>
+      <Card
+        className="gif-search-card"
+        style={{ ...modalStyleXL, overflow: 'scroll', height: '400px' }}
+      >
         <CardContent>
-          <CloseButton handleClose={() => setOpen(false)}/>
+          <CloseButton handleClose={() => setOpen(false)} />
           <TextField
             className="gif-search-field"
             placeholder="Search GIFS"
@@ -70,15 +76,14 @@ export function GifComponent({setGif, open, setOpen}: GifComponentProps) {
               )
             }}
           />
-          { loading && <div style={{ textAlign: 'center' }}><CircularProgress style={{ textAlign: 'center' }} color="secondary" /></div> }
-          <GifResults
-            gifResults={gifResults}
-            setGif={setGif}
-            handleClose={handleClose}
-          />
+          {loading && (
+            <div style={{ textAlign: 'center' }}>
+              <CircularProgress style={{ textAlign: 'center' }} color="secondary" />
+            </div>
+          )}
+          <GifResults gifResults={gifResults} setGif={setGif} handleClose={handleClose} />
         </CardContent>
       </Card>
     </Modal>
-
   )
 }

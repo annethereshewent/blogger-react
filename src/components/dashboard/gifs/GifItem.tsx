@@ -1,4 +1,4 @@
-import { Gif } from "../../../types/Gif"
+import { Gif } from '../../../types/Gif'
 
 interface GifItemProps {
   gif: string
@@ -7,10 +7,7 @@ interface GifItemProps {
   handleClose: () => void
 }
 
-
-export function GifItem({gif, originalGif, setGif, handleClose}: GifItemProps) {
-
-
+export function GifItem({ gif, originalGif, setGif, handleClose }: GifItemProps) {
   function handleGifClick() {
     setGif({
       src: gif,

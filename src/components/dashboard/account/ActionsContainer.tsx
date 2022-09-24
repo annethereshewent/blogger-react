@@ -1,16 +1,21 @@
-import { IconButton } from "@mui/material"
-import { HomeOutlined, MailOutline, NotificationsOutlined, PersonOutlined, SearchOutlined } from '@mui/icons-material'
-import { UserAccounts } from "./UserAccounts"
-import { User } from "../../../types/User"
-import { AccountMenu } from "./AccountMenu"
-import { useRef, useState } from "react"
+import { IconButton } from '@mui/material'
+import {
+  HomeOutlined,
+  MailOutline,
+  NotificationsOutlined,
+  PersonOutlined,
+  SearchOutlined
+} from '@mui/icons-material'
+import { UserAccounts } from './UserAccounts'
+import { User } from '../../../types/User'
+import { AccountMenu } from './AccountMenu'
+import { useRef, useState } from 'react'
 
 interface ActionsContainerProps {
   user: User
 }
 
-export function ActionsContainer({user}: ActionsContainerProps) {
-
+export function ActionsContainer({ user }: ActionsContainerProps) {
   const anchorRef = useRef<HTMLDivElement>(null)
   const [open, setOpen] = useState(false)
 
@@ -55,17 +60,9 @@ export function ActionsContainer({user}: ActionsContainerProps) {
       </div>
       <div className="user-accounts-wrapper">
         <div ref={anchorRef} onClick={handleMenuClick}>
-          <UserAccounts
-            user={user}
-            setOpen={setOpen}
-            open={open}
-          />
+          <UserAccounts user={user} setOpen={setOpen} open={open} />
         </div>
-        <AccountMenu
-          anchorRef={anchorRef}
-          open={open}
-          setOpen={setOpen}
-        />
+        <AccountMenu anchorRef={anchorRef} open={open} setOpen={setOpen} />
       </div>
     </div>
   )

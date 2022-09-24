@@ -1,12 +1,11 @@
-import { Box, Button, Grid } from "@mui/material"
-import { Post } from "../../types/Post"
-import { User } from "../../types/User"
-import { ActionsContainer } from "./account/ActionsContainer"
-import { DashboardHeader } from "./DashboardHeader"
-import { MiscContainer } from "./MiscContainer"
-import { PostField } from "./posts/PostField"
-import { PostsContainer } from "./posts/PostsContainer"
-
+import { Box, Button, Grid } from '@mui/material'
+import { Post } from '../../types/Post'
+import { User } from '../../types/User'
+import { ActionsContainer } from './account/ActionsContainer'
+import { DashboardHeader } from './DashboardHeader'
+import { MiscContainer } from './MiscContainer'
+import { PostField } from './posts/PostField'
+import { PostsContainer } from './posts/PostsContainer'
 
 interface DashboardContainerProps {
   user: User
@@ -15,7 +14,12 @@ interface DashboardContainerProps {
   setPosts: (posts: Post[]) => void
 }
 
-export function DashboardContainer({ user, posts, setOpenPostModal, setPosts }: DashboardContainerProps) {
+export function DashboardContainer({
+  user,
+  posts,
+  setOpenPostModal,
+  setPosts
+}: DashboardContainerProps) {
   function openPostModal() {
     setOpenPostModal(true)
   }
@@ -26,17 +30,19 @@ export function DashboardContainer({ user, posts, setOpenPostModal, setPosts }: 
       <Grid className="dashboard-body" container>
         <Grid className="dashboard-column actions-column" item xs={1} lg={3}>
           <ActionsContainer user={user} />
-          <Button className="post-button" type="button" fullWidth  variant="contained" onClick={openPostModal}>CREATE</Button>
+          <Button
+            className="post-button"
+            type="button"
+            fullWidth
+            variant="contained"
+            onClick={openPostModal}
+          >
+            CREATE
+          </Button>
         </Grid>
-        <Grid className="dashboard-column posts-column" item xs={11} md={8} lg={6} >
-          <PostField
-            posts={posts}
-            setPosts={setPosts}
-            avatar={user.avatars.small}
-          />
-          <PostsContainer
-            posts={posts}
-          />
+        <Grid className="dashboard-column posts-column" item xs={11} md={8} lg={6}>
+          <PostField posts={posts} setPosts={setPosts} avatar={user.avatars.small} />
+          <PostsContainer posts={posts} />
         </Grid>
         <Grid className="dashboard-column misc-column" item xs={1} lg={3}>
           <MiscContainer />

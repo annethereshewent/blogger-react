@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
-import { User } from "../../types/User"
-import { DashboardService } from "../../services/DashboardService"
-import { CircularProgress, Grid } from "@mui/material"
+import { User } from '../../types/User'
+import { DashboardService } from '../../services/DashboardService'
+import { CircularProgress } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 import { ConfirmationModal } from './ConfirmationModal'
 import { AvatarModal } from './avatar/AvatarModal'
@@ -95,16 +95,8 @@ export function Dashboard() {
         posts={posts}
         setPosts={setPosts}
       />
-      <ConfirmationModal
-        user={user}
-        open={openConfirmation}
-        setOpen={setOpenConfirmation}
-      />
-      <AvatarModal
-        open={openAvatar}
-        setOpen={setOpenAvatar}
-        setUser={setUser}
-      />
+      <ConfirmationModal user={user} open={openConfirmation} setOpen={setOpenConfirmation} />
+      <AvatarModal open={openAvatar} setOpen={setOpenAvatar} setUser={setUser} />
       <PostModal
         open={openPostModal}
         avatar={user.avatars.small}

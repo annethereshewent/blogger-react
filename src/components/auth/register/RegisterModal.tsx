@@ -8,7 +8,7 @@ import { CloseButton } from '../../shared/CloseButton'
 import { modalStyle } from '../../../util/modalStyles'
 
 interface RegisterModalProps {
-  openRegister: boolean,
+  openRegister: boolean
   setOpenRegister: (active: boolean) => void
   setOpenConfirmation: (active: boolean) => void
   onChangeEmail: (email: string) => void
@@ -16,7 +16,14 @@ interface RegisterModalProps {
   onFinishRegister: () => void
 }
 
-export function RegisterModal({openRegister, setOpenRegister, setOpenConfirmation, onChangeEmail, onChangePassword, onFinishRegister}: RegisterModalProps) {
+export function RegisterModal({
+  openRegister,
+  setOpenRegister,
+  setOpenConfirmation,
+  onChangeEmail,
+  onChangePassword,
+  onFinishRegister
+}: RegisterModalProps) {
   const [email, setEmail] = useState('')
   const [username, setUsername] = useState('')
   const [gender, setGender] = useState('')
@@ -66,11 +73,20 @@ export function RegisterModal({openRegister, setOpenRegister, setOpenConfirmatio
     setOpenRegister(false)
   }
 
-  const userAlert = (<Alert severity="error" key="username-alert">Username length is less than 4 characters.</Alert>)
-  const emailAlert = (<Alert severity="error" key="email-alert">Email address is invalid.</Alert>)
+  const userAlert = (
+    <Alert severity="error" key="username-alert">
+      Username length is less than 4 characters.
+    </Alert>
+  )
+  const emailAlert = (
+    <Alert severity="error" key="email-alert">
+      Email address is invalid.
+    </Alert>
+  )
 
   /** See: https://stackoverflow.com/questions/201323/how-can-i-validate-an-email-address-using-a-regular-expression?page=1&tab=scoredesc */
-  const emailRegex = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/
+  const emailRegex =
+    /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
@@ -98,7 +114,7 @@ export function RegisterModal({openRegister, setOpenRegister, setOpenConfirmatio
       return
     }
 
-    switch(buttonTxt) {
+    switch (buttonTxt) {
       case 'Next':
         setContainer(passwordContainer)
         setButtonTxt('Finish')
@@ -123,18 +139,13 @@ export function RegisterModal({openRegister, setOpenRegister, setOpenConfirmatio
   }
 
   return (
-    <Modal
-      open={openRegister}
-      onClose={handleClose}
-    >
+    <Modal open={openRegister} onClose={handleClose}>
       <Card id="register-modal" style={modalStyle}>
         <form onSubmit={handleSubmit}>
           <CardContent>
             <CloseButton handleClose={handleClose} />
-            { alerts.map((alert) => (
-              alert
-            ))}
-            { currentContainer }
+            {alerts.map((alert) => alert)}
+            {currentContainer}
           </CardContent>
           <CardActions>
             <div className="button-row">

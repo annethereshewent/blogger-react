@@ -1,7 +1,6 @@
 import '../../styles/logo.scss'
 
 export function DashboardLogo() {
-
   return (
     <div>
       <h1 id="title" className="dashboard">
@@ -10,7 +9,7 @@ export function DashboardLogo() {
         <span className="bracket">]</span>
         <span className="period">.</span>
       </h1>
-      <div style={{clear: 'right'}} />
+      <div style={{ clear: 'right' }} />
     </div>
   )
 }
