@@ -44,11 +44,11 @@ export function Dashboard() {
       setUser(data.user)
     } catch (e: any) {
       // navigate back to the dashboard if status is 401
-      if (e.response.status == 401) {
+      if (e.response.status === 401) {
         localStorage.removeItem('apiToken')
         navigate('/')
       }
-      if (e.response?.status == 400 && e.response?.data?.code == CODE_NOT_CONFIRMED) {
+      if (e.response?.status === 400 && e.response?.data?.code === CODE_NOT_CONFIRMED) {
         setUser(e.response?.data?.user)
         setOpenConfirmation(true)
       }

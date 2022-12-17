@@ -6,6 +6,7 @@ import { PostAddons } from './PostAddons'
 import { GifElement } from './GifElement'
 import { PostRequest } from '../../../types/PostRequest'
 import { Gif } from '../../../types/Gif'
+import { tagRegex } from '../../../util/tagRegex'
 
 interface PostFieldProps {
   avatar: string
@@ -28,6 +29,14 @@ export function PostField({ avatar, posts, setPosts }: PostFieldProps) {
     setPost(e.target.value)
   }
 
+  // returns unique tags only
+  function parseTags(): string[] | undefined {
+    return post
+      .match(tagRegex)
+      ?.map((tag) => tag.replace('#', ''))
+      ?.filter((value, index, self) => self.indexOf(value) === index)
+  }
+
   async function submitPost() {
     try {
       setLoading(true)
@@ -39,6 +48,13 @@ export function PostField({ avatar, posts, setPosts }: PostFieldProps) {
       if (gif.src !== '') {
         postRequest.gif = gif.src
         postRequest.original_gif_url = gif.original_src
+      }
+
+      // parse any tags that might be in the post
+      const tags = parseTags()
+
+      if (tags != null) {
+        postRequest.tags = tags
       }
 
       //@TODO: handle images here

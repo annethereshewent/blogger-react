@@ -16,7 +16,16 @@ export function PostCard({ post }: PostCardProps) {
    * on the backend, optionally add it to client side
    */
   function convertPost(body: string): string {
-    return linkifyHtml(body.replace(/\n/g, '<br/>'), { target: '_blank' })
+    let bodyHtml = linkifyHtml(body.replace(/\n/g, '<br/>'), { target: '_blank' })
+
+    if (post.tags != null) {
+      for (const tag of post.tags) {
+        const tagRegex = new RegExp(`#${tag}`, 'g')
+        bodyHtml = bodyHtml.replace(tagRegex, `<a href="/tags/${tag}" target="_blank">#${tag}</a>`)
+      }
+    }
+
+    return bodyHtml
   }
 
   return (

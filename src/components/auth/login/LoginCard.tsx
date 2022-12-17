@@ -50,6 +50,7 @@ export function LoginCard({ openRegisterModal }: LoginCardProps) {
             Forgot password?
           </Link>
           <Divider />
+          {/* prettier-ignore */}
           <div className="sign-up-link">
             <Button
               variant="contained"

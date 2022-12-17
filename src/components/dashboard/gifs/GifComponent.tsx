@@ -57,6 +57,7 @@ export function GifComponent({ setGif, open, setOpen }: GifComponentProps) {
 
   return (
     <Modal open={open} onClose={handleClose}>
+      {/* prettier-ignore */}
       <Card
         className="gif-search-card"
         style={{ ...modalStyleXL, overflow: 'scroll', height: '400px' }}

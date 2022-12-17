@@ -3,4 +3,5 @@ export interface PostRequest {
   gif?: string
   original_gif_url?: string
   images?: File[]
+  tags?: string[]
 }

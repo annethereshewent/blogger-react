@@ -47,7 +47,7 @@ export function RegisterContainer({
     timer = setTimeout(async () => {
       // check if the username exists in database
       setEmailIcon(null)
-      if (e.target.value != '') {
+      if (e.target.value !== '') {
         try {
           setEmailLoading(true)
 
@@ -82,7 +82,7 @@ export function RegisterContainer({
     timer = setTimeout(async () => {
       // check if the username exists in database
       setUsernameIcon(null)
-      if (e.target.value != '') {
+      if (e.target.value !== '') {
         try {
           setUsernameLoading(true)
 

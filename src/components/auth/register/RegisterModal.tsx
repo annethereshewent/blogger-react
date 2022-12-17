@@ -149,6 +149,7 @@ export function RegisterModal({
           </CardContent>
           <CardActions>
             <div className="button-row">
+              {/* prettier-ignore */}
               <Button
                 className="register-button"
                 type="submit"

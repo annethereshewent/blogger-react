@@ -30,6 +30,7 @@ export function DashboardContainer({
       <Grid className="dashboard-body" container>
         <Grid className="dashboard-column actions-column" item xs={1} lg={3}>
           <ActionsContainer user={user} />
+          {/* prettier-ignore */}
           <Button
             className="post-button"
             type="button"

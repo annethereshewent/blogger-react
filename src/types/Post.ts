@@ -5,6 +5,7 @@ export interface Post {
   body: string
   user: User
   images: PostImage[]
+  tags?: string[]
   created_at: string
   updated_at: string
   gif: string
