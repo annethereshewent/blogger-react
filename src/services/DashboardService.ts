@@ -17,4 +17,8 @@ export class DashboardService extends BaseService {
   async fetchPosts() {
     return await this.client.get('/api/v1/users/posts')
   }
+
+  async fetchPostsByTag(tag: string) {
+    return await this.client.get(`/api/v1/users/tags/${tag}`)
+  }
 }

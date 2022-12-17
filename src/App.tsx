@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { createTheme, ThemeProvider } from '@mui/material'
 import { CssBaseline } from '@mui/material'
 import { Dashboard } from './components/dashboard/Dashboard'
+import { Tags } from './components/dashboard/tags/Tags'
 import './styles/app.scss'
 
 import '@fontsource/roboto/300.css'
@@ -41,6 +42,7 @@ function App() {
             <Route path="/" element={<Login />} />
             <Route path="/login" element={<Login />} />
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/tags/:tag" element={<Tags />} />
           </Routes>
         </BrowserRouter>
       </div>

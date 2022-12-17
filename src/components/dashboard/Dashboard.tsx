@@ -38,6 +38,7 @@ export function Dashboard() {
 
   async function getUser() {
     try {
+      setLoading(true)
       const result = await dashboardService.getUserData()
       const { data } = result
 

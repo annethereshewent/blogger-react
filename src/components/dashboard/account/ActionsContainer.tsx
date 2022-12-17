@@ -10,6 +10,7 @@ import { UserAccounts } from './UserAccounts'
 import { User } from '../../../types/User'
 import { AccountMenu } from './AccountMenu'
 import { useRef, useState } from 'react'
+import { Link } from 'react-router-dom'
 
 interface ActionsContainerProps {
   user: User
@@ -26,10 +27,12 @@ export function ActionsContainer({ user }: ActionsContainerProps) {
   return (
     <div className="actions-container">
       <div className="action">
-        <IconButton className="icon">
-          <HomeOutlined />
-          <span className="icon-text">Home</span>
-        </IconButton>
+        <Link to="/dashboard">
+          <IconButton className="icon">
+            <HomeOutlined />
+            <span className="icon-text">Home</span>
+          </IconButton>
+        </Link>
       </div>
       <div style={{ clear: 'both' }} />
       <div className="action search-action">
