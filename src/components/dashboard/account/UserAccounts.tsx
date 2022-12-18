@@ -3,7 +3,7 @@ import { Avatar, Card, CardContent, IconButton } from '@mui/material'
 import { User } from '../../../types/User'
 
 interface UserAccountsProps {
-  user: User
+  user: User | undefined
   open: boolean
   setOpen: (open: boolean) => void
 }
@@ -25,10 +25,10 @@ export function UserAccounts({ user, open, setOpen }: UserAccountsProps) {
     <div>
       <Card className="user-card">
         <CardContent className="user-card-content">
-          <Avatar src={user.avatars.small} className="avatar" />
+          <Avatar src={user?.avatars.small} className="avatar" />
           <div>
-            <strong>{formatStr(user.username)}</strong>
-            <div>{formatStr(user.email)}</div>
+            <strong>{formatStr(user?.username || '')}</strong>
+            <div>{formatStr(user?.email || '')}</div>
           </div>
           <IconButton onClick={toggleMenu}>
             <MoreHoriz />

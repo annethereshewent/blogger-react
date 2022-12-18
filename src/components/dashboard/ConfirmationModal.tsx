@@ -7,7 +7,7 @@ import { ConfirmationContent } from '../shared/ConfirmationContent'
 interface ConfirmationModalProps {
   open: boolean
   setOpen: (confirmed: boolean) => void
-  user: User
+  user: User | undefined
 }
 
 export function ConfirmationModal({ user, open, setOpen }: ConfirmationModalProps) {
@@ -16,7 +16,7 @@ export function ConfirmationModal({ user, open, setOpen }: ConfirmationModalProp
   }
 
   useEffect(() => {
-    if (!user.confirmed_at) {
+    if (user != null && !user.confirmed_at) {
       const userSocket = new UserSocket()
 
       userSocket.subscribeToUser(user.email, (confirmed) => {

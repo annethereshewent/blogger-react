@@ -13,7 +13,7 @@ import { useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 interface ActionsContainerProps {
-  user: User
+  user: User | undefined
 }
 
 export function ActionsContainer({ user }: ActionsContainerProps) {

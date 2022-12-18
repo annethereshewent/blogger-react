@@ -1,5 +1,4 @@
 import { Box, Button, Grid } from '@mui/material'
-import { useEffect, useRef, useState } from 'react'
 import { Post } from '../../types/Post'
 import { User } from '../../types/User'
 import { ActionsContainer } from './account/ActionsContainer'
@@ -9,7 +8,7 @@ import { PostField } from './posts/PostField'
 import { PostsContainer } from './posts/PostsContainer'
 
 interface DashboardContainerProps {
-  user: User
+  user: User | undefined
   setOpenPostModal: (open: boolean) => void
   posts: Post[]
   setPosts: (posts: Post[]) => void
@@ -52,7 +51,7 @@ export function DashboardContainer({
           md={8}
           lg={6}
         >
-          <PostField posts={posts} setPosts={setPosts} avatar={user.avatars.small} />
+          <PostField posts={posts} setPosts={setPosts} avatar={user?.avatars?.small || ''} />
           <PostsContainer posts={posts} fetchPosts={fetchPosts} />
         </Grid>
         <Grid className="dashboard-column misc-column" item xs={1} lg={3}>
