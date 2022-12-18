@@ -1,7 +1,7 @@
-import { CardActions, CardContent } from "@mui/material"
-import { Picture } from "../../../types/Picture"
-import { CloseButton } from "../../shared/CloseButton"
-import { AvatarUpload } from "./AvatarUpload"
+import { CardActions, CardContent } from '@mui/material'
+import { Picture } from '../../../types/Picture'
+import { CloseButton } from '../../shared/CloseButton'
+import { AvatarUpload } from './AvatarUpload'
 
 interface AvatarUploadContainerProps {
   picture: Picture
@@ -30,12 +30,14 @@ export function AvatarUploadContainer({
           <h2>Choose a profile picture</h2>
           <p>Have a selfie you'd like to share? Upload it here!</p>
         </div>
-        <AvatarUpload picture={picture} setPicture={setPicture} setDisplayEditor={setDisplayEditor} />
+        <AvatarUpload
+          picture={picture}
+          setPicture={setPicture}
+          setDisplayEditor={setDisplayEditor}
+        />
       </CardContent>
       <CardActions>
-        <div className="button-row">
-          {currentBtn}
-        </div>
+        <div className="button-row">{currentBtn}</div>
       </CardActions>
     </div>
   )

@@ -1,13 +1,13 @@
-import { Button, Card, CardActions, CardContent, Modal, Slider  } from "@mui/material"
-import { CloseButton } from "../../shared/CloseButton"
+import { Button, Card, CardActions, CardContent, Modal, Slider } from '@mui/material'
+import { CloseButton } from '../../shared/CloseButton'
 import AvatarEditor from 'react-avatar-editor'
-import { useRef, useState } from "react"
-import { Picture } from "../../../types/Picture"
-import { UserService } from "../../../services/UserService"
-import { User } from "../../../types/User"
-import { modalStyleLarge } from "../../../util/modalStyles"
-import { AvatarUploadContainer } from "./AvatarUploadContainer"
-import { AvatarEditorContainer } from "./AvatarEditorContainer"
+import { useRef, useState } from 'react'
+import { Picture } from '../../../types/Picture'
+import { UserService } from '../../../services/UserService'
+import { User } from '../../../types/User'
+import { modalStyleLarge } from '../../../util/modalStyles'
+import { AvatarUploadContainer } from './AvatarUploadContainer'
+import { AvatarEditorContainer } from './AvatarEditorContainer'
 
 interface AvatarModalProps {
   open: boolean
@@ -17,7 +17,7 @@ interface AvatarModalProps {
 
 const BASE_URL = process.env.REACT_APP_BASE_URL
 
-export function AvatarModal({open, setOpen, setUser}: AvatarModalProps) {
+export function AvatarModal({ open, setOpen, setUser }: AvatarModalProps) {
   const defaultAvatar = `${BASE_URL}/images/default_avatar.png`
 
   const editor = useRef<AvatarEditor>(null)
@@ -26,7 +26,7 @@ export function AvatarModal({open, setOpen, setUser}: AvatarModalProps) {
     zoom: 1
   })
 
-  const handleSlider = (event: Event, value: number|number[]) => {
+  const handleSlider = (event: Event, value: number | number[]) => {
     let zoom = 0
 
     if (typeof value == 'number') {
@@ -42,12 +42,16 @@ export function AvatarModal({open, setOpen, setUser}: AvatarModalProps) {
   }
 
   let currentBtn = (
-    <Button className="avatar-btn" variant="contained" color="warning" onClick={handleSkip}>Skip</Button>
+    <Button className="avatar-btn" variant="contained" color="warning" onClick={handleSkip}>
+      Skip
+    </Button>
   )
 
   if (picture.img != defaultAvatar) {
-    currentBtn =  (
-      <Button className="avatar-btn" variant="contained" color="primary" onClick={savePicture}>Save profile picture</Button>
+    currentBtn = (
+      <Button className="avatar-btn" variant="contained" color="primary" onClick={savePicture}>
+        Save profile picture
+      </Button>
     )
   }
 
@@ -68,7 +72,6 @@ export function AvatarModal({open, setOpen, setUser}: AvatarModalProps) {
     setDisplayEditor(false)
   }
 
-
   async function savePicture() {
     if (typeof picture.img == 'string') {
       const result = await new UserService().updateAvatar(picture.img)
@@ -88,12 +91,9 @@ export function AvatarModal({open, setOpen, setUser}: AvatarModalProps) {
   }
 
   return (
-    <Modal
-      open={open}
-      onClose={handleClose}
-    >
+    <Modal open={open} onClose={handleClose}>
       <Card id="avatar-modal" style={modalStyleLarge}>
-        { displayEditor &&
+        {displayEditor && (
           <AvatarEditorContainer
             handleClose={handleClose}
             picture={picture}
@@ -101,9 +101,8 @@ export function AvatarModal({open, setOpen, setUser}: AvatarModalProps) {
             editor={editor}
             updateAvatar={updateAvatar}
           />
-        }
-        {
-          !displayEditor &&
+        )}
+        {!displayEditor && (
           <AvatarUploadContainer
             picture={picture}
             setPicture={setPicture}
@@ -111,7 +110,7 @@ export function AvatarModal({open, setOpen, setUser}: AvatarModalProps) {
             setDisplayEditor={setDisplayEditor}
             currentBtn={currentBtn}
           />
-        }
+        )}
       </Card>
     </Modal>
   )

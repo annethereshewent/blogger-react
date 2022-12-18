@@ -1,8 +1,8 @@
-import { IconButton } from "@mui/material"
-import { useEffect, useRef, useState } from "react"
-import { CameraAltOutlined }  from '@mui/icons-material'
+import { IconButton } from '@mui/material'
+import { useEffect, useRef, useState } from 'react'
+import { CameraAltOutlined } from '@mui/icons-material'
 import { CloseOutlined } from '@mui/icons-material'
-import { Picture } from "../../../types/Picture"
+import { Picture } from '../../../types/Picture'
 
 const BASE_URL = process.env.REACT_APP_BASE_URL
 
@@ -18,7 +18,6 @@ export function AvatarUpload({ setPicture, setDisplayEditor, picture }: AvatarUp
   const defaultAvatar = `${BASE_URL}/images/default_avatar.png`
 
   const [avatar, setAvatar] = useState(defaultAvatar)
-
 
   function handleImageClick() {
     inputFileRef?.current?.focus()
@@ -49,25 +48,24 @@ export function AvatarUpload({ setPicture, setDisplayEditor, picture }: AvatarUp
     setAvatar(avatar)
   }, [picture])
 
-
   return (
     <div>
       <div className="avatar-image-container">
         <IconButton className="camera-button" onClick={handleImageClick}>
           <CameraAltOutlined />
         </IconButton>
-        { picture.img != defaultAvatar && (
-              <IconButton className="avatar-upload-close" onClick={removeAvatar}>
-                <CloseOutlined />
-              </IconButton>
-          )
-        }
+        {picture.img != defaultAvatar && (
+          <IconButton className="avatar-upload-close" onClick={removeAvatar}>
+            <CloseOutlined />
+          </IconButton>
+        )}
         <img className="avatar-upload-image" src={avatar} />
       </div>
       <input
         type="file"
-        style={{ display: 'none '}}
+        style={{ display: 'none ' }}
         ref={inputFileRef}
+        accept=".jpg, .jpeg, .png, .bmp"
         onChange={handleFileChange}
       />
     </div>

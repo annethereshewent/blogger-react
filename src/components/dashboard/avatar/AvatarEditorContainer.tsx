@@ -1,14 +1,13 @@
-import { Button, CardActions, CardContent, Slider } from "@mui/material"
-import AvatarEditor from "react-avatar-editor"
-import { Picture } from "../../../types/Picture"
-import { CloseButton } from "../../shared/CloseButton"
-
+import { Button, CardActions, CardContent, Slider } from '@mui/material'
+import AvatarEditor from 'react-avatar-editor'
+import { Picture } from '../../../types/Picture'
+import { CloseButton } from '../../shared/CloseButton'
 
 interface AvatarEditorContainerProps {
   handleClose: () => void
   updateAvatar: () => void
   picture: Picture
-  handleSlider: (event: Event, value: number|number[]) => void
+  handleSlider: (event: Event, value: number | number[]) => void
   editor: React.RefObject<AvatarEditor>
 }
 
@@ -19,7 +18,6 @@ export function AvatarEditorContainer({
   handleSlider,
   editor
 }: AvatarEditorContainerProps) {
-
   return (
     <div className="avatar-editor">
       <CloseButton handleClose={handleClose} />
@@ -40,7 +38,6 @@ export function AvatarEditorContainer({
           rotate={0}
           scale={picture.zoom}
         />
-
       </CardContent>
       <CardActions>
         <Slider
