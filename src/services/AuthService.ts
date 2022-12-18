@@ -20,4 +20,13 @@ export class AuthService extends BaseService {
       gender
     })
   }
+
+  async refreshToken(refreshToken: string) {
+    return await this.client.post('/oauth/token', {
+      client_id: process.env.REACT_APP_CLIENT_ID,
+      client_secret: process.env.REACT_APP_CLIENT_SECRET,
+      grant_type: 'refresh_token',
+      refresh_token: refreshToken
+    })
+  }
 }

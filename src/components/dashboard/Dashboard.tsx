@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import { User } from '../../types/User'
 import { DashboardService } from '../../services/DashboardService'
-import { CircularProgress } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 import { ConfirmationModal } from './ConfirmationModal'
 import { AvatarModal } from './avatar/AvatarModal'

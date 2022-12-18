@@ -10,6 +10,7 @@ import '@fontsource/roboto/300.css'
 import '@fontsource/roboto/400.css'
 import '@fontsource/roboto/500.css'
 import '@fontsource/roboto/700.css'
+import { checkRefreshToken } from './util/checkRefreshToken'
 
 function App() {
   const theme = createTheme({
@@ -32,6 +33,8 @@ function App() {
       }
     }
   })
+
+  checkRefreshToken()
 
   return (
     <ThemeProvider theme={theme}>
