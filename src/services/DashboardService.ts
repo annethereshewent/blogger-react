@@ -21,4 +21,8 @@ export class DashboardService extends BaseService {
   async fetchPostsByTag(tag: string, page: number) {
     return await this.client.get(`/api/v1/users/tags/${tag}?page=${page}`)
   }
+
+  async uploadImages(postId: number, formData: FormData) {
+    return await this.client.post(`/api/v1/users/posts/${postId}/images`, formData)
+  }
 }

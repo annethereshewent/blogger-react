@@ -189,6 +189,14 @@ html, body, root {
     .post-card {
       padding-top: 20px;
       padding-left: 40px;
+      .images {
+        display: flex;
+        flex-wrap: wrap;
+        img {
+          border-radius: 15px;
+          margin-right: 5px;
+        }
+      }
       .post {
         .post-avatar {
           margin-top: 20px;
@@ -265,6 +273,13 @@ html, body, root {
   border-bottom: 1px solid $blogger_border_gray;
   padding-left: 40px;
   padding-top: 20px;
+  .images-row {
+    flex-wrap: wrap;
+    display: flex;
+    img {
+      border-radius: 10px;
+    }
+  }
 
   .input-area {
     .post-avatar {

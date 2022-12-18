@@ -24,6 +24,8 @@ export function PostField({ avatar, posts, setPosts }: PostFieldProps) {
     src: '',
     original_src: ''
   })
+  const [images, setImages] = useState<string[]>([])
+  const [files, setFiles] = useState<File[]>([])
 
   function handlePostChange(e: React.ChangeEvent<HTMLInputElement>) {
     setPost(e.target.value)
@@ -38,6 +40,7 @@ export function PostField({ avatar, posts, setPosts }: PostFieldProps) {
   }
 
   async function submitPost() {
+    const dashboardService = new DashboardService()
     try {
       setLoading(true)
 
@@ -57,13 +60,28 @@ export function PostField({ avatar, posts, setPosts }: PostFieldProps) {
         postRequest.tags = tags
       }
 
-      //@TODO: handle images here
-
-      const result = await new DashboardService().submitPost(postRequest)
+      const result = await dashboardService.submitPost(postRequest)
 
       const { data } = result
 
-      setPosts([data.post, ...posts])
+      let newPost = data.post
+      // finally handle images
+      if (files.length) {
+        const formData = new FormData()
+        for (let i = 0; i < files.length; i++) {
+          console.log(`appending ${files[i].name}`)
+          formData.append('files[]', files[i])
+        }
+
+        const result = await dashboardService.uploadImages(newPost.id, formData)
+        const { data } = result
+
+        newPost = data.post
+      }
+
+      setPosts([newPost, ...posts])
+      setImages([])
+      setFiles([])
     } catch (e) {
       // @ TODO: add error handling
     } finally {
@@ -109,8 +127,19 @@ export function PostField({ avatar, posts, setPosts }: PostFieldProps) {
       </div>
       <div className="images" />
       {gif.src !== '' && <GifElement src={gif.src} originalSrc={gif.original_src} />}
+      <div className="images-row">
+        {images.map((image) => (
+          <img alt="alt text" key={image} src={image} style={{ width: '45%' }} />
+        ))}
+      </div>
       <div className="post-buttons-wrapper">
-        <PostAddons setGif={setGif} />
+        <PostAddons
+          setGif={setGif}
+          setImages={setImages}
+          images={images}
+          files={files}
+          setFiles={setFiles}
+        />
         <div className="post-buttons">
           {/* prettier-ignore */}
           <Button

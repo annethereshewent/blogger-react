@@ -6,11 +6,14 @@ import { Gif } from '../../../types/Gif'
 
 interface PostAddonsProps {
   setGif: (gif: Gif) => void
+  setImages: (images: string[]) => void
+  images: string[]
+  files: File[]
+  setFiles: (files: File[]) => void
 }
 
-export function PostAddons({ setGif }: PostAddonsProps) {
+export function PostAddons({ setGif, setImages, images, files, setFiles }: PostAddonsProps) {
   const [open, setOpen] = useState(false)
-  const [previewImg, setImg] = useState('')
   const inputFileRef = useRef<HTMLInputElement>(null)
 
   function openFileUpload() {
@@ -24,7 +27,18 @@ export function PostAddons({ setGif }: PostAddonsProps) {
 
       const url = URL.createObjectURL(file)
 
-      setImg(url)
+      const newImages = [...images]
+
+      newImages.push(url)
+
+      const newFiles = [...files]
+
+      newFiles.push(file)
+
+      if (newImages.length <= 4) {
+        setImages(newImages)
+        setFiles(newFiles)
+      }
     }
   }
 
@@ -52,7 +66,6 @@ export function PostAddons({ setGif }: PostAddonsProps) {
         />
       </div>
       <GifComponent setGif={setGif} open={open} setOpen={setOpen} />
-      <img src={previewImg} />
     </div>
   )
 }

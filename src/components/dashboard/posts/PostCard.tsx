@@ -41,6 +41,11 @@ export function PostCard({ post }: PostCardProps) {
               <GifElement src={post.gif} originalSrc={post.original_gif_url} key={post.gif} />
             )}
           </div>
+          <div className="images">
+            {post.images.map((image) => (
+              <img alt="alt text" key={image} src={image} style={{ width: '45%' }} />
+            ))}
+          </div>
         </div>
       </div>
       <div className="post-actions">
