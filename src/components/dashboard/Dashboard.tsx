@@ -19,16 +19,17 @@ export function Dashboard() {
   const [loading, setLoading] = useState(false)
   const [posts, setPosts] = useState<Post[]>([])
   const [page, setPage] = useState(1)
+  const [hasMore, setHasMore] = useState(true)
 
   const navigate = useNavigate()
 
   const dashboardService = new DashboardService()
 
   async function getPosts() {
-    fetchPosts()
+    fetchPosts(setHasMore)
   }
 
-  async function fetchPosts() {
+  async function fetchPosts(setHasMore: (hasMore: boolean) => void) {
     if (!loading) {
       try {
         setLoading(true)
@@ -41,6 +42,8 @@ export function Dashboard() {
 
           setPage(page + 1)
           setPosts(concatedPosts)
+        } else {
+          setHasMore(false)
         }
       } catch (e: any) {
         console.log(e)
@@ -102,6 +105,8 @@ export function Dashboard() {
         posts={posts}
         setPosts={setPosts}
         fetchPosts={fetchPosts}
+        hasMore={hasMore}
+        setHasMore={setHasMore}
       />
       <ConfirmationModal user={user} open={openConfirmation} setOpen={setOpenConfirmation} />
       <AvatarModal open={openAvatar} setOpen={setOpenAvatar} setUser={setUser} />

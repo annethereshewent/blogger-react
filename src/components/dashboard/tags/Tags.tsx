@@ -13,6 +13,7 @@ export function Tags() {
   const [posts, setPosts] = useState<Post[]>([])
   const [loading, setLoading] = useState(false)
   const [page, setPage] = useState(1)
+  const [hasMore, setHasMore] = useState(true)
 
   const { tag } = useParams()
 
@@ -34,10 +35,10 @@ export function Tags() {
   }
 
   async function getPosts() {
-    fetchPosts()
+    fetchPosts(setHasMore)
   }
 
-  async function fetchPosts() {
+  async function fetchPosts(setHasMore: (hasMore: boolean) => void) {
     if (!loading) {
       try {
         if (tag != null) {
@@ -48,9 +49,13 @@ export function Tags() {
 
           setPage(page + 1)
 
-          const concatedPosts = posts.concat(data.posts)
+          if (data.posts.length) {
+            const concatedPosts = posts.concat(data.posts)
 
-          setPosts(concatedPosts)
+            setPosts(concatedPosts)
+          } else {
+            setHasMore(false)
+          }
         }
       } catch (e: any) {
         // @TODO: add error handling
@@ -81,6 +86,8 @@ export function Tags() {
         posts={posts}
         setPosts={setPosts}
         fetchPosts={fetchPosts}
+        hasMore={hasMore}
+        setHasMore={setHasMore}
       />
       <PostModal
         open={openPostModal}

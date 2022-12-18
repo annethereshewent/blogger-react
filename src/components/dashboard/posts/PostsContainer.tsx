@@ -5,18 +5,24 @@ import { CircularProgress } from '@mui/material'
 
 interface PostsContainerProps {
   posts: Post[]
-  fetchPosts: () => void
+  fetchPosts: (setHasMore: (hasMore: boolean) => void) => void
+  hasMore: boolean
+  setHasMore: (hasMore: boolean) => void
 }
 
-export function PostsContainer({ posts, fetchPosts }: PostsContainerProps) {
+export function PostsContainer({ posts, fetchPosts, hasMore, setHasMore }: PostsContainerProps) {
   return (
     <div id="posts-container" style={{ overflow: 'auto' }}>
       <InfiniteScroll
         dataLength={posts.length}
-        next={fetchPosts}
-        hasMore={true}
+        next={() => fetchPosts(setHasMore)}
+        hasMore={hasMore}
         scrollableTarget="scrollable-target"
-        loader={<CircularProgress />}
+        loader={
+          <div style={{ textAlign: 'center' }}>
+            <CircularProgress />
+          </div>
+        }
       >
         {posts.map((post) => (
           <PostCard key={post.id} post={post} />

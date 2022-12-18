@@ -12,7 +12,9 @@ interface DashboardContainerProps {
   setOpenPostModal: (open: boolean) => void
   posts: Post[]
   setPosts: (posts: Post[]) => void
-  fetchPosts: () => void
+  fetchPosts: (setHasMore: (hasMore: boolean) => void) => void
+  hasMore: boolean
+  setHasMore: (hasMore: boolean) => void
 }
 
 export function DashboardContainer({
@@ -20,7 +22,9 @@ export function DashboardContainer({
   posts,
   setOpenPostModal,
   setPosts,
-  fetchPosts
+  fetchPosts,
+  hasMore,
+  setHasMore
 }: DashboardContainerProps) {
   function openPostModal() {
     setOpenPostModal(true)
@@ -52,7 +56,12 @@ export function DashboardContainer({
           lg={6}
         >
           <PostField posts={posts} setPosts={setPosts} avatar={user?.avatars?.small} />
-          <PostsContainer posts={posts} fetchPosts={fetchPosts} />
+          <PostsContainer
+            posts={posts}
+            fetchPosts={fetchPosts}
+            hasMore={hasMore}
+            setHasMore={setHasMore}
+          />
         </Grid>
         <Grid className="dashboard-column misc-column" item xs={1} lg={3}>
           <MiscContainer />
