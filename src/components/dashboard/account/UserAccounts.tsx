@@ -23,18 +23,20 @@ export function UserAccounts({ user, open, setOpen }: UserAccountsProps) {
 
   return (
     <div>
-      <Card className="user-card">
-        <CardContent className="user-card-content">
-          <Avatar src={user?.avatars.small} className="avatar" />
-          <div>
-            <strong>{formatStr(user?.username || '')}</strong>
-            <div>{formatStr(user?.email || '')}</div>
-          </div>
-          <IconButton onClick={toggleMenu}>
-            <MoreHoriz />
-          </IconButton>
-        </CardContent>
-      </Card>
+      {user != null && (
+        <Card className="user-card">
+          <CardContent className="user-card-content">
+            <Avatar src={user?.avatars.small} className="avatar" />
+            <div>
+              <strong>{formatStr(user.username)}</strong>
+              <div>{formatStr(user.email)}</div>
+            </div>
+            <IconButton onClick={toggleMenu}>
+              <MoreHoriz />
+            </IconButton>
+          </CardContent>
+        </Card>
+      )}
     </div>
   )
 }

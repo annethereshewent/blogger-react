@@ -9,7 +9,7 @@ import { Gif } from '../../../types/Gif'
 import { tagRegex } from '../../../util/tagRegex'
 
 interface PostFieldProps {
-  avatar: string
+  avatar: string | undefined
   posts: Post[]
   setPosts: (posts: Post[]) => void
 }

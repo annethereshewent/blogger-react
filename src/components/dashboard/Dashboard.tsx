@@ -108,7 +108,7 @@ export function Dashboard() {
       <AvatarModal open={openAvatar} setOpen={setOpenAvatar} setUser={setUser} />
       <PostModal
         open={openPostModal}
-        avatar={user?.avatars?.small || ''}
+        avatar={user?.avatars?.small}
         setOpen={setOpenPostModal}
         posts={posts}
         setPosts={setPosts}

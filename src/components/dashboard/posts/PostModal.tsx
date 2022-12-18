@@ -7,7 +7,7 @@ import { PostField } from './PostField'
 interface PostModalProps {
   open: boolean
   setOpen: (open: boolean) => void
-  avatar: string
+  avatar: string | undefined
   posts: Post[]
   setPosts: (posts: Post[]) => void
 }

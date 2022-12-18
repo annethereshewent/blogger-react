@@ -51,7 +51,7 @@ export function DashboardContainer({
           md={8}
           lg={6}
         >
-          <PostField posts={posts} setPosts={setPosts} avatar={user?.avatars?.small || ''} />
+          <PostField posts={posts} setPosts={setPosts} avatar={user?.avatars?.small} />
           <PostsContainer posts={posts} fetchPosts={fetchPosts} />
         </Grid>
         <Grid className="dashboard-column misc-column" item xs={1} lg={3}>
