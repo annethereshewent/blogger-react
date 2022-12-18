@@ -14,11 +14,11 @@ export class DashboardService extends BaseService {
     return await this.client.post('/api/v1/users/posts', postRequest)
   }
 
-  async fetchPosts() {
-    return await this.client.get('/api/v1/users/posts')
+  async fetchPosts(page = 1) {
+    return await this.client.get(`/api/v1/users/posts?page=${page}`)
   }
 
-  async fetchPostsByTag(tag: string) {
-    return await this.client.get(`/api/v1/users/tags/${tag}`)
+  async fetchPostsByTag(tag: string, page: number) {
+    return await this.client.get(`/api/v1/users/tags/${tag}?page=${page}`)
   }
 }

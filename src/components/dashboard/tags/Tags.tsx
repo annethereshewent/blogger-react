@@ -1,6 +1,6 @@
 import { CircularProgress } from '@mui/material'
 import { useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { DashboardService } from '../../../services/DashboardService'
 import { Post } from '../../../types/Post'
 import { User } from '../../../types/User'
@@ -12,10 +12,9 @@ export function Tags() {
   const [openPostModal, setOpenPostModal] = useState(false)
   const [posts, setPosts] = useState<Post[]>([])
   const [loading, setLoading] = useState(false)
+  const [page, setPage] = useState(1)
 
   const { tag } = useParams()
-
-  const navigate = useNavigate()
 
   const dashboardService = new DashboardService()
 
@@ -35,21 +34,29 @@ export function Tags() {
   }
 
   async function getPosts() {
-    try {
-      if (tag != null) {
-        setLoading(true)
-        const result = await dashboardService.fetchPostsByTag(tag)
+    fetchPosts()
+  }
 
-        const { data } = result
+  async function fetchPosts() {
+    if (!loading) {
+      try {
+        if (tag != null) {
+          setLoading(true)
+          const result = await dashboardService.fetchPostsByTag(tag, page)
 
-        setPosts(data.posts)
-      } else {
-        setPosts([])
+          const { data } = result
+
+          setPage(page + 1)
+
+          const concatedPosts = posts.concat(data.posts)
+
+          setPosts(concatedPosts)
+        }
+      } catch (e: any) {
+        // @TODO: add error handling
+      } finally {
+        setLoading(false)
       }
-    } catch (e: any) {
-      // @TODO: add error handling
-    } finally {
-      setLoading(false)
     }
   }
 
@@ -73,6 +80,7 @@ export function Tags() {
         setOpenPostModal={setOpenPostModal}
         posts={posts}
         setPosts={setPosts}
+        fetchPosts={fetchPosts}
       />
       <PostModal
         open={openPostModal}

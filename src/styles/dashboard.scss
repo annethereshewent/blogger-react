@@ -159,7 +159,7 @@ html, body, root {
     .posts-column {
       height: 99%;
       border-right: 1px solid $blogger_border_gray;
-      overflow: scroll;
+      overflow-y: scroll;
       @media screen and (max-width: $sm) {
         border-right: none;
       }

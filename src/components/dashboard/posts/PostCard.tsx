@@ -29,7 +29,7 @@ export function PostCard({ post }: PostCardProps) {
   }
 
   return (
-    <div className="post-card">
+    <div id={`post-${post.id}`} className="post-card">
       <div className="post">
         <Avatar src={post.user.avatars.small} className="post-avatar" />
         <div className="post-wrapper">

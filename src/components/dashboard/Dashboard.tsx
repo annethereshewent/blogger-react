@@ -19,20 +19,35 @@ export function Dashboard() {
   const [openAvatar, setOpenAvatar] = useState(false)
   const [loading, setLoading] = useState(false)
   const [posts, setPosts] = useState<Post[]>([])
+  const [page, setPage] = useState(1)
 
   const navigate = useNavigate()
 
   const dashboardService = new DashboardService()
 
   async function getPosts() {
-    try {
-      const result = await dashboardService.fetchPosts()
+    fetchPosts()
+  }
 
-      const { data } = result
+  async function fetchPosts() {
+    if (!loading) {
+      try {
+        setLoading(true)
+        const result = await dashboardService.fetchPosts(page)
 
-      setPosts(data.posts)
-    } catch (e: any) {
-      // @TODO: add error handling
+        const { data } = result
+
+        if (data.posts.length) {
+          const concatedPosts = posts.concat(data.posts)
+
+          setPage(page + 1)
+          setPosts(concatedPosts)
+        }
+      } catch (e: any) {
+        console.log(e)
+      } finally {
+        setLoading(false)
+      }
     }
   }
 
@@ -95,6 +110,7 @@ export function Dashboard() {
         setOpenPostModal={setOpenPostModal}
         posts={posts}
         setPosts={setPosts}
+        fetchPosts={fetchPosts}
       />
       <ConfirmationModal user={user} open={openConfirmation} setOpen={setOpenConfirmation} />
       <AvatarModal open={openAvatar} setOpen={setOpenAvatar} setUser={setUser} />
