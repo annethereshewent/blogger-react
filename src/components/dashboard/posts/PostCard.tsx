@@ -21,7 +21,7 @@ export function PostCard({ post }: PostCardProps) {
     if (post.tags != null) {
       for (const tag of post.tags) {
         const tagRegex = new RegExp(`#${tag}\\b`, 'g')
-        bodyHtml = bodyHtml.replace(tagRegex, `<a href="/tags/${tag}">#${tag} </a>`)
+        bodyHtml = bodyHtml.replace(tagRegex, `<a href="/tags/${tag}">#${tag}</a>`)
       }
     }
 
