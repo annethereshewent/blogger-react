@@ -60,6 +60,11 @@ export function PostField({ avatar, posts, setPosts }: PostFieldProps) {
         postRequest.tags = tags
       }
 
+      if (files.length) {
+        // this lets the backend know that it's ok to have an empty post body
+        postRequest.images = true
+      }
+
       const result = await dashboardService.submitPost(postRequest)
 
       const { data } = result
@@ -147,7 +152,7 @@ export function PostField({ avatar, posts, setPosts }: PostFieldProps) {
             onClick={submitPost}
             variant="contained"
             color="success"
-            disabled={post === '' && gif.src === ''}
+            disabled={post === '' && gif.src === '' && images.length < 1}
           >
             Post
           </Button>

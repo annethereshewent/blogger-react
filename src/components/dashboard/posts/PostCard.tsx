@@ -4,6 +4,8 @@ import linkifyHtml from 'linkifyjs/lib/linkify-html'
 import { Post } from '../../../types/Post'
 import moment from 'moment'
 import { GifElement } from './GifElement'
+import { ImageModal } from './ImageModal'
+import { useState } from 'react'
 
 interface PostCardProps {
   post: Post
@@ -28,6 +30,8 @@ export function PostCard({ post }: PostCardProps) {
     return bodyHtml
   }
 
+  const [image, setImage] = useState<string | null>(null)
+
   return (
     <div id={`post-${post.id}`} className="post-card">
       <div className="post">
@@ -43,7 +47,13 @@ export function PostCard({ post }: PostCardProps) {
           </div>
           <div className="images">
             {post.images.map((image) => (
-              <img alt="alt text" key={image} src={image} style={{ width: '45%' }} />
+              <img
+                alt="alt text"
+                key={image}
+                src={image}
+                style={{ width: '45%' }}
+                onClick={() => setImage(image)}
+              />
             ))}
           </div>
         </div>
@@ -59,6 +69,7 @@ export function PostCard({ post }: PostCardProps) {
           <FavoriteOutlined />
         </IconButton>
       </div>
+      <ImageModal image={image} setImage={setImage} />
     </div>
   )
 }
