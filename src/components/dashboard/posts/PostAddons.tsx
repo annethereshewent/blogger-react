@@ -100,7 +100,7 @@ export function PostAddons({
         <EmojiPicker
           onEmojiClick={handleEmojiClick}
           theme={Theme.DARK}
-          emojiStyle={EmojiStyle.TWITTER}
+          emojiStyle={EmojiStyle.NATIVE}
           skinTonePickerLocation={SkinTonePickerLocation.SEARCH}
           skinTonesDisabled={false}
         />
