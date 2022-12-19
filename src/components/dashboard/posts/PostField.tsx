@@ -144,6 +144,8 @@ export function PostField({ avatar, posts, setPosts }: PostFieldProps) {
           images={images}
           files={files}
           setFiles={setFiles}
+          post={post}
+          setPost={setPost}
         />
         <div className="post-buttons">
           {/* prettier-ignore */}

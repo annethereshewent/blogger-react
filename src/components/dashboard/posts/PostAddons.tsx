@@ -1,8 +1,14 @@
 import { EmojiEmotionsOutlined, GifOutlined, ImageOutlined, YouTube } from '@mui/icons-material'
-import { IconButton } from '@mui/material'
+import { IconButton, Tooltip } from '@mui/material'
 import { useRef, useState } from 'react'
 import { GifComponent } from '../gifs/GifComponent'
 import { Gif } from '../../../types/Gif'
+import EmojiPicker, {
+  EmojiClickData,
+  Theme,
+  EmojiStyle,
+  SkinTonePickerLocation
+} from 'emoji-picker-react'
 
 interface PostAddonsProps {
   setGif: (gif: Gif) => void
@@ -10,10 +16,21 @@ interface PostAddonsProps {
   images: string[]
   files: File[]
   setFiles: (files: File[]) => void
+  post: string
+  setPost: (post: string) => void
 }
 
-export function PostAddons({ setGif, setImages, images, files, setFiles }: PostAddonsProps) {
+export function PostAddons({
+  setGif,
+  setImages,
+  images,
+  files,
+  setFiles,
+  post,
+  setPost
+}: PostAddonsProps) {
   const [open, setOpen] = useState(false)
+  const [openEmoji, setOpenEmoji] = useState(false)
   const inputFileRef = useRef<HTMLInputElement>(null)
 
   function openFileUpload() {
@@ -42,21 +59,34 @@ export function PostAddons({ setGif, setImages, images, files, setFiles }: PostA
     }
   }
 
+  function handleEmojiClick(e: EmojiClickData) {
+    setPost(post + e.emoji)
+    setOpenEmoji(false)
+  }
+
   return (
     <div>
       <div className="post-addons">
-        <IconButton className="item" onClick={() => openFileUpload()}>
-          <ImageOutlined />
-        </IconButton>
-        <IconButton className="item" onClick={() => setOpen(true)}>
-          <GifOutlined />
-        </IconButton>
-        <IconButton className="item">
-          <YouTube />
-        </IconButton>
-        <IconButton className="item">
-          <EmojiEmotionsOutlined />
-        </IconButton>
+        <Tooltip TransitionProps={{ timeout: 1500 }} title="image">
+          <IconButton className="item" onClick={() => openFileUpload()}>
+            <ImageOutlined />
+          </IconButton>
+        </Tooltip>
+        <Tooltip TransitionProps={{ timeout: 1500 }} title="gif">
+          <IconButton className="item" onClick={() => setOpen(true)}>
+            <GifOutlined />
+          </IconButton>
+        </Tooltip>
+        <Tooltip TransitionProps={{ timeout: 1500 }} title="youtube">
+          <IconButton className="item">
+            <YouTube />
+          </IconButton>
+        </Tooltip>
+        <Tooltip TransitionProps={{ timeout: 1500 }} title="emoji">
+          <IconButton className="item" onClick={() => setOpenEmoji(true)}>
+            <EmojiEmotionsOutlined />
+          </IconButton>
+        </Tooltip>
         <input
           type="file"
           style={{ display: 'none ' }}
@@ -66,6 +96,15 @@ export function PostAddons({ setGif, setImages, images, files, setFiles }: PostA
         />
       </div>
       <GifComponent setGif={setGif} open={open} setOpen={setOpen} />
+      {openEmoji && (
+        <EmojiPicker
+          onEmojiClick={handleEmojiClick}
+          theme={Theme.DARK}
+          emojiStyle={EmojiStyle.TWITTER}
+          skinTonePickerLocation={SkinTonePickerLocation.SEARCH}
+          skinTonesDisabled={false}
+        />
+      )}
     </div>
   )
 }
