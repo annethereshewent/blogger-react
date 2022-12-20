@@ -55,8 +55,6 @@ export function PostField({ avatar, posts, setPosts }: PostFieldProps) {
     try {
       setLoading(true)
 
-      console.log(post)
-
       const postRequest: PostRequest = {
         body: post
       }
