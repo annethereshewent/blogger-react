@@ -19,9 +19,7 @@ interface PostFieldProps {
 export function PostField({ avatar, posts, setPosts }: PostFieldProps) {
   const [post, setPost] = useState('')
   const [loading, setLoading] = useState(false)
-  const [inputProps, setInputProps] = useState<Partial<InputProps>>({
-    disableUnderline: true
-  })
+  const [inputStyles, setInputStyles] = useState({})
   const [gif, setGif] = useState<Gif>({
     src: '',
     original_src: ''
@@ -115,14 +113,14 @@ export function PostField({ avatar, posts, setPosts }: PostFieldProps) {
   }
 
   function handleFocus() {
-    setInputProps({
-      disableUnderline: false
+    setInputStyles({
+      borderBottom: '1px solid #2418cd'
     })
   }
 
   function handleBlur() {
-    setInputProps({
-      disableUnderline: true
+    setInputStyles({
+      borderBottom: 'none'
     })
   }
 
@@ -146,6 +144,7 @@ export function PostField({ avatar, posts, setPosts }: PostFieldProps) {
         /> */}
         <div
           className="post-input"
+          style={inputStyles}
           ref={editableDiv}
           contentEditable={true}
           onFocus={handleFocus}
