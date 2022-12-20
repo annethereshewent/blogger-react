@@ -5,7 +5,6 @@ import { CssBaseline } from '@mui/material'
 import { Dashboard } from './components/dashboard/Dashboard'
 import { Tags } from './components/dashboard/tags/Tags'
 import './styles/app.scss'
-
 import '@fontsource/roboto/300.css'
 import '@fontsource/roboto/400.css'
 import '@fontsource/roboto/500.css'

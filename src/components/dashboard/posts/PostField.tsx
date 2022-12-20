@@ -1,5 +1,5 @@
 import { Avatar, Button, CircularProgress, InputProps, TextField } from '@mui/material'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { DashboardService } from '../../../services/DashboardService'
 import { Post } from '../../../types/Post'
 import { PostAddons } from './PostAddons'
@@ -7,6 +7,8 @@ import { GifElement } from './GifElement'
 import { PostRequest } from '../../../types/PostRequest'
 import { Gif } from '../../../types/Gif'
 import { tagRegex } from '../../../util/tagRegex'
+import twemoji from 'twemoji'
+import { moveCaretToEnd } from '../../../util/moveCaretToEnd'
 
 interface PostFieldProps {
   avatar: string | undefined
@@ -27,8 +29,17 @@ export function PostField({ avatar, posts, setPosts }: PostFieldProps) {
   const [images, setImages] = useState<string[]>([])
   const [files, setFiles] = useState<File[]>([])
 
-  function handlePostChange(e: React.ChangeEvent<HTMLInputElement>) {
-    setPost(e.target.value)
+  const editableDiv = useRef<HTMLDivElement>(null)
+
+  function handlePostChange(e: React.ChangeEvent<HTMLDivElement>) {
+    setPost(e.currentTarget.textContent || '')
+    twemoji.parse(
+      document.body,
+      { folder: 'svg', ext: '.svg' } // This is to specify to Twemoji to use SVGs and not PNGs
+    )
+    if (editableDiv.current != null) {
+      moveCaretToEnd(editableDiv.current)
+    }
   }
 
   // returns unique tags only
@@ -43,6 +54,8 @@ export function PostField({ avatar, posts, setPosts }: PostFieldProps) {
     const dashboardService = new DashboardService()
     try {
       setLoading(true)
+
+      console.log(post)
 
       const postRequest: PostRequest = {
         body: post
@@ -85,8 +98,6 @@ export function PostField({ avatar, posts, setPosts }: PostFieldProps) {
       }
 
       setPosts([newPost, ...posts])
-      setImages([])
-      setFiles([])
     } catch (e) {
       // @ TODO: add error handling
     } finally {
@@ -95,6 +106,12 @@ export function PostField({ avatar, posts, setPosts }: PostFieldProps) {
         src: '',
         original_src: ''
       })
+      setImages([])
+      setFiles([])
+      if (editableDiv.current != null) {
+        editableDiv.current.innerHTML = ''
+      }
+
       setLoading(false)
     }
   }
@@ -115,7 +132,7 @@ export function PostField({ avatar, posts, setPosts }: PostFieldProps) {
     <div id="post-field">
       <div className="input-area">
         <Avatar src={avatar} className="post-avatar" />
-        <TextField
+        {/* <TextField
           onFocus={handleFocus}
           onBlur={handleBlur}
           InputProps={inputProps}
@@ -128,6 +145,15 @@ export function PostField({ avatar, posts, setPosts }: PostFieldProps) {
           variant="standard"
           placeholder="What's on your mind?"
           onChange={handlePostChange}
+        /> */}
+        <div
+          className="post-input"
+          ref={editableDiv}
+          contentEditable={true}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
+          onInput={handlePostChange}
+          placeholder="What's on your mind?"
         />
       </div>
       <div className="images" />
@@ -144,6 +170,7 @@ export function PostField({ avatar, posts, setPosts }: PostFieldProps) {
           images={images}
           files={files}
           setFiles={setFiles}
+          editableDivRef={editableDiv.current}
           post={post}
           setPost={setPost}
         />

@@ -9,6 +9,8 @@ import EmojiPicker, {
   EmojiStyle,
   SkinTonePickerLocation
 } from 'emoji-picker-react'
+import { moveCaretToEnd } from '../../../util/moveCaretToEnd'
+import twemoji from 'twemoji'
 
 interface PostAddonsProps {
   setGif: (gif: Gif) => void
@@ -16,6 +18,7 @@ interface PostAddonsProps {
   images: string[]
   files: File[]
   setFiles: (files: File[]) => void
+  editableDivRef: HTMLDivElement | null
   post: string
   setPost: (post: string) => void
 }
@@ -26,6 +29,7 @@ export function PostAddons({
   images,
   files,
   setFiles,
+  editableDivRef,
   post,
   setPost
 }: PostAddonsProps) {
@@ -60,6 +64,16 @@ export function PostAddons({
   }
 
   function handleEmojiClick(e: EmojiClickData) {
+    if (editableDivRef != null) {
+      editableDivRef.innerHTML = editableDivRef.innerHTML + e.emoji
+      editableDivRef.focus()
+
+      twemoji.parse(
+        document.body,
+        { folder: 'svg', ext: '.svg' } // This is to specify to Twemoji to use SVGs and not PNGs
+      )
+      moveCaretToEnd(editableDivRef)
+    }
     setPost(post + e.emoji)
     setOpenEmoji(false)
   }
@@ -100,7 +114,7 @@ export function PostAddons({
         <EmojiPicker
           onEmojiClick={handleEmojiClick}
           theme={Theme.DARK}
-          emojiStyle={EmojiStyle.NATIVE}
+          emojiStyle={EmojiStyle.TWITTER}
           skinTonePickerLocation={SkinTonePickerLocation.SEARCH}
           skinTonesDisabled={false}
         />

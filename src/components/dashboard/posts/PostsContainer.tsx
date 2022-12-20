@@ -2,6 +2,8 @@ import { Post } from '../../../types/Post'
 import { PostCard } from './PostCard'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { CircularProgress } from '@mui/material'
+import twemoji from 'twemoji'
+import { useEffect } from 'react'
 
 interface PostsContainerProps {
   posts: Post[]
@@ -11,6 +13,13 @@ interface PostsContainerProps {
 }
 
 export function PostsContainer({ posts, fetchPosts, hasMore, setHasMore }: PostsContainerProps) {
+  useEffect(() => {
+    twemoji.parse(
+      document.body,
+      { folder: 'svg', ext: '.svg' } // This is to specify to Twemoji to use SVGs and not PNGs
+    )
+  }, [posts])
+
   return (
     <div id="posts-container" style={{ overflow: 'auto' }}>
       <InfiniteScroll
