@@ -32,7 +32,8 @@ export function PostField({ avatar, posts, setPosts }: PostFieldProps) {
   const editableDiv = useRef<HTMLDivElement>(null)
 
   function handlePostChange(e: React.ChangeEvent<HTMLDivElement>) {
-    const emojiRegex = /\p{Extended_Pictographic}/u
+    // this will match all emojis and prevent false matches like numbers or # * (which \p${Emoji}` matches)
+    const emojiRegex = /(?=\p{Emoji})(?!\p{Number})(?!\*)(?!#)/u
     if (emojiRegex.test(e.currentTarget.innerText)) {
       if (editableDiv.current != null) {
         twemoji.parse(document.body, {
