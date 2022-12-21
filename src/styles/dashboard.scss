@@ -237,6 +237,10 @@ html, body, root {
       .liked {
         color: red;
       }
+      .like-count {
+        color: $blogger_gray_accent;
+        font-size: 12px;
+      }
       .icon-button {
         margin-right: 30%;
       }

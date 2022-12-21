@@ -98,7 +98,7 @@ export function PostCard({ post, user, setPosts, posts }: PostCardProps) {
             }
           />
         </IconButton>
-        {post.like_count > 0 && <span>{post.like_count}</span>}
+        {post.like_count > 0 && <span className="like-count">{post.like_count}</span>}
       </div>
       <ImageModal image={image} setImage={setImage} />
     </div>
