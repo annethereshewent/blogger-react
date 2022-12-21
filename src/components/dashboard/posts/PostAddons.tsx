@@ -9,8 +9,9 @@ import EmojiPicker, {
   EmojiStyle,
   SkinTonePickerLocation
 } from 'emoji-picker-react'
-import { moveCaretToEnd } from '../../../util/moveCaretToEnd'
+import { moveCaretToCurrentPos } from '../../../util/moveCaretToCurrentPos'
 import twemoji from 'twemoji'
+import { moveCaretToEnd } from '../../../util/moveCaretToEnd'
 
 interface PostAddonsProps {
   setGif: (gif: Gif) => void

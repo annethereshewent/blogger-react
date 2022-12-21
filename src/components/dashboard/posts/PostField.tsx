@@ -8,6 +8,7 @@ import { PostRequest } from '../../../types/PostRequest'
 import { Gif } from '../../../types/Gif'
 import { tagRegex } from '../../../util/tagRegex'
 import twemoji from 'twemoji'
+import { moveCaretToCurrentPos } from '../../../util/moveCaretToCurrentPos'
 import { moveCaretToEnd } from '../../../util/moveCaretToEnd'
 
 interface PostFieldProps {
@@ -30,14 +31,17 @@ export function PostField({ avatar, posts, setPosts }: PostFieldProps) {
   const editableDiv = useRef<HTMLDivElement>(null)
 
   function handlePostChange(e: React.ChangeEvent<HTMLDivElement>) {
-    twemoji.parse(
-      document.body,
-      { folder: 'svg', ext: '.svg' } // This is to specify to Twemoji to use SVGs and not PNGs
-    )
-    setPost(e.currentTarget.innerHTML || '')
-    if (editableDiv.current != null) {
-      moveCaretToEnd(editableDiv.current)
+    const emojiRegex = /\p{Emoji}/u
+    if (emojiRegex.test(e.currentTarget.innerHTML)) {
+      if (editableDiv.current != null) {
+        twemoji.parse(
+          document.body,
+          { folder: 'svg', ext: '.svg' } // This is to specify to Twemoji to use SVGs and not PNGs
+        )
+        moveCaretToEnd(editableDiv.current)
+      }
     }
+    setPost(e.currentTarget.innerHTML || '')
   }
 
   // returns unique tags only
