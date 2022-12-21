@@ -35,9 +35,6 @@ export function insertTextAtCaret(text: string) {
   sel = window.getSelection()
   if (sel?.getRangeAt && sel.rangeCount) {
     range = sel.getRangeAt(0)
-    console.log(range)
-    console.log(`inserting ${text}`)
-    console.log(document.createTextNode(text))
     range.insertNode(document.createTextNode(text))
   }
 }

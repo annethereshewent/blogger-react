@@ -90,7 +90,6 @@ export function PostField({ avatar, posts, setPosts }: PostFieldProps) {
       if (files.length) {
         const formData = new FormData()
         for (let i = 0; i < files.length; i++) {
-          console.log(`appending ${files[i].name}`)
           formData.append('files[]', files[i])
         }
 
