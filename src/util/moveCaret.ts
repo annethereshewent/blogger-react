@@ -26,4 +26,18 @@ export function moveCaretAtEmoji(div: HTMLDivElement, emojiClass: string) {
   const selection = window.getSelection()
   selection?.removeAllRanges()
   selection?.addRange(range)
+
+  element.className = 'emoji'
+}
+
+export function insertTextAtCaret(text: string) {
+  let sel, range
+  sel = window.getSelection()
+  if (sel?.getRangeAt && sel.rangeCount) {
+    range = sel.getRangeAt(0)
+    console.log(range)
+    console.log(`inserting ${text}`)
+    console.log(document.createTextNode(text))
+    range.insertNode(document.createTextNode(text))
+  }
 }

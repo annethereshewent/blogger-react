@@ -10,7 +10,7 @@ import EmojiPicker, {
   SkinTonePickerLocation
 } from 'emoji-picker-react'
 import twemoji from 'twemoji'
-import { moveCaretToEnd } from '../../../util/moveCaret'
+import { moveCaretAtEmoji, moveCaretToEnd } from '../../../util/moveCaret'
 
 interface PostAddonsProps {
   setGif: (gif: Gif) => void
@@ -21,6 +21,9 @@ interface PostAddonsProps {
   editableDivRef: HTMLDivElement | null
   post: string
   setPost: (post: string) => void
+  range?: Range
+  emojiNumber: number
+  setEmojiNumber: (num: number) => void
 }
 
 export function PostAddons({
@@ -31,7 +34,10 @@ export function PostAddons({
   setFiles,
   editableDivRef,
   post,
-  setPost
+  setPost,
+  range,
+  emojiNumber,
+  setEmojiNumber
 }: PostAddonsProps) {
   const [open, setOpen] = useState(false)
   const [openEmoji, setOpenEmoji] = useState(false)
@@ -65,14 +71,15 @@ export function PostAddons({
 
   function handleEmojiClick(e: EmojiClickData) {
     if (editableDivRef != null) {
-      editableDivRef.innerHTML = editableDivRef.innerHTML + e.emoji
       editableDivRef.focus()
+      range?.insertNode(document.createTextNode(e.emoji))
 
-      twemoji.parse(
-        document.body,
-        { folder: 'svg', ext: '.svg' } // This is to specify to Twemoji to use SVGs and not PNGs
-      )
-      moveCaretToEnd(editableDivRef)
+      twemoji.parse(document.body, {
+        folder: 'svg',
+        ext: '.svg',
+        className: `emoji emoji-${emojiNumber}`
+      })
+      moveCaretAtEmoji(editableDivRef, `emoji-${emojiNumber}`)
     }
     setPost(post + e.emoji)
     setOpenEmoji(false)

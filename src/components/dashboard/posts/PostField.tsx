@@ -27,6 +27,7 @@ export function PostField({ avatar, posts, setPosts }: PostFieldProps) {
   const [emojiNumber, setEmojiNumber] = useState(1)
   const [images, setImages] = useState<string[]>([])
   const [files, setFiles] = useState<File[]>([])
+  const [range, setRange] = useState<Range>()
 
   const editableDiv = useRef<HTMLDivElement>(null)
 
@@ -34,10 +35,11 @@ export function PostField({ avatar, posts, setPosts }: PostFieldProps) {
     const emojiRegex = /\p{Extended_Pictographic}/u
     if (emojiRegex.test(e.currentTarget.innerText)) {
       if (editableDiv.current != null) {
-        twemoji.parse(
-          document.body,
-          { folder: 'svg', ext: '.svg', className: `emoji emoji-${emojiNumber}` } // This is to specify to Twemoji to use SVGs and not PNGs
-        )
+        twemoji.parse(document.body, {
+          folder: 'svg',
+          ext: '.svg',
+          className: `emoji emoji-${emojiNumber}`
+        })
         moveCaretAtEmoji(editableDiv.current, `emoji-${emojiNumber}`)
         setEmojiNumber(emojiNumber + 1)
       }
@@ -128,6 +130,13 @@ export function PostField({ avatar, posts, setPosts }: PostFieldProps) {
     setInputStyles({
       borderBottom: 'none'
     })
+
+    let selection = window.getSelection()
+    let range = selection?.getRangeAt(0)
+
+    if (range != null) {
+      setRange(range)
+    }
   }
 
   return (
@@ -176,6 +185,9 @@ export function PostField({ avatar, posts, setPosts }: PostFieldProps) {
           editableDivRef={editableDiv.current}
           post={post}
           setPost={setPost}
+          range={range}
+          emojiNumber={emojiNumber}
+          setEmojiNumber={setEmojiNumber}
         />
         <div className="post-buttons">
           {/* prettier-ignore */}
