@@ -56,12 +56,16 @@ export function DashboardContainer({
           lg={6}
         >
           <PostField posts={posts} setPosts={setPosts} avatar={user?.avatars?.small} />
-          <PostsContainer
-            posts={posts}
-            fetchPosts={fetchPosts}
-            hasMore={hasMore}
-            setHasMore={setHasMore}
-          />
+          {user && (
+            <PostsContainer
+              posts={posts}
+              fetchPosts={fetchPosts}
+              hasMore={hasMore}
+              setHasMore={setHasMore}
+              setPosts={setPosts}
+              user={user}
+            />
+          )}
         </Grid>
         <Grid className="dashboard-column misc-column" item xs={1} lg={3}>
           <MiscContainer />

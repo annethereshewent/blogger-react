@@ -25,4 +25,8 @@ export class DashboardService extends BaseService {
   async uploadImages(postId: number, formData: FormData) {
     return await this.client.post(`/api/v1/users/posts/${postId}/images`, formData)
   }
+
+  async likePost(postId: number) {
+    return await this.client.post(`api/v1/users/posts/${postId}/likes`)
+  }
 }

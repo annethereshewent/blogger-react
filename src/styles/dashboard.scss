@@ -234,6 +234,9 @@ html, body, root {
     .post-actions {
       margin-top: 20px;
       padding-left: 50px;
+      .liked {
+        color: red;
+      }
       .icon-button {
         margin-right: 30%;
       }

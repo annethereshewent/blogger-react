@@ -4,15 +4,25 @@ import InfiniteScroll from 'react-infinite-scroll-component'
 import { CircularProgress } from '@mui/material'
 import twemoji from 'twemoji'
 import { useEffect } from 'react'
+import { User } from '../../../types/User'
 
 interface PostsContainerProps {
+  user: User
   posts: Post[]
+  setPosts: (posts: Post[]) => void
   fetchPosts: (setHasMore: (hasMore: boolean) => void) => void
   hasMore: boolean
   setHasMore: (hasMore: boolean) => void
 }
 
-export function PostsContainer({ posts, fetchPosts, hasMore, setHasMore }: PostsContainerProps) {
+export function PostsContainer({
+  posts,
+  fetchPosts,
+  hasMore,
+  setHasMore,
+  user,
+  setPosts
+}: PostsContainerProps) {
   useEffect(() => {
     twemoji.parse(
       document.body,
@@ -34,7 +44,7 @@ export function PostsContainer({ posts, fetchPosts, hasMore, setHasMore }: Posts
         }
       >
         {posts.map((post) => (
-          <PostCard key={post.id} post={post} />
+          <PostCard key={post.id} post={post} posts={posts} setPosts={setPosts} user={user} />
         ))}
       </InfiniteScroll>
     </div>

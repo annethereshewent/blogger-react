@@ -10,4 +10,10 @@ export interface Post {
   updated_at: string
   gif: string
   original_gif_url: string
+  like_count: number
+  likes: Like[]
+}
+
+interface Like {
+  username: string
 }

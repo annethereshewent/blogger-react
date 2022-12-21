@@ -36,7 +36,7 @@ export function PostField({ avatar, posts, setPosts }: PostFieldProps) {
     const emojiRegex = /(?=\p{Emoji})(?!\p{Number})(?!\*)(?!#)/u
     if (emojiRegex.test(e.currentTarget.innerText)) {
       if (editableDiv.current != null) {
-        twemoji.parse(document.body, {
+        twemoji.parse(editableDiv.current, {
           folder: 'svg',
           ext: '.svg',
           className: `emoji emoji-${emojiNumber}`

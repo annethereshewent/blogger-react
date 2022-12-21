@@ -76,7 +76,7 @@ export function PostAddons({
       editableDivRef.focus()
       range?.insertNode(document.createTextNode(e.emoji))
 
-      twemoji.parse(document.body, {
+      twemoji.parse(editableDivRef, {
         folder: 'svg',
         ext: '.svg',
         className: `emoji emoji-${emojiNumber}`

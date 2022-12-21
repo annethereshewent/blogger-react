@@ -6,12 +6,17 @@ import moment from 'moment'
 import { GifElement } from './GifElement'
 import { ImageModal } from './ImageModal'
 import { useState } from 'react'
+import { DashboardService } from '../../../services/DashboardService'
+import { User } from '../../../types/User'
 
 interface PostCardProps {
   post: Post
+  setPosts: (posts: Post[]) => void
+  posts: Post[]
+  user: User
 }
 
-export function PostCard({ post }: PostCardProps) {
+export function PostCard({ post, user, setPosts, posts }: PostCardProps) {
   /*
    * Replaces new lines with br tags and auto links urls.
    * @TODO: sanitization already happens
@@ -31,6 +36,22 @@ export function PostCard({ post }: PostCardProps) {
       return bodyHtml
     }
     return ''
+  }
+
+  async function likePost() {
+    try {
+      const result = await new DashboardService().likePost(post.id)
+
+      const postsCopy = [...posts]
+
+      const i = postsCopy.indexOf(post)
+
+      postsCopy.splice(i, 1, result.data.post)
+
+      setPosts(postsCopy)
+    } catch (e: any) {
+      console.log(e)
+    }
   }
 
   const [image, setImage] = useState<string | null>(null)
@@ -68,9 +89,16 @@ export function PostCard({ post }: PostCardProps) {
         <IconButton className="icon-button">
           <ReplyOutlined />
         </IconButton>
-        <IconButton>
-          <FavoriteOutlined />
+        <IconButton onClick={likePost}>
+          <FavoriteOutlined
+            className={
+              post.likes.filter((like) => like.username === user.username).length === 1
+                ? 'liked'
+                : ''
+            }
+          />
         </IconButton>
+        {post.like_count > 0 && <span>{post.like_count}</span>}
       </div>
       <ImageModal image={image} setImage={setImage} />
     </div>
