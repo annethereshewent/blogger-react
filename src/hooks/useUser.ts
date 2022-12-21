@@ -8,7 +8,8 @@ const CODE_NOT_CONFIRMED = 100
 export function useUser(
   setLoading: (loading: boolean) => void,
   setUser: (user: User) => void,
-  setOpenConfirmation: ((confirmation: boolean) => void) | null
+  setOpenConfirmation: ((confirmation: boolean) => void) | null,
+  isPrivate: boolean
 ) {
   const navigate = useNavigate()
   useEffect(() => {
@@ -21,9 +22,11 @@ export function useUser(
         setUser(data.user)
       } catch (e: any) {
         // navigate back to the dashboard if status is 401
-        if (e.response.status === 401) {
-          localStorage.removeItem('apiToken')
-          navigate('/')
+        if (isPrivate) {
+          if (e.response.status === 401) {
+            localStorage.removeItem('apiToken')
+            navigate('/')
+          }
         }
         if (setOpenConfirmation != null) {
           if (e.response?.status === 400 && e.response?.data?.code === CODE_NOT_CONFIRMED) {

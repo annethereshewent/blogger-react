@@ -13,7 +13,7 @@ interface PostCardProps {
   post: Post
   setPosts: (posts: Post[]) => void
   posts: Post[]
-  user: User
+  user?: User
 }
 
 export function PostCard({ post, user, setPosts, posts }: PostCardProps) {
@@ -92,7 +92,7 @@ export function PostCard({ post, user, setPosts, posts }: PostCardProps) {
         <IconButton onClick={likePost}>
           <FavoriteOutlined
             className={
-              post.likes.filter((like) => like.username === user.username).length === 1
+              post.likes.filter((like) => like.username === user?.username).length === 1
                 ? 'liked'
                 : ''
             }

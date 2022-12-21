@@ -1,4 +1,3 @@
-import { CircularProgress } from '@mui/material'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useUser } from '../../../hooks/useUser'
@@ -6,7 +5,6 @@ import { DashboardService } from '../../../services/DashboardService'
 import { Post } from '../../../types/Post'
 import { User } from '../../../types/User'
 import { DashboardContainer } from '../DashboardContainer'
-import { PostField } from '../posts/PostField'
 import { PostModal } from '../posts/PostModal'
 import { PostsContainer } from '../posts/PostsContainer'
 
@@ -26,7 +24,7 @@ export function Tags() {
     fetchPosts(setHasMore)
   }
 
-  useUser(setLoading, setUser, null)
+  useUser(setLoading, setUser, null, false)
 
   async function fetchPosts(setHasMore: (hasMore: boolean) => void) {
     if (!loading) {
@@ -61,18 +59,15 @@ export function Tags() {
 
   return (
     <div>
-      <DashboardContainer user={user} setOpenPostModal={setOpenPostModal}>
-        <PostField posts={posts} setPosts={setPosts} avatar={user?.avatars.small} />
-        {user && (
-          <PostsContainer
-            posts={posts}
-            fetchPosts={fetchPosts}
-            hasMore={hasMore}
-            setHasMore={setHasMore}
-            setPosts={setPosts}
-            user={user}
-          />
-        )}
+      <DashboardContainer user={user} setOpenPostModal={setOpenPostModal} title="Tags">
+        <PostsContainer
+          posts={posts}
+          fetchPosts={fetchPosts}
+          hasMore={hasMore}
+          setHasMore={setHasMore}
+          setPosts={setPosts}
+          user={user}
+        />
       </DashboardContainer>
       <PostModal
         open={openPostModal}

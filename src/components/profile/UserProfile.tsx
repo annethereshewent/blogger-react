@@ -1,5 +1,4 @@
 import { Box, Button, Grid } from '@mui/material'
-import { DashboardHeader } from '../dashboard/DashboardHeader'
 import '../../styles/dashboard.scss'
 import { ActionsContainer } from '../dashboard/account/ActionsContainer'
 import { PostsContainer } from '../dashboard/posts/PostsContainer'
@@ -26,11 +25,13 @@ export function UserProfile() {
     //
   }
 
-  useUser(setLoading, setUser, setOpenConfirmation)
+  useUser(setLoading, setUser, setOpenConfirmation, false)
+
+  // fetch user and posts for the profile
 
   return (
     <div>
-      <DashboardContainer user={user} setOpenPostModal={setOpenPostModal}>
+      <DashboardContainer user={user} setOpenPostModal={setOpenPostModal} title="Profile">
         {user && (
           <PostsContainer
             posts={posts}

@@ -46,7 +46,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/tags/:tag" element={<Tags />} />
-            <Route path="/profile" element={<UserProfile />} />
+            <Route path="/profile/:username" element={<UserProfile />} />
           </Routes>
         </BrowserRouter>
       </div>

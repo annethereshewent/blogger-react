@@ -7,7 +7,7 @@ import { useEffect } from 'react'
 import { User } from '../../../types/User'
 
 interface PostsContainerProps {
-  user: User
+  user?: User
   posts: Post[]
   setPosts: (posts: Post[]) => void
   fetchPosts: (setHasMore: (hasMore: boolean) => void) => void

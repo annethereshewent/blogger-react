@@ -10,11 +10,13 @@ import { PostsContainer } from './posts/PostsContainer'
 interface DashboardContainerProps {
   user: User | undefined
   setOpenPostModal: (open: boolean) => void
+  title: string
 }
 
 export function DashboardContainer({
   user,
   setOpenPostModal,
+  title,
   children
 }: React.PropsWithChildren<DashboardContainerProps>) {
   function openPostModal() {
@@ -23,20 +25,22 @@ export function DashboardContainer({
 
   return (
     <Box id="dashboard-container">
-      <DashboardHeader />
+      <DashboardHeader title={title} />
       <Grid className="dashboard-body" container>
         <Grid className="dashboard-column actions-column" item xs={1} lg={3}>
           <ActionsContainer user={user} />
           {/* prettier-ignore */}
-          <Button
-            className="post-button"
-            type="button"
-            fullWidth
-            variant="contained"
-            onClick={openPostModal}
-          >
-            CREATE
-          </Button>
+          {user && (
+            <Button
+              className="post-button"
+              type="button"
+              fullWidth
+              variant="contained"
+              onClick={openPostModal}
+            >
+              CREATE
+            </Button>
+          )}
         </Grid>
         <Grid
           id="scrollable-target"

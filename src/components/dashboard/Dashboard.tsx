@@ -54,7 +54,7 @@ export function Dashboard() {
     }
   }
 
-  useUser(setLoading, setUser, setOpenConfirmation)
+  useUser(setLoading, setUser, setOpenConfirmation, true)
 
   async function checkAvatarDialog() {
     if (user != null) {
@@ -76,7 +76,7 @@ export function Dashboard() {
 
   return (
     <div>
-      <DashboardContainer user={user} setOpenPostModal={setOpenPostModal}>
+      <DashboardContainer user={user} setOpenPostModal={setOpenPostModal} title="Home">
         <PostField posts={posts} setPosts={setPosts} avatar={user?.avatars?.small} />
         {user && (
           <PostsContainer
