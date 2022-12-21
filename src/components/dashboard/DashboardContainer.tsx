@@ -10,22 +10,13 @@ import { PostsContainer } from './posts/PostsContainer'
 interface DashboardContainerProps {
   user: User | undefined
   setOpenPostModal: (open: boolean) => void
-  posts: Post[]
-  setPosts: (posts: Post[]) => void
-  fetchPosts: (setHasMore: (hasMore: boolean) => void) => void
-  hasMore: boolean
-  setHasMore: (hasMore: boolean) => void
 }
 
 export function DashboardContainer({
   user,
-  posts,
   setOpenPostModal,
-  setPosts,
-  fetchPosts,
-  hasMore,
-  setHasMore
-}: DashboardContainerProps) {
+  children
+}: React.PropsWithChildren<DashboardContainerProps>) {
   function openPostModal() {
     setOpenPostModal(true)
   }
@@ -55,17 +46,7 @@ export function DashboardContainer({
           md={8}
           lg={6}
         >
-          <PostField posts={posts} setPosts={setPosts} avatar={user?.avatars?.small} />
-          {user && (
-            <PostsContainer
-              posts={posts}
-              fetchPosts={fetchPosts}
-              hasMore={hasMore}
-              setHasMore={setHasMore}
-              setPosts={setPosts}
-              user={user}
-            />
-          )}
+          {children}
         </Grid>
         <Grid className="dashboard-column misc-column" item xs={1} lg={3}>
           <MiscContainer />

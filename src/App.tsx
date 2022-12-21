@@ -4,6 +4,7 @@ import { createTheme, ThemeProvider } from '@mui/material'
 import { CssBaseline } from '@mui/material'
 import { Dashboard } from './components/dashboard/Dashboard'
 import { Tags } from './components/dashboard/tags/Tags'
+import { UserProfile } from './components/profile/UserProfile'
 import './styles/app.scss'
 import '@fontsource/roboto/300.css'
 import '@fontsource/roboto/400.css'
@@ -45,6 +46,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/tags/:tag" element={<Tags />} />
+            <Route path="/profile" element={<UserProfile />} />
           </Routes>
         </BrowserRouter>
       </div>

@@ -1,11 +1,14 @@
 import { CircularProgress } from '@mui/material'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import { useUser } from '../../../hooks/useUser'
 import { DashboardService } from '../../../services/DashboardService'
 import { Post } from '../../../types/Post'
 import { User } from '../../../types/User'
 import { DashboardContainer } from '../DashboardContainer'
+import { PostField } from '../posts/PostField'
 import { PostModal } from '../posts/PostModal'
+import { PostsContainer } from '../posts/PostsContainer'
 
 export function Tags() {
   const [user, setUser] = useState<User>()
@@ -19,24 +22,11 @@ export function Tags() {
 
   const dashboardService = new DashboardService()
 
-  async function getUser() {
-    try {
-      setLoading(true)
-      const result = await dashboardService.getUserData()
-      const { data } = result
-
-      setUser(data.user)
-    } catch (e: any) {
-      // navigate back to the dashboard if status is 401
-      console.log(e)
-    } finally {
-      setLoading(false)
-    }
-  }
-
   async function getPosts() {
     fetchPosts(setHasMore)
   }
+
+  useUser(setLoading, setUser, null)
 
   async function fetchPosts(setHasMore: (hasMore: boolean) => void) {
     if (!loading) {
@@ -66,32 +56,27 @@ export function Tags() {
   }
 
   useEffect(() => {
-    getUser()
     getPosts()
-  }, [])
-
-  if (loading || user == null) {
-    return (
-      <div>
-        <CircularProgress />
-      </div>
-    )
-  }
+  }, [user])
 
   return (
     <div>
-      <DashboardContainer
-        user={user}
-        setOpenPostModal={setOpenPostModal}
-        posts={posts}
-        setPosts={setPosts}
-        fetchPosts={fetchPosts}
-        hasMore={hasMore}
-        setHasMore={setHasMore}
-      />
+      <DashboardContainer user={user} setOpenPostModal={setOpenPostModal}>
+        <PostField posts={posts} setPosts={setPosts} avatar={user?.avatars.small} />
+        {user && (
+          <PostsContainer
+            posts={posts}
+            fetchPosts={fetchPosts}
+            hasMore={hasMore}
+            setHasMore={setHasMore}
+            setPosts={setPosts}
+            user={user}
+          />
+        )}
+      </DashboardContainer>
       <PostModal
         open={openPostModal}
-        avatar={user.avatars.small}
+        avatar={user?.avatars.small}
         setOpen={setOpenPostModal}
         posts={posts}
         setPosts={setPosts}

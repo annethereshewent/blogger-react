@@ -8,8 +8,9 @@ import '../../styles/dashboard.scss'
 import { DashboardContainer } from './DashboardContainer'
 import { PostModal } from './posts/PostModal'
 import { Post } from '../../types/Post'
-
-const CODE_NOT_CONFIRMED = 100
+import { useUser } from '../../hooks/useUser'
+import { PostField } from './posts/PostField'
+import { PostsContainer } from './posts/PostsContainer'
 
 export function Dashboard() {
   const [user, setUser] = useState<User>()
@@ -53,27 +54,7 @@ export function Dashboard() {
     }
   }
 
-  async function getUser() {
-    try {
-      setLoading(true)
-      const result = await dashboardService.getUserData()
-      const { data } = result
-
-      setUser(data.user)
-    } catch (e: any) {
-      // navigate back to the dashboard if status is 401
-      if (e.response.status === 401) {
-        localStorage.removeItem('apiToken')
-        navigate('/')
-      }
-      if (e.response?.status === 400 && e.response?.data?.code === CODE_NOT_CONFIRMED) {
-        setUser(e.response?.data?.user)
-        setOpenConfirmation(true)
-      }
-    } finally {
-      setLoading(false)
-    }
-  }
+  useUser(setLoading, setUser, setOpenConfirmation)
 
   async function checkAvatarDialog() {
     if (user != null) {
@@ -89,25 +70,25 @@ export function Dashboard() {
   }
 
   useEffect(() => {
-    getUser()
     getPosts()
-  }, [])
-
-  useEffect(() => {
     checkAvatarDialog()
   }, [user])
 
   return (
     <div>
-      <DashboardContainer
-        user={user}
-        setOpenPostModal={setOpenPostModal}
-        posts={posts}
-        setPosts={setPosts}
-        fetchPosts={fetchPosts}
-        hasMore={hasMore}
-        setHasMore={setHasMore}
-      />
+      <DashboardContainer user={user} setOpenPostModal={setOpenPostModal}>
+        <PostField posts={posts} setPosts={setPosts} avatar={user?.avatars?.small} />
+        {user && (
+          <PostsContainer
+            posts={posts}
+            fetchPosts={fetchPosts}
+            hasMore={hasMore}
+            setHasMore={setHasMore}
+            setPosts={setPosts}
+            user={user}
+          />
+        )}
+      </DashboardContainer>
       <ConfirmationModal user={user} open={openConfirmation} setOpen={setOpenConfirmation} />
       <AvatarModal open={openAvatar} setOpen={setOpenAvatar} setUser={setUser} />
       <PostModal
