@@ -8,8 +8,7 @@ import { PostRequest } from '../../../types/PostRequest'
 import { Gif } from '../../../types/Gif'
 import { tagRegex } from '../../../util/tagRegex'
 import twemoji from 'twemoji'
-import { moveCaretToCurrentPos } from '../../../util/moveCaretToCurrentPos'
-import { moveCaretToEnd } from '../../../util/moveCaretToEnd'
+import { moveCaretAtEmoji, moveCaretToEnd } from '../../../util/moveCaret'
 
 interface PostFieldProps {
   avatar: string | undefined
@@ -25,20 +24,22 @@ export function PostField({ avatar, posts, setPosts }: PostFieldProps) {
     src: '',
     original_src: ''
   })
+  const [emojiNumber, setEmojiNumber] = useState(1)
   const [images, setImages] = useState<string[]>([])
   const [files, setFiles] = useState<File[]>([])
 
   const editableDiv = useRef<HTMLDivElement>(null)
 
   function handlePostChange(e: React.ChangeEvent<HTMLDivElement>) {
-    const emojiRegex = /\p{Emoji}/u
-    if (emojiRegex.test(e.currentTarget.innerHTML)) {
+    const emojiRegex = /\p{Extended_Pictographic}/u
+    if (emojiRegex.test(e.currentTarget.innerText)) {
       if (editableDiv.current != null) {
         twemoji.parse(
           document.body,
-          { folder: 'svg', ext: '.svg' } // This is to specify to Twemoji to use SVGs and not PNGs
+          { folder: 'svg', ext: '.svg', className: `emoji emoji-${emojiNumber}` } // This is to specify to Twemoji to use SVGs and not PNGs
         )
-        moveCaretToEnd(editableDiv.current)
+        moveCaretAtEmoji(editableDiv.current, `emoji-${emojiNumber}`)
+        setEmojiNumber(emojiNumber + 1)
       }
     }
     setPost(e.currentTarget.innerHTML || '')
@@ -108,6 +109,7 @@ export function PostField({ avatar, posts, setPosts }: PostFieldProps) {
       })
       setImages([])
       setFiles([])
+      setEmojiNumber(1)
       if (editableDiv.current != null) {
         editableDiv.current.innerHTML = ''
       }
