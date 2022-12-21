@@ -38,3 +38,9 @@ export function insertTextAtCaret(text: string) {
     range.insertNode(document.createTextNode(text))
   }
 }
+
+export function getRange() {
+  let selection = window.getSelection()
+
+  return selection?.getRangeAt(0)
+}

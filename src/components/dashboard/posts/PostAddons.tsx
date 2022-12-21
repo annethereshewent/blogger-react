@@ -10,7 +10,7 @@ import EmojiPicker, {
   SkinTonePickerLocation
 } from 'emoji-picker-react'
 import twemoji from 'twemoji'
-import { moveCaretAtEmoji, moveCaretToEnd } from '../../../util/moveCaret'
+import { getRange, moveCaretAtEmoji, moveCaretToEnd } from '../../../util/moveCaret'
 
 interface PostAddonsProps {
   setGif: (gif: Gif) => void
@@ -22,6 +22,7 @@ interface PostAddonsProps {
   post: string
   setPost: (post: string) => void
   range?: Range
+  setRange: (range: Range) => void
   emojiNumber: number
   setEmojiNumber: (num: number) => void
 }
@@ -37,7 +38,8 @@ export function PostAddons({
   setPost,
   range,
   emojiNumber,
-  setEmojiNumber
+  setEmojiNumber,
+  setRange
 }: PostAddonsProps) {
   const [open, setOpen] = useState(false)
   const [openEmoji, setOpenEmoji] = useState(false)
@@ -80,8 +82,15 @@ export function PostAddons({
         className: `emoji emoji-${emojiNumber}`
       })
       moveCaretAtEmoji(editableDivRef, `emoji-${emojiNumber}`)
+      setPost(editableDivRef.innerHTML)
+
+      // finally set the range to where the caret currently is just in case
+      let newRange = getRange()
+
+      if (newRange != null) {
+        setRange(newRange)
+      }
     }
-    setPost(post + e.emoji)
     setOpenEmoji(false)
   }
 

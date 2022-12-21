@@ -8,7 +8,7 @@ import { PostRequest } from '../../../types/PostRequest'
 import { Gif } from '../../../types/Gif'
 import { tagRegex } from '../../../util/tagRegex'
 import twemoji from 'twemoji'
-import { moveCaretAtEmoji, moveCaretToEnd } from '../../../util/moveCaret'
+import { getRange, moveCaretAtEmoji, moveCaretToEnd } from '../../../util/moveCaret'
 
 interface PostFieldProps {
   avatar: string | undefined
@@ -130,11 +130,10 @@ export function PostField({ avatar, posts, setPosts }: PostFieldProps) {
       borderBottom: 'none'
     })
 
-    let selection = window.getSelection()
-    let range = selection?.getRangeAt(0)
+    let newRange = getRange()
 
-    if (range != null) {
-      setRange(range)
+    if (newRange != null) {
+      setRange(newRange)
     }
   }
 
@@ -142,20 +141,6 @@ export function PostField({ avatar, posts, setPosts }: PostFieldProps) {
     <div id="post-field">
       <div className="input-area">
         <Avatar src={avatar} className="post-avatar" />
-        {/* <TextField
-          onFocus={handleFocus}
-          onBlur={handleBlur}
-          InputProps={inputProps}
-          className="post-text-field"
-          multiline
-          fullWidth
-          value={post}
-          minRows={4}
-          maxRows={25}
-          variant="standard"
-          placeholder="What's on your mind?"
-          onChange={handlePostChange}
-        /> */}
         <div
           className="post-input"
           style={inputStyles}
@@ -187,6 +172,7 @@ export function PostField({ avatar, posts, setPosts }: PostFieldProps) {
           range={range}
           emojiNumber={emojiNumber}
           setEmojiNumber={setEmojiNumber}
+          setRange={setRange}
         />
         <div className="post-buttons">
           {/* prettier-ignore */}
