@@ -8,6 +8,7 @@ import { User } from '../../../types/User'
 import { modalStyleLarge } from '../../../util/modalStyles'
 import { AvatarUploadContainer } from './AvatarUploadContainer'
 import { AvatarEditorContainer } from './AvatarEditorContainer'
+import { DashboardService } from '../../../services/DashboardService'
 
 interface AvatarModalProps {
   open: boolean
@@ -58,6 +59,11 @@ export function AvatarModal({ open, setOpen, setUser }: AvatarModalProps) {
   const [displayEditor, setDisplayEditor] = useState(false)
 
   function handleClose() {
+    try {
+      new DashboardService().hideAvatarDialog()
+    } catch (e) {
+      //@TODO
+    }
     setOpen(false)
   }
 
@@ -81,7 +87,7 @@ export function AvatarModal({ open, setOpen, setUser }: AvatarModalProps) {
       if (data.user != null) {
         setUser(data.user)
       }
-
+      new DashboardService().hideAvatarDialog()
       setOpen(false)
     }
   }

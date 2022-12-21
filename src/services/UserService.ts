@@ -12,4 +12,12 @@ export class UserService extends BaseService {
   async emailExists(email: string) {
     return this.client.post('/api/v1/users/email_exists', { email })
   }
+
+  async getProfilePosts(username: string, page: number) {
+    return await this.client.get(`/api/v1/users/profile/${username}?page=${page}`)
+  }
+
+  async getUserData(username: string) {
+    return await this.client.get(`/api/v1/users/user/${username}`)
+  }
 }

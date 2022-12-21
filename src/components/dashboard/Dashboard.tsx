@@ -58,13 +58,8 @@ export function Dashboard() {
 
   async function checkAvatarDialog() {
     if (user != null) {
-      if (!user?.avatar_dialog) {
-        try {
-          await dashboardService.hideAvatarDialog()
-          setOpenAvatar(true)
-        } catch (e: any) {
-          // @TODO: add error handling
-        }
+      if (user.confirmed_at && !user?.avatar_dialog) {
+        setOpenAvatar(true)
       }
     }
   }

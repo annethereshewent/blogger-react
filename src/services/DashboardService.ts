@@ -27,6 +27,6 @@ export class DashboardService extends BaseService {
   }
 
   async likePost(postId: number) {
-    return await this.client.post(`api/v1/users/posts/${postId}/likes`)
+    return await this.client.post(`/api/v1/users/posts/${postId}/likes`)
   }
 }
