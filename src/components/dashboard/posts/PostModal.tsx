@@ -1,5 +1,5 @@
 import { Card, CardContent, Modal } from '@mui/material'
-import { Post } from '../../../types/Post'
+import { Post } from '../../../types/post/Post'
 import { modalStyleRounded } from '../../../util/modalStyles'
 import { CloseButton } from '../../shared/CloseButton'
 import { PostField } from './PostField'

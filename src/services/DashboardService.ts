@@ -1,4 +1,4 @@
-import { PostRequest } from '../types/PostRequest'
+import { PostRequest } from '../types/post/PostRequest'
 import { BaseService } from './BaseService'
 
 export class DashboardService extends BaseService {

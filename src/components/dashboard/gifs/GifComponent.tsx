@@ -11,7 +11,7 @@ import { useState } from 'react'
 import { CloseButton } from '../../shared/CloseButton'
 import { SearchOutlined } from '@mui/icons-material'
 import { GifTenorService } from '../../../services/GifTenorService'
-import { GifTenorResult } from '../../../types/GifTenorResult'
+import { GifTenorResult } from '../../../types/post/GifTenorResult'
 import { GifResults } from './GifResults'
 import { Gif } from '../../../types/post/Gif'
 

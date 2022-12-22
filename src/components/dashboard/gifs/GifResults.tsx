@@ -1,4 +1,4 @@
-import { GifTenorResult } from '../../../types/GifTenorResult'
+import { GifTenorResult } from '../../../types/post/GifTenorResult'
 import Masonry from 'react-responsive-masonry'
 import { GifItem } from './GifItem'
 import { Gif } from '../../../types/post/Gif'
