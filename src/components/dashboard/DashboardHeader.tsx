@@ -4,16 +4,20 @@ import { DashboardLogo } from './DashboardLogo'
 
 interface DashboardHeaderProps {
   title: string
+  count?: number
 }
 
-export function DashboardHeader({ title }: DashboardHeaderProps) {
+export function DashboardHeader({ title, count }: DashboardHeaderProps) {
   return (
     <Grid id="dashboard-header" container>
       <Grid className="logo-column" item xs={1} lg={3}>
         <DashboardLogo />
       </Grid>
       <Grid className="heading-column" item xs={11} md={8} lg={6}>
-        <h2 className="heading-title">{title}</h2>
+        <div className="heading-section">
+          <div className="heading-title">{title}</div>
+          {count && <div className="post-count">{count} posts</div>}
+        </div>
       </Grid>
       <Grid className="search-column" item xs={1} lg={3}>
         <TextField

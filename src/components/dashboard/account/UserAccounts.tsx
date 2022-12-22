@@ -28,7 +28,7 @@ export function UserAccounts({ user, open, setOpen }: UserAccountsProps) {
           <CardContent className="user-card-content">
             <Avatar src={user?.avatars.small} className="avatar" />
             <div>
-              <strong>{formatStr(user.username)}</strong>
+              <strong>{formatStr(user.display_name)}</strong>
               <div>{formatStr(user.email)}</div>
             </div>
             <IconButton onClick={toggleMenu}>

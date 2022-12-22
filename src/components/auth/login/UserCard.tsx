@@ -12,7 +12,7 @@ export function UserCard({ user }: UserCardProps) {
       <img src={user.avatars.medium} className="white--text align-end" alt="avatar" />
       <CardActions>
         <Button color="secondary" variant="text" onClick={login}>
-          {user.username}
+          {user.display_name}
         </Button>
       </CardActions>
     </Card>

@@ -8,12 +8,14 @@ interface DashboardContainerProps {
   user: User | undefined
   setOpenPostModal: (open: boolean) => void
   title: string
+  count?: number
 }
 
 export function DashboardContainer({
   user,
   setOpenPostModal,
   title,
+  count,
   children
 }: React.PropsWithChildren<DashboardContainerProps>) {
   function openPostModal() {
@@ -22,7 +24,7 @@ export function DashboardContainer({
 
   return (
     <Box id="dashboard-container">
-      <DashboardHeader title={title} />
+      <DashboardHeader title={title} count={count} />
       <Grid className="dashboard-body" container>
         <Grid className="dashboard-column actions-column" item xs={1} lg={3}>
           <ActionsContainer user={user} />
