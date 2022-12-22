@@ -20,12 +20,16 @@ export class UserService extends BaseService {
   async getUserData(username: string) {
     return await this.client.get(`/api/v1/users/user/${username}`)
   }
-  async saveDetails(description: string, gender: string, displayName: string) {
-    return await this.client.post('/api/v1/users/profile', {
+  async saveDetails(description: string, gender: string, displayName: string, banner?: string) {
+    const postRequest: { [key: string]: string } = {
       description,
       gender,
       display_name: displayName
-    })
+    }
+    if (banner == null) {
+      postRequest.banner = ''
+    }
+    return await this.client.post('/api/v1/users/profile', postRequest)
   }
 
   async updateBanner(bannerUrl: string) {

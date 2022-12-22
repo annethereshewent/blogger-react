@@ -8,7 +8,7 @@ export interface User {
   confirmed_at: string
   avatar_dialog: boolean
   post_count: number
-  banner: string
+  banner?: string
   join_date: string
   num_followers: number
   num_followed: number
@@ -16,8 +16,8 @@ export interface User {
 }
 
 interface UserAvatars {
-  thumb: string
-  small: string
-  medium: string
-  large: string
+  thumb?: string
+  small?: string
+  medium?: string
+  large?: string
 }

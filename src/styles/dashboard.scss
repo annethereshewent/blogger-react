@@ -420,6 +420,12 @@ html, body, root {
         top: 50%;
         left: 50%;
       }
+      .remove-banner {
+        z-index: 3;
+        position: relative;
+        top: 50%;
+        left: 55%;
+      }
     }
     .profile-details {
       position: relative;

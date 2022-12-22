@@ -1,4 +1,4 @@
-import { CameraAltOutlined } from '@mui/icons-material'
+import { CameraAltOutlined, CloseOutlined } from '@mui/icons-material'
 import {
   Button,
   FormControl,
@@ -8,8 +8,8 @@ import {
   Radio,
   RadioGroup,
   TextField,
-  Card,
-  CardContent
+  CardContent,
+  Avatar
 } from '@mui/material'
 import { useRef, useState } from 'react'
 import { UserService } from '../../services/UserService'
@@ -42,6 +42,13 @@ export function EditDetailsContainer({
     bannerRef?.current?.click()
   }
 
+  function removeBanner() {
+    const userCopy = { ...user }
+    userCopy.banner = undefined
+
+    setUser(userCopy)
+  }
+
   const bannerRef = useRef<HTMLInputElement>(null)
 
   function handleBannerChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -68,7 +75,12 @@ export function EditDetailsContainer({
 
   async function saveDetails() {
     try {
-      const result = await new UserService().saveDetails(description, gender, displayName)
+      const result = await new UserService().saveDetails(
+        description,
+        gender,
+        displayName,
+        user.banner
+      )
 
       const { data } = result
 
@@ -92,12 +104,22 @@ export function EditDetailsContainer({
         <IconButton className="edit-banner" onClick={updateBanner}>
           <CameraAltOutlined />
         </IconButton>
+        {user.banner != null && (
+          <IconButton className="remove-banner" onClick={removeBanner}>
+            <CloseOutlined />
+          </IconButton>
+        )}
         {user.banner && <img src={user.banner} className="banner-image" alt="banner" />}
       </div>
       <CardContent>
         <div className="profile-details">
           <div className="profile-avatar">
-            <img src={user.avatars.medium} className="profile-image" alt="avatar" />
+            <Avatar
+              src={user.avatars.medium}
+              sx={{ height: 'auto', marginBottom: '20px' }}
+              className="profile-image"
+              alt="avatar"
+            />
           </div>
           <form>
             <TextField
