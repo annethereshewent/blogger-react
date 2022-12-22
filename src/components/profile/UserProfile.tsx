@@ -94,7 +94,7 @@ export function UserProfile() {
             title={profileUser.display_name}
             count={profileUser.post_count}
           >
-            <ProfileHeader profileUser={profileUser} setOpen={setOpenEditProfile} />
+            <ProfileHeader profileUser={profileUser} user={user} setOpen={setOpenEditProfile} />
             <PostsContainer
               posts={posts}
               fetchPosts={fetchPosts}
@@ -113,11 +113,15 @@ export function UserProfile() {
             posts={posts}
             setPosts={setPosts}
           />
-          <EditProfileModal
-            open={openEditProfile}
-            handleClose={handleClose}
-            profileUser={profileUser}
-          />
+          {user && (
+            <EditProfileModal
+              open={openEditProfile}
+              handleClose={handleClose}
+              user={user}
+              setUser={setUser}
+              setProfileUser={setProfileUser}
+            />
+          )}
         </div>
       )}
     </div>
