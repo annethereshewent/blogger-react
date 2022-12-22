@@ -7,8 +7,7 @@ import { DashboardContainer } from '../dashboard/DashboardContainer'
 import { ConfirmationModal } from '../dashboard/ConfirmationModal'
 import { PostModal } from '../dashboard/posts/PostModal'
 import { AvatarModal } from '../dashboard/avatar/AvatarModal'
-import { Post } from '../../types/Post'
-import { DashboardService } from '../../services/DashboardService'
+import { Post } from '../../types/post/Post'
 import { useParams } from 'react-router-dom'
 import { UserService } from '../../services/UserService'
 
@@ -18,7 +17,7 @@ export function UserProfile() {
   const [openConfirmation, setOpenConfirmation] = useState(false)
   const [openPostModal, setOpenPostModal] = useState(false)
   const [posts, setPosts] = useState<Post[]>([])
-  const [hasMore, setHasMore] = useState(false)
+  const [hasMore, setHasMore] = useState(true)
   const [openAvatar, setOpenAvatar] = useState(false)
   const [page, setPage] = useState(1)
 
@@ -29,7 +28,6 @@ export function UserProfile() {
   // fetch user and posts for the profile
   useEffect(() => {
     fetchPosts(setHasMore)
-    getUser()
   }, [])
 
   async function fetchPosts(setHasMore: (hasMore: boolean) => void) {
@@ -59,34 +57,17 @@ export function UserProfile() {
     }
   }
 
-  async function getUser() {
-    try {
-      setLoading(true)
-
-      if (username != null) {
-        const result = await new UserService().getUserData(username)
-
-        setUser(result.data.user)
-      }
-    } catch (e) {
-      //@TODO
-    } finally {
-      setLoading(false)
-    }
-  }
   return (
     <div>
       <DashboardContainer user={user} setOpenPostModal={setOpenPostModal} title="Profile">
-        {user && (
-          <PostsContainer
-            posts={posts}
-            fetchPosts={fetchPosts}
-            hasMore={hasMore}
-            setHasMore={setHasMore}
-            setPosts={setPosts}
-            user={user}
-          />
-        )}
+        <PostsContainer
+          posts={posts}
+          fetchPosts={fetchPosts}
+          hasMore={hasMore}
+          setHasMore={setHasMore}
+          setPosts={setPosts}
+          user={user}
+        />
       </DashboardContainer>
       <ConfirmationModal user={user} open={openConfirmation} setOpen={setOpenConfirmation} />
       <AvatarModal open={openAvatar} setOpen={setOpenAvatar} setUser={setUser} />

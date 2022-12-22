@@ -58,9 +58,9 @@ export function AvatarModal({ open, setOpen, setUser }: AvatarModalProps) {
 
   const [displayEditor, setDisplayEditor] = useState(false)
 
-  function handleClose() {
+  async function handleClose() {
     try {
-      new DashboardService().hideAvatarDialog()
+      await new DashboardService().hideAvatarDialog()
     } catch (e) {
       //@TODO
     }
@@ -80,6 +80,7 @@ export function AvatarModal({ open, setOpen, setUser }: AvatarModalProps) {
 
   async function savePicture() {
     if (typeof picture.img == 'string') {
+      await new DashboardService().hideAvatarDialog()
       const result = await new UserService().updateAvatar(picture.img)
 
       const { data } = result
@@ -87,7 +88,7 @@ export function AvatarModal({ open, setOpen, setUser }: AvatarModalProps) {
       if (data.user != null) {
         setUser(data.user)
       }
-      new DashboardService().hideAvatarDialog()
+
       setOpen(false)
     }
   }

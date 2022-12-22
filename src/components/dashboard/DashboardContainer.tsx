@@ -1,11 +1,8 @@
 import { Box, Button, Grid } from '@mui/material'
-import { Post } from '../../types/Post'
 import { User } from '../../types/user/User'
 import { ActionsContainer } from './account/ActionsContainer'
 import { DashboardHeader } from './DashboardHeader'
 import { MiscContainer } from './MiscContainer'
-import { PostField } from './posts/PostField'
-import { PostsContainer } from './posts/PostsContainer'
 
 interface DashboardContainerProps {
   user: User | undefined

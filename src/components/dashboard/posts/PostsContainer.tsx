@@ -1,4 +1,4 @@
-import { Post } from '../../../types/Post'
+import { Post } from '../../../types/post/Post'
 import { PostCard } from './PostCard'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { CircularProgress } from '@mui/material'
