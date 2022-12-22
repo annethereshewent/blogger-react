@@ -1,5 +1,5 @@
 import { DashboardService } from '../services/DashboardService'
-import { User } from '../types/User'
+import { User } from '../types/user/User'
 import { useNavigate } from 'react-router-dom'
 import { useEffect } from 'react'
 

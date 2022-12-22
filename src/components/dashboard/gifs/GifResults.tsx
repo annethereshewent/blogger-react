@@ -1,7 +1,7 @@
 import { GifTenorResult } from '../../../types/GifTenorResult'
 import Masonry from 'react-responsive-masonry'
 import { GifItem } from './GifItem'
-import { Gif } from '../../../types/Gif'
+import { Gif } from '../../../types/post/Gif'
 
 interface GifResultsProps {
   gifResults: GifTenorResult[]

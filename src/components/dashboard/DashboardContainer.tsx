@@ -1,6 +1,6 @@
 import { Box, Button, Grid } from '@mui/material'
 import { Post } from '../../types/Post'
-import { User } from '../../types/User'
+import { User } from '../../types/user/User'
 import { ActionsContainer } from './account/ActionsContainer'
 import { DashboardHeader } from './DashboardHeader'
 import { MiscContainer } from './MiscContainer'

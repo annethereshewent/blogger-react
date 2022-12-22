@@ -1,6 +1,6 @@
 import { Button, CardActions, CardContent, Slider } from '@mui/material'
 import AvatarEditor from 'react-avatar-editor'
-import { Picture } from '../../../types/Picture'
+import { Picture } from '../../../types/user/Picture'
 import { CloseButton } from '../../shared/CloseButton'
 
 interface AvatarEditorContainerProps {

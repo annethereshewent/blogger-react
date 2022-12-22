@@ -1,7 +1,7 @@
 import '../../styles/dashboard.scss'
 import { PostsContainer } from '../dashboard/posts/PostsContainer'
 import { useEffect, useState } from 'react'
-import { User } from '../../types/User'
+import { User } from '../../types/user/User'
 import { useUser } from '../../hooks/useUser'
 import { DashboardContainer } from '../dashboard/DashboardContainer'
 import { ConfirmationModal } from '../dashboard/ConfirmationModal'

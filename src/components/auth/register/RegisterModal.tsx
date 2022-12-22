@@ -3,7 +3,7 @@ import { ReactNode, useEffect, useState } from 'react'
 import { RegisterContainer } from './RegisterContainer'
 import { PasswordContainer } from './PasswordContainer'
 import { AuthService } from '../../../services/AuthService'
-import { User } from '../../../types/User'
+import { User } from '../../../types/user/User'
 import { CloseButton } from '../../shared/CloseButton'
 import { modalStyle } from '../../../util/modalStyles'
 

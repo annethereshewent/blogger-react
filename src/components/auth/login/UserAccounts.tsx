@@ -2,7 +2,7 @@ import { Grid } from '@mui/material'
 import { UserCard } from './UserCard'
 import { AddUserCard } from './AddUserCard'
 import { useState } from 'react'
-import { User } from '../../../types/User'
+import { User } from '../../../types/user/User'
 
 export function UserAccounts() {
   const [accounts, setAccounts] = useState<User[]>([])

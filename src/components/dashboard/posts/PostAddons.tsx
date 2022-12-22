@@ -2,7 +2,7 @@ import { EmojiEmotionsOutlined, GifOutlined, ImageOutlined, YouTube } from '@mui
 import { IconButton, Tooltip } from '@mui/material'
 import { useRef, useState } from 'react'
 import { GifComponent } from '../gifs/GifComponent'
-import { Gif } from '../../../types/Gif'
+import { Gif } from '../../../types/post/Gif'
 import EmojiPicker, {
   EmojiClickData,
   Theme,

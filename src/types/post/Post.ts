@@ -1,4 +1,5 @@
-import { User } from './User'
+import { Image } from './Image'
+import { User } from '../user/User'
 
 export interface Post {
   id: number
@@ -16,9 +17,4 @@ export interface Post {
 
 interface Like {
   username: string
-}
-
-export interface Image {
-  original: string
-  preview: string
 }

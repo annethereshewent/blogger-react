@@ -4,7 +4,7 @@ import InfiniteScroll from 'react-infinite-scroll-component'
 import { CircularProgress } from '@mui/material'
 import twemoji from 'twemoji'
 import { useEffect } from 'react'
-import { User } from '../../../types/User'
+import { User } from '../../../types/user/User'
 
 interface PostsContainerProps {
   user?: User

@@ -1,5 +1,5 @@
 import { CardActions, CardContent } from '@mui/material'
-import { Picture } from '../../../types/Picture'
+import { Picture } from '../../../types/user/Picture'
 import { CloseButton } from '../../shared/CloseButton'
 import { AvatarUpload } from './AvatarUpload'
 

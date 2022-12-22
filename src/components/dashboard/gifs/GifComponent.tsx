@@ -13,7 +13,7 @@ import { SearchOutlined } from '@mui/icons-material'
 import { GifTenorService } from '../../../services/GifTenorService'
 import { GifTenorResult } from '../../../types/GifTenorResult'
 import { GifResults } from './GifResults'
-import { Gif } from '../../../types/Gif'
+import { Gif } from '../../../types/post/Gif'
 
 interface GifComponentProps {
   setGif: (gif: Gif) => void

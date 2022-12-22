@@ -1,13 +1,14 @@
 import { AddCommentRounded, FavoriteOutlined, ReplyOutlined } from '@mui/icons-material'
 import { Avatar, IconButton } from '@mui/material'
 import linkifyHtml from 'linkifyjs/lib/linkify-html'
-import { Image, Post } from '../../../types/Post'
+import { Image } from '../../../types/post/Image'
+import { Post } from '../../../types/post/Post'
 import moment from 'moment'
 import { GifElement } from './GifElement'
 import { ImageModal } from './ImageModal'
 import { useState } from 'react'
 import { DashboardService } from '../../../services/DashboardService'
-import { User } from '../../../types/User'
+import { User } from '../../../types/user/User'
 
 interface PostCardProps {
   post: Post

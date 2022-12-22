@@ -2,7 +2,7 @@ import { IconButton } from '@mui/material'
 import { useEffect, useRef, useState } from 'react'
 import { CameraAltOutlined } from '@mui/icons-material'
 import { CloseOutlined } from '@mui/icons-material'
-import { Picture } from '../../../types/Picture'
+import { Picture } from '../../../types/user/Picture'
 
 const BASE_URL = process.env.REACT_APP_BASE_URL
 

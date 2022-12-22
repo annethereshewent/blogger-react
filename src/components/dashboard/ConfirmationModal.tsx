@@ -1,6 +1,6 @@
 import { Modal } from '@mui/material'
 import { useEffect } from 'react'
-import { User } from '../../types/User'
+import { User } from '../../types/user/User'
 import { UserSocket } from '../../util/UserSocket'
 import { ConfirmationContent } from '../shared/ConfirmationContent'
 

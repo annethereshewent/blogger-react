@@ -1,6 +1,5 @@
-import { Card, CardContent, Modal } from '@mui/material'
-import { Image } from '../../../types/Post'
-import { modalStyleXL } from '../../../util/modalStyles'
+import { Modal } from '@mui/material'
+import { Image } from '../../../types/post/Image'
 
 interface ImageModalProps {
   image: Image | null

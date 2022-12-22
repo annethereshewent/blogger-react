@@ -7,7 +7,7 @@ import {
   SearchOutlined
 } from '@mui/icons-material'
 import { UserAccounts } from './UserAccounts'
-import { User } from '../../../types/User'
+import { User } from '../../../types/user/User'
 import { AccountMenu } from './AccountMenu'
 import { useRef, useState } from 'react'
 import { Link } from 'react-router-dom'

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { User } from '../../types/User'
+import { User } from '../../types/user/User'
 import { DashboardService } from '../../services/DashboardService'
 import { useNavigate } from 'react-router-dom'
 import { ConfirmationModal } from './ConfirmationModal'
