@@ -122,6 +122,46 @@ html, body, root {
   margin: auto;
   height: 100vh;
   .dashboard-body {
+    #profile-header {
+      border-bottom: 1px solid $blogger_border_gray;
+      .banner {
+        width: 100%;
+        background: $blogger_gray_accent;
+        height: 200px;
+      }
+      .profile-body {
+        .edit-profile-button {
+          margin-top: 100px;
+          margin-right: 40px;
+          float: right;
+        }
+        position: relative;
+        top: -80px;
+        left: 20px;
+        .profile-avatar {
+          z-index: 2;
+          .profile-image {
+            width: 150px;
+            border-radius: 100px;
+            border: 4px solid $blogger_background_dark;
+          }
+        }
+        .display-name {
+          font-weight: bold;
+          font-size: 20px;
+        }
+        .details {
+          color: $blogger_gray_accent;
+          font-size: 13px;
+          .joined-date {
+            .calendar-icon {
+              font-size: 16px;
+            }
+            margin-top: 10px;
+          }
+        }
+      }
+    }
     padding-top: 60px;
     height: 100%;
     .actions-column {

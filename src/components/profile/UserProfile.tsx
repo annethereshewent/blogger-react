@@ -10,6 +10,7 @@ import { AvatarModal } from '../dashboard/avatar/AvatarModal'
 import { Post } from '../../types/post/Post'
 import { useParams } from 'react-router-dom'
 import { UserService } from '../../services/UserService'
+import { ProfileHeader } from './ProfileHeader'
 
 export function UserProfile() {
   const [user, setUser] = useState<User>()
@@ -86,6 +87,7 @@ export function UserProfile() {
             title={profileUser.display_name}
             count={profileUser.post_count}
           >
+            <ProfileHeader profileUser={profileUser} />
             <PostsContainer
               posts={posts}
               fetchPosts={fetchPosts}

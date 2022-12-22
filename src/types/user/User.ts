@@ -8,6 +8,8 @@ export interface User {
   confirmed_at: string
   avatar_dialog: boolean
   post_count: number
+  banner: string
+  join_date: string
 }
 
 interface UserAvatars {
