@@ -1,8 +1,9 @@
 import { CalendarMonthOutlined } from '@mui/icons-material'
 import { User } from '../../types/user/User'
 import moment from 'moment'
-import { Button } from '@mui/material'
+import { Avatar, Button } from '@mui/material'
 import { UserService } from '../../services/UserService'
+import { useState } from 'react'
 
 interface ProfileHeaderProps {
   profileUser: User
@@ -10,6 +11,9 @@ interface ProfileHeaderProps {
   setOpen: (open: boolean) => void
   setUser: (user: User) => void
   setProfileUser: (user: User) => void
+  isFollowing: boolean
+  isFollowed: boolean
+  setIsFollowing: (following: boolean) => void
 }
 
 export function ProfileHeader({
@@ -17,8 +21,12 @@ export function ProfileHeader({
   user,
   setUser,
   setProfileUser,
-  setOpen
+  setOpen,
+  isFollowed,
+  isFollowing,
+  setIsFollowing
 }: ProfileHeaderProps) {
+  const [buttonTitle, setButtonTitle] = useState('Following')
   async function followUser() {
     try {
       const result = await new UserService().followUser(profileUser.username)
@@ -27,8 +35,25 @@ export function ProfileHeader({
 
       setUser(data.user)
       setProfileUser(data.followee)
+
+      setIsFollowing(true)
     } catch (e) {
       //@TODO
+    }
+  }
+
+  async function unfollowUser() {
+    try {
+      const result = await new UserService().unfollowUser(profileUser.username)
+
+      const { data } = result
+
+      setUser(data.user)
+      setProfileUser(data.followee)
+
+      setIsFollowing(false)
+    } catch (e) {
+      //
     }
   }
 
@@ -53,7 +78,7 @@ export function ProfileHeader({
             Edit profile
           </Button>
         )}
-        {user && user.username !== profileUser.username && (
+        {user && user.username !== profileUser.username && !isFollowing && (
           <Button
             className="follow-user-button"
             variant="contained"
@@ -63,8 +88,25 @@ export function ProfileHeader({
             Follow
           </Button>
         )}
+        {user && isFollowing && (
+          <Button
+            className="unfollow-user-button"
+            variant="outlined"
+            color={buttonTitle === 'Following' ? 'info' : 'error'}
+            onMouseLeave={() => setButtonTitle('Following')}
+            onMouseOver={() => setButtonTitle('Unfollow')}
+            onClick={unfollowUser}
+          >
+            {buttonTitle}
+          </Button>
+        )}
         <div className="profile-avatar">
-          <img src={profileUser.avatars.medium} className="profile-image" alt="avatar" />
+          <Avatar
+            src={profileUser.avatars.medium}
+            className="profile-image"
+            sx={{ height: '120px', width: '120px' }}
+            alt="avatar"
+          />
         </div>
         <div className="display-name">{profileUser.display_name}</div>
         <div className="details">

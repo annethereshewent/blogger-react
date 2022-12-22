@@ -133,7 +133,7 @@ html, body, root {
         }
       }
       .profile-body {
-        .edit-profile-button, .follow-user-button {
+        .edit-profile-button, .follow-user-button, .unfollow-user-button {
           margin-top: 100px;
           margin-right: 40px;
           float: right;
@@ -147,12 +147,6 @@ html, body, root {
         .profile-avatar {
           z-index: 2;
           .profile-image {
-            @media screen and (max-width: $lg) {
-              width: 125px;
-            }
-            width: 150px;
-            border-radius: 200px;
-
             border: 4px solid $blogger_background_dark;
           }
         }

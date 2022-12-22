@@ -35,4 +35,8 @@ export class UserService extends BaseService {
   async followUser(username: string) {
     return await this.client.post(`/api/v1/users/user/${username}/follow`)
   }
+
+  async unfollowUser(username: string) {
+    return await this.client.delete(`/api/v1/users/user/${username}/follow`)
+  }
 }

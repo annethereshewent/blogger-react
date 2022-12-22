@@ -24,6 +24,8 @@ export function UserProfile() {
   const [openAvatar, setOpenAvatar] = useState(false)
   const [page, setPage] = useState(1)
   const [openEditProfile, setOpenEditProfile] = useState(false)
+  const [isFollowing, setIsFollowing] = useState(false)
+  const [isFollowed, setIsFollowed] = useState(false)
 
   const { username } = useParams()
 
@@ -71,6 +73,8 @@ export function UserProfile() {
         const { data } = result
 
         setProfileUser(data.user)
+        setIsFollowed(data.is_followed)
+        setIsFollowing(data.is_following)
       }
     } catch (e) {
       //@TODO
@@ -100,6 +104,9 @@ export function UserProfile() {
               setUser={setUser}
               setProfileUser={setProfileUser}
               setOpen={setOpenEditProfile}
+              isFollowing={isFollowing}
+              isFollowed={isFollowed}
+              setIsFollowing={setIsFollowing}
             />
             <PostsContainer
               posts={posts}
