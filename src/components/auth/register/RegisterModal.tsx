@@ -83,10 +83,17 @@ export function RegisterModal({
       Email address is invalid.
     </Alert>
   )
+  const invalidUserAlert = (
+    <Alert severity="error" key="invalid-user-alert">
+      Username must be alphanumeric and cannot have spaces.
+    </Alert>
+  )
 
   /** See: https://stackoverflow.com/questions/201323/how-can-i-validate-an-email-address-using-a-regular-expression?page=1&tab=scoredesc */
   const emailRegex =
     /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/
+
+  const userRegex = /^[a-zA-Z][a-zA-Z0-9_-]+$/
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
@@ -101,6 +108,10 @@ export function RegisterModal({
     }
     if (!emailRegex.test(email)) {
       currentAlerts.push(emailAlert)
+      validationErrors = true
+    }
+    if (!userRegex.test(username)) {
+      currentAlerts.push(invalidUserAlert)
       validationErrors = true
     }
 

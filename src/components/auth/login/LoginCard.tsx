@@ -9,11 +9,11 @@ interface LoginCardProps {
 
 export function LoginCard({ openRegisterModal }: LoginCardProps) {
   const [password, setPassword] = useState('')
-  const [email, setEmail] = useState('')
+  const [username, setUsername] = useState('')
   const navigate = useNavigate()
 
-  function handleEmail(e: React.ChangeEvent<HTMLInputElement>) {
-    setEmail(e.target.value)
+  function handleUsername(e: React.ChangeEvent<HTMLInputElement>) {
+    setUsername(e.target.value)
   }
 
   function handlePassword(e: React.ChangeEvent<HTMLInputElement>) {
@@ -23,7 +23,7 @@ export function LoginCard({ openRegisterModal }: LoginCardProps) {
   async function login(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
 
-    const isLoggedIn = await loginUser(email, password)
+    const isLoggedIn = await loginUser(username, password)
 
     if (isLoggedIn) {
       navigate('/dashboard')
@@ -33,7 +33,7 @@ export function LoginCard({ openRegisterModal }: LoginCardProps) {
   return (
     <Card id="login-panel">
       <form onSubmit={login}>
-        <TextField label="Email" onChange={handleEmail} />
+        <TextField label="Email or username" onChange={handleUsername} />
         <TextField
           className="password-field"
           label="Password"

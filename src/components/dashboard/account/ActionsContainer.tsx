@@ -4,7 +4,8 @@ import {
   MailOutline,
   NotificationsOutlined,
   PersonOutlined,
-  SearchOutlined
+  SearchOutlined,
+  SettingsOutlined
 } from '@mui/icons-material'
 import { UserAccounts } from './UserAccounts'
 import { User } from '../../../types/user/User'
@@ -26,46 +27,58 @@ export function ActionsContainer({ user }: ActionsContainerProps) {
 
   return (
     <div className="actions-container">
-      <div className="action">
-        <Link to="/dashboard">
-          <IconButton className="icon">
-            <HomeOutlined />
-            <span className="icon-text">Home</span>
-          </IconButton>
-        </Link>
-      </div>
-      <div style={{ clear: 'both' }} />
-      <div className="action search-action">
-        <IconButton className="icon">
-          <SearchOutlined />
-        </IconButton>
-      </div>
-      <div style={{ clear: 'both' }} />
-      <div className="action">
-        <IconButton className="icon">
-          <NotificationsOutlined />
-          <span className="icon-text">Notifications</span>
-        </IconButton>
-      </div>
-      <div style={{ clear: 'both' }} />
-      <div className="action">
-        <IconButton className="icon">
-          <MailOutline />
-          <span className="icon-text">Messages</span>
-        </IconButton>
-      </div>
-      <div style={{ clear: 'both' }} />
-      <div className="action">
-        <IconButton className="icon">
-          <PersonOutlined />
-          <span className="icon-text">Profile</span>
-        </IconButton>
-      </div>
-      <div className="user-accounts-wrapper">
-        <div ref={anchorRef} onClick={handleMenuClick}>
-          <UserAccounts user={user} setOpen={setOpen} open={open} />
+      {user && (
+        <div>
+          <div className="action">
+            <Link to="/dashboard">
+              <IconButton className="icon">
+                <HomeOutlined />
+                <span className="icon-text">Home</span>
+              </IconButton>
+            </Link>
+          </div>
+          <div style={{ clear: 'both' }} />
+          <div className="action search-action">
+            <IconButton className="icon">
+              <SearchOutlined />
+            </IconButton>
+          </div>
+          <div style={{ clear: 'both' }} />
+          <div className="action">
+            <IconButton className="icon">
+              <NotificationsOutlined />
+              <span className="icon-text">Notifications</span>
+            </IconButton>
+          </div>
+          <div style={{ clear: 'both' }} />
+          <div className="action">
+            <IconButton className="icon">
+              <MailOutline />
+              <span className="icon-text">Messages</span>
+            </IconButton>
+          </div>
+          <div style={{ clear: 'both' }} />
+          <div className="action">
+            <Link to={`/profile/${user.username}`}>
+              <IconButton className="icon">
+                <PersonOutlined />
+                <span className="icon-text">Profile</span>
+              </IconButton>
+            </Link>
+          </div>
+          <div className="user-accounts-wrapper">
+            <div ref={anchorRef} onClick={handleMenuClick}>
+              <UserAccounts user={user} setOpen={setOpen} open={open} />
+            </div>
+            <AccountMenu anchorRef={anchorRef} open={open} setOpen={setOpen} />
+          </div>
         </div>
-        <AccountMenu anchorRef={anchorRef} open={open} setOpen={setOpen} />
+      )}
+      <div className="action">
+        <IconButton className="icon">
+          <SettingsOutlined />
+          <span className="icon-text">Settings</span>
+        </IconButton>
       </div>
     </div>
   )

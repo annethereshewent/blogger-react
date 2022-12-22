@@ -22,7 +22,7 @@ export function PostModal({ open, setOpen, avatar, posts, setPosts }: PostModalP
       <Card id="post-modal" style={modalStyleRounded}>
         <CloseButton handleClose={onClose} />
         <CardContent>
-          <PostField avatar={avatar} posts={posts} setPosts={setPosts} />
+          <PostField avatar={avatar} posts={posts} setPosts={setPosts} setOpen={setOpen} />
         </CardContent>
       </Card>
     </Modal>

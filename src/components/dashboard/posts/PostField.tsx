@@ -14,9 +14,10 @@ interface PostFieldProps {
   avatar: string | undefined
   posts: Post[]
   setPosts: (posts: Post[]) => void
+  setOpen?: (open: boolean) => void
 }
 
-export function PostField({ avatar, posts, setPosts }: PostFieldProps) {
+export function PostField({ avatar, posts, setPosts, setOpen }: PostFieldProps) {
   const [post, setPost] = useState('')
   const [loading, setLoading] = useState(false)
   const [inputStyles, setInputStyles] = useState({})
@@ -114,6 +115,10 @@ export function PostField({ avatar, posts, setPosts }: PostFieldProps) {
       setEmojiNumber(1)
       if (editableDiv.current != null) {
         editableDiv.current.innerHTML = ''
+      }
+
+      if (setOpen != null) {
+        setOpen(false)
       }
 
       setLoading(false)
