@@ -33,7 +33,7 @@ export function UserProfile() {
   useEffect(() => {
     fetchPosts(setHasMore)
     getUser()
-  }, [])
+  }, [username])
 
   async function fetchPosts(setHasMore: (hasMore: boolean) => void) {
     if (!loading) {
