@@ -68,12 +68,7 @@ export function EditDetailsContainer({
 
   async function saveDetails() {
     try {
-      const result = await new UserService().saveDetails(
-        user.username,
-        description,
-        gender,
-        displayName
-      )
+      const result = await new UserService().saveDetails(description, gender, displayName)
 
       const { data } = result
 
@@ -93,13 +88,13 @@ export function EditDetailsContainer({
       <Button className="save-button" variant="contained" color="success" onClick={saveDetails}>
         Save
       </Button>
+      <div className="banner">
+        <IconButton className="edit-banner" onClick={updateBanner}>
+          <CameraAltOutlined />
+        </IconButton>
+        {user.banner && <img src={user.banner} className="banner-image" alt="banner" />}
+      </div>
       <CardContent>
-        <div className="banner">
-          <IconButton className="edit-banner" onClick={updateBanner}>
-            <CameraAltOutlined />
-          </IconButton>
-          {user.banner && <img src={user.banner} className="banner-image" alt="banner" />}
-        </div>
         <div className="profile-details">
           <div className="profile-avatar">
             <img src={user.avatars.medium} className="profile-image" alt="avatar" />

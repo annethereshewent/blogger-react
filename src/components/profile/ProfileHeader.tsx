@@ -12,7 +12,10 @@ interface ProfileHeaderProps {
 export function ProfileHeader({ profileUser, user, setOpen }: ProfileHeaderProps) {
   return (
     <div id="profile-header">
-      <div className="banner">
+      <div
+        className="banner"
+        style={{ background: profileUser.banner == null ? 'rgb(113, 118, 123)' : 'none' }}
+      >
         {profileUser?.banner && (
           <img className="banner-image" src={profileUser.banner} alt="banner" />
         )}

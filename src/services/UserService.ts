@@ -20,11 +20,15 @@ export class UserService extends BaseService {
   async getUserData(username: string) {
     return await this.client.get(`/api/v1/users/user/${username}`)
   }
-  async saveDetails(username: string, description: string, gender: string, displayName: string) {
-    return await this.client.post(`/api/v1/users/profile/${username}`, {
+  async saveDetails(description: string, gender: string, displayName: string) {
+    return await this.client.post('/api/v1/users/profile', {
       description,
       gender,
       display_name: displayName
     })
+  }
+
+  async updateBanner(bannerUrl: string) {
+    return await this.client.post('api/v1/users/profile/banner', { banner_url: bannerUrl })
   }
 }

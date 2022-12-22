@@ -125,9 +125,12 @@ html, body, root {
     #profile-header {
       border-bottom: 1px solid $blogger_border_gray;
       .banner {
-        width: 100%;
-        background: $blogger_gray_accent;
         height: 200px;
+        min-width: 100%;
+        .banner-image {
+          width: 100%;
+          height: auto;
+        }
       }
       .profile-body {
         .edit-profile-button {
@@ -136,13 +139,20 @@ html, body, root {
           float: right;
         }
         position: relative;
+        @media screen and (max-width: $lg) {
+          top: -100px;
+        }
         top: -80px;
         left: 20px;
         .profile-avatar {
           z-index: 2;
           .profile-image {
+            @media screen and (max-width: $lg) {
+              width: 125px;
+            }
             width: 150px;
-            border-radius: 100px;
+            border-radius: 200px;
+
             border: 4px solid $blogger_background_dark;
           }
         }
@@ -402,15 +412,16 @@ html, body, root {
       width: 100%;
       height: 200px;
       .edit-banner {
+        z-index: 3;
         position: relative;
-        top: 25%;
+        top: 50%;
         left: 50%;
       }
     }
     .profile-details {
       position: relative;
       z-index: 1;
-      top: -80px;
+      top: -40px;
       .profile-image {
         width: 100px;
         border-radius: 60px;

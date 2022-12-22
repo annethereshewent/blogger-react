@@ -1,9 +1,7 @@
-import { CameraAltOutlined } from '@mui/icons-material'
-import { Button, Card, CardActions, CardContent, IconButton, Modal } from '@mui/material'
-import { useRef, useState } from 'react'
+import { Card, Modal } from '@mui/material'
+import { useState } from 'react'
 import { User } from '../../types/user/User'
-import { modalStyleLarge } from '../../util/modalStyles'
-import { CloseButton } from '../shared/CloseButton'
+import { modalStyleXL } from '../../util/modalStyles'
 import { EditBannerContainer } from './EditBannerContainer'
 import { EditDetailsContainer } from './EditDetailsContainer'
 
@@ -28,7 +26,7 @@ export function EditProfileModal({
 
   return (
     <Modal id="edit-profile-modal" open={open} onClose={handleClose}>
-      <Card style={modalStyleLarge}>
+      <Card style={modalStyleXL}>
         {!editBanner && !editAvatar && (
           <EditDetailsContainer
             user={user}
@@ -39,7 +37,14 @@ export function EditProfileModal({
             handleClose={handleClose}
           />
         )}
-        {editBanner && <EditBannerContainer />}
+        {editBanner && bannerFile && (
+          <EditBannerContainer
+            setEditBanner={setEditBanner}
+            bannerFile={bannerFile}
+            setProfileUser={setProfileUser}
+            setUser={setUser}
+          />
+        )}
       </Card>
     </Modal>
   )
