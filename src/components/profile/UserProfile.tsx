@@ -11,6 +11,7 @@ import { Post } from '../../types/post/Post'
 import { useParams } from 'react-router-dom'
 import { UserService } from '../../services/UserService'
 import { ProfileHeader } from './ProfileHeader'
+import { EditProfileModal } from './EditProfileModal'
 
 export function UserProfile() {
   const [user, setUser] = useState<User>()
@@ -22,6 +23,7 @@ export function UserProfile() {
   const [hasMore, setHasMore] = useState(true)
   const [openAvatar, setOpenAvatar] = useState(false)
   const [page, setPage] = useState(1)
+  const [openEditProfile, setOpenEditProfile] = useState(false)
 
   const { username } = useParams()
 
@@ -77,6 +79,11 @@ export function UserProfile() {
     }
   }
 
+  function handleClose() {
+    //
+    setOpenEditProfile(false)
+  }
+
   return (
     <div>
       {profileUser && (
@@ -87,7 +94,7 @@ export function UserProfile() {
             title={profileUser.display_name}
             count={profileUser.post_count}
           >
-            <ProfileHeader profileUser={profileUser} />
+            <ProfileHeader profileUser={profileUser} setOpen={setOpenEditProfile} />
             <PostsContainer
               posts={posts}
               fetchPosts={fetchPosts}
@@ -105,6 +112,11 @@ export function UserProfile() {
             setOpen={setOpenPostModal}
             posts={posts}
             setPosts={setPosts}
+          />
+          <EditProfileModal
+            open={openEditProfile}
+            handleClose={handleClose}
+            profileUser={profileUser}
           />
         </div>
       )}

@@ -5,9 +5,10 @@ import { Button } from '@mui/material'
 
 interface ProfileHeaderProps {
   profileUser: User
+  setOpen: (open: boolean) => void
 }
 
-export function ProfileHeader({ profileUser }: ProfileHeaderProps) {
+export function ProfileHeader({ profileUser, setOpen }: ProfileHeaderProps) {
   return (
     <div id="profile-header">
       <div className="banner">
@@ -16,7 +17,12 @@ export function ProfileHeader({ profileUser }: ProfileHeaderProps) {
         )}
       </div>
       <div className="profile-body">
-        <Button className="edit-profile-button" variant="outlined" color="info">
+        <Button
+          className="edit-profile-button"
+          variant="outlined"
+          color="info"
+          onClick={() => setOpen(true)}
+        >
           Edit profile
         </Button>
         <div className="profile-avatar">
