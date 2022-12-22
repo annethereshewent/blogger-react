@@ -94,7 +94,13 @@ export function UserProfile() {
             title={profileUser.display_name}
             count={profileUser.post_count}
           >
-            <ProfileHeader profileUser={profileUser} user={user} setOpen={setOpenEditProfile} />
+            <ProfileHeader
+              profileUser={profileUser}
+              user={user}
+              setUser={setUser}
+              setProfileUser={setProfileUser}
+              setOpen={setOpenEditProfile}
+            />
             <PostsContainer
               posts={posts}
               fetchPosts={fetchPosts}

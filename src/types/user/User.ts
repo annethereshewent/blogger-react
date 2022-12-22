@@ -10,6 +10,9 @@ export interface User {
   post_count: number
   banner: string
   join_date: string
+  num_followers: number
+  num_followed: number
+  followed: string[]
 }
 
 interface UserAvatars {

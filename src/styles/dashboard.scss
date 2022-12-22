@@ -133,7 +133,7 @@ html, body, root {
         }
       }
       .profile-body {
-        .edit-profile-button {
+        .edit-profile-button, .follow-user-button {
           margin-top: 100px;
           margin-right: 40px;
           float: right;
@@ -173,6 +173,15 @@ html, body, root {
               font-size: 16px;
             }
             margin-top: 10px;
+          }
+          .follow-count {
+            .follow-number {
+              color: white;
+              font-size: 16px;
+            }
+            .follow-title {
+              margin-right: 10px;
+            }
           }
         }
       }

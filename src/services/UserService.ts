@@ -31,4 +31,8 @@ export class UserService extends BaseService {
   async updateBanner(bannerUrl: string) {
     return await this.client.post('api/v1/users/profile/banner', { banner_url: bannerUrl })
   }
+
+  async followUser(username: string) {
+    return await this.client.post(`/api/v1/users/user/${username}/follow`)
+  }
 }
