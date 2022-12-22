@@ -4,7 +4,7 @@ export interface Post {
   id: number
   body: string
   user: User
-  images: string[]
+  images: Image[]
   tags?: string[]
   created_at: string
   updated_at: string
@@ -16,4 +16,9 @@ export interface Post {
 
 interface Like {
   username: string
+}
+
+export interface Image {
+  original: string
+  preview: string
 }

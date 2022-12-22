@@ -1,9 +1,10 @@
 import { Card, CardContent, Modal } from '@mui/material'
+import { Image } from '../../../types/Post'
 import { modalStyleXL } from '../../../util/modalStyles'
 
 interface ImageModalProps {
-  image: string | null
-  setImage: (image: string | null) => void
+  image: Image | null
+  setImage: (image: Image | null) => void
 }
 
 export function ImageModal({ image, setImage }: ImageModalProps) {
@@ -17,7 +18,7 @@ export function ImageModal({ image, setImage }: ImageModalProps) {
       open={image != null}
       onClose={() => setImage(null)}
     >
-      <img alt="large img" src={image || ''} />
+      <img alt="large img" src={image?.original || ''} />
     </Modal>
   )
 }

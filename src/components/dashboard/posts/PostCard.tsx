@@ -1,7 +1,7 @@
 import { AddCommentRounded, FavoriteOutlined, ReplyOutlined } from '@mui/icons-material'
 import { Avatar, IconButton } from '@mui/material'
 import linkifyHtml from 'linkifyjs/lib/linkify-html'
-import { Post } from '../../../types/Post'
+import { Image, Post } from '../../../types/Post'
 import moment from 'moment'
 import { GifElement } from './GifElement'
 import { ImageModal } from './ImageModal'
@@ -54,7 +54,7 @@ export function PostCard({ post, user, setPosts, posts }: PostCardProps) {
     }
   }
 
-  const [image, setImage] = useState<string | null>(null)
+  const [image, setImage] = useState<Image | null>(null)
 
   return (
     <div id={`post-${post.id}`} className="post-card">
@@ -73,8 +73,8 @@ export function PostCard({ post, user, setPosts, posts }: PostCardProps) {
             {post.images.map((image) => (
               <img
                 alt="alt text"
-                key={image}
-                src={image}
+                key={image.preview}
+                src={image.preview}
                 style={{ width: '45%' }}
                 onClick={() => setImage(image)}
               />
