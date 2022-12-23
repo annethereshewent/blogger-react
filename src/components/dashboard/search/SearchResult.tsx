@@ -12,7 +12,7 @@ export function SearchResult({ item, onClick }: SearchResultProps) {
       <ListItemAvatar>
         <Avatar src={item.avatar} />
       </ListItemAvatar>
-      <ListItemText primary={item.display_name} secondary={item.username} />
+      <ListItemText primary={item.display_name} secondary={`@${item.username}`} />
       {item.is_followed && item.is_following && <Chip label="Follow each other" />}
       {item.is_following && !item.is_followed && <Chip label="Follows you" />}
       {!item.is_following && item.is_followed && <Chip label="Following" />}

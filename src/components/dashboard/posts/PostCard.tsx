@@ -63,6 +63,7 @@ export function PostCard({ post, user, setPosts, posts }: PostCardProps) {
         <Avatar src={post.user.avatars.small} className="post-avatar" />
         <div className="post-wrapper">
           <strong>{post.user.display_name}</strong>
+          <span className="post-username">@{post.user.username}</span>
           <span className="post-date">{moment(post.created_at).fromNow()}</span>
           <p className="post-body" dangerouslySetInnerHTML={{ __html: convertPost(post.body) }} />
           <div className="gifs">

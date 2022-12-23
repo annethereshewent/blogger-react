@@ -303,10 +303,10 @@ html, body, root {
           .gif-element {
             cursor: pointer;
           }
-          .post-date {
+          .post-date, .post-username {
             font-size: 16px;
-            margin-left: 10px;
-            color: $blogger_border_gray;
+            margin-left: 5px;
+            color: $blogger_gray_accent;
           }
         }
       }
