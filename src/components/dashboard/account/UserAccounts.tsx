@@ -29,7 +29,7 @@ export function UserAccounts({ user, open, setOpen }: UserAccountsProps) {
             <Avatar src={user?.avatars.small} className="avatar" />
             <div>
               <strong>{formatStr(user.display_name)}</strong>
-              <div>{formatStr(user.email)}</div>
+              <div>@{formatStr(user.username)}</div>
             </div>
             <IconButton onClick={toggleMenu}>
               <MoreHoriz />

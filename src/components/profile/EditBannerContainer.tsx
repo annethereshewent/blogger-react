@@ -2,9 +2,7 @@ import { ArrowBack } from '@mui/icons-material'
 import { Button, CardActions, CardContent, IconButton, Slider } from '@mui/material'
 import { useRef, useState } from 'react'
 import AvatarEditor from 'react-avatar-editor'
-import { UserService } from '../../services/UserService'
 import { User } from '../../types/user/User'
-import { CloseButton } from '../shared/CloseButton'
 
 interface EditBannerContainerProps {
   setEditBanner: (edit: boolean) => void

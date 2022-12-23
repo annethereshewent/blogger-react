@@ -33,15 +33,24 @@ export function UserProfile() {
 
   // fetch user and posts for the profile
   useEffect(() => {
-    fetchPosts(setHasMore)
-    getUser()
+    setPage(1)
+    setPosts([])
+    setHasMore(true)
   }, [username])
+
+  useEffect(() => {
+    if (hasMore && page === 1) {
+      fetchPosts(setHasMore)
+      getUser()
+    }
+  }, [hasMore, page])
 
   async function fetchPosts(setHasMore: (hasMore: boolean) => void) {
     if (!loading) {
       try {
         if (username != null) {
           setLoading(true)
+
           const result = await new UserService().getProfilePosts(username, page)
 
           const { data } = result

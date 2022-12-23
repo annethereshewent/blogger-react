@@ -31,4 +31,8 @@ export class UserService extends BaseService {
   async unfollowUser(username: string) {
     return await this.client.delete(`/api/v1/users/user/${username}/follow`)
   }
+
+  async searchUsers(query: string) {
+    return await this.client.get(`api/v1/users/search_users?query=${query}`)
+  }
 }

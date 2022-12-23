@@ -466,6 +466,11 @@ html, body, root {
       }
     }
   }
+}
 
-
+#search-list {
+  .search-result-link {
+    text-decoration: none;
+    color: inherit;
+  }
 }
