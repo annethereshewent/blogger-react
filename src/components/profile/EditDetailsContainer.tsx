@@ -22,6 +22,8 @@ interface EditDetailsContainerProps {
   setProfileUser: (user: User) => void
   setEditBanner: (edit: boolean) => void
   setBannerFile: (file: File) => void
+  setEditAvatar: (edit: boolean) => void
+  setAvatarFile: (file: File) => void
   handleClose: () => void
 }
 
@@ -31,6 +33,8 @@ export function EditDetailsContainer({
   setProfileUser,
   setEditBanner,
   setBannerFile,
+  setEditAvatar,
+  setAvatarFile,
   handleClose
 }: EditDetailsContainerProps) {
   const [gender, setGender] = useState(user.gender)
@@ -42,14 +46,21 @@ export function EditDetailsContainer({
     bannerRef?.current?.click()
   }
 
+  function updateAvatar() {
+    avatarRef?.current?.focus()
+    avatarRef?.current?.click()
+  }
+
   function removeBanner() {
     const userCopy = { ...user }
-    userCopy.banner = undefined
+    userCopy.banner = ''
+    userCopy.newBanner = ''
 
     setUser(userCopy)
   }
 
   const bannerRef = useRef<HTMLInputElement>(null)
+  const avatarRef = useRef<HTMLInputElement>(null)
 
   function handleBannerChange(e: React.ChangeEvent<HTMLInputElement>) {
     if (e.target.files != null) {
@@ -58,6 +69,16 @@ export function EditDetailsContainer({
 
       setBannerFile(file)
       setEditBanner(true)
+    }
+  }
+
+  function handleAvatarChange(e: React.ChangeEvent<HTMLInputElement>) {
+    if (e.target.files != null) {
+      // do something
+      const file = e.target.files[0]
+
+      setAvatarFile(file)
+      setEditAvatar(true)
     }
   }
 
@@ -75,12 +96,20 @@ export function EditDetailsContainer({
 
   async function saveDetails() {
     try {
-      const result = await new UserService().saveDetails(
+      const postRequest: { [key: string]: string } = {
         description,
         gender,
-        displayName,
-        user.banner
-      )
+        display_name: displayName
+      }
+
+      if (typeof user.newAvatar !== 'undefined') {
+        postRequest.avatar = user.newAvatar
+      }
+      if (typeof user.newBanner !== 'undefined') {
+        postRequest.banner = user.newBanner
+      }
+
+      const result = await new UserService().saveDetails(postRequest)
 
       const { data } = result
 
@@ -120,6 +149,9 @@ export function EditDetailsContainer({
               className="profile-image"
               alt="avatar"
             />
+            <IconButton className="edit-avatar" onClick={updateAvatar}>
+              <CameraAltOutlined />
+            </IconButton>
           </div>
           <form>
             <TextField
@@ -151,6 +183,12 @@ export function EditDetailsContainer({
           type="file"
           ref={bannerRef}
           onChange={handleBannerChange}
+        />
+        <input
+          style={{ display: 'none' }}
+          type="file"
+          ref={avatarRef}
+          onChange={handleAvatarChange}
         />
       </CardContent>
     </div>

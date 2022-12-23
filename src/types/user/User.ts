@@ -13,6 +13,8 @@ export interface User {
   num_followers: number
   num_followed: number
   followed: string[]
+  newAvatar?: string
+  newBanner?: string
 }
 
 interface UserAvatars {

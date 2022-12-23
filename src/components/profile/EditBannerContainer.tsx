@@ -11,12 +11,14 @@ interface EditBannerContainerProps {
   bannerFile: File
   setProfileUser: (user: User) => void
   setUser: (user: User) => void
+  user: User
 }
 
 export function EditBannerContainer({
   setEditBanner,
   setUser,
   setProfileUser,
+  user,
   bannerFile
 }: EditBannerContainerProps) {
   const [zoom, setZoom] = useState(1)
@@ -24,18 +26,15 @@ export function EditBannerContainer({
 
   async function saveBanner() {
     const bannerUrl = editor?.current?.getImage()?.toDataURL() || ''
-    try {
-      const result = await new UserService().updateBanner(bannerUrl)
 
-      const { data } = result
+    const userCopy = { ...user }
 
-      setUser(data.user)
-      setProfileUser(data.user)
-    } catch (e) {
-      //@TODO
-    } finally {
-      setEditBanner(false)
-    }
+    userCopy.banner = bannerUrl
+    userCopy.newBanner = bannerUrl
+
+    setUser(userCopy)
+
+    setEditBanner(false)
   }
 
   function handleZoom(e: Event, value: number | number[]) {
