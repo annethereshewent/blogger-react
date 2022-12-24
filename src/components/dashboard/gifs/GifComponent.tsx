@@ -60,7 +60,7 @@ export function GifComponent({ setGif, open, setOpen }: GifComponentProps) {
       {/* prettier-ignore */}
       <Card
         className="gif-search-card"
-        style={{ ...modalStyleXL, overflow: 'scroll', height: '400px' }}
+        style={{ ...modalStyleXL, overflow: 'scroll', height: '400px', width: '700px' }}
       >
         <CardContent>
           <CloseButton handleClose={() => setOpen(false)} />
