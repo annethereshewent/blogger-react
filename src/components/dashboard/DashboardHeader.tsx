@@ -47,7 +47,11 @@ export function DashboardHeader({ title, count }: DashboardHeaderProps) {
       <Grid className="heading-column" item xs={11} md={8} lg={6}>
         <div className="heading-section">
           <div className="heading-title">{title}</div>
-          {count && <div className="post-count">{count} posts</div>}
+          {count != null && (
+            <div className="post-count">
+              {count} {count === 1 ? 'post' : 'posts'}
+            </div>
+          )}
         </div>
       </Grid>
       <Grid className="search-column" item xs={1} lg={3}>
