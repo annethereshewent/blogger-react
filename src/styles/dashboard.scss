@@ -288,6 +288,7 @@ html, body, root {
         }
       }
       .post {
+        cursor: pointer;
         .post-avatar {
           margin-top: 20px;
         }
@@ -318,11 +319,11 @@ html, body, root {
       .liked {
         color: red;
       }
-      .like-count {
+      .like-count, .reply-count {
         color: $blogger_gray_accent;
         font-size: 12px;
       }
-      .icon-button {
+      .spacer {
         margin-right: 30%;
       }
     }

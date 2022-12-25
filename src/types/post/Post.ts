@@ -12,6 +12,7 @@ export interface Post {
   gif: string
   original_gif_url: string
   like_count: number
+  reply_count: number
   likes: Like[]
 }
 

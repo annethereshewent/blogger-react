@@ -9,6 +9,7 @@ import { ImageModal } from './ImageModal'
 import { useState } from 'react'
 import { DashboardService } from '../../../services/DashboardService'
 import { User } from '../../../types/user/User'
+import { useNavigate } from 'react-router-dom'
 
 interface PostCardProps {
   post: Post
@@ -18,6 +19,7 @@ interface PostCardProps {
 }
 
 export function PostCard({ post, user, setPosts, posts }: PostCardProps) {
+  const navigate = useNavigate()
   /*
    * Replaces new lines with br tags and auto links urls.
    * @TODO: sanitization already happens
@@ -62,10 +64,12 @@ export function PostCard({ post, user, setPosts, posts }: PostCardProps) {
       <div className="post">
         <Avatar src={post.user.avatars.small} className="post-avatar" />
         <div className="post-wrapper">
-          <strong>{post.user.display_name}</strong>
-          <span className="post-username">@{post.user.username}</span>
-          <span className="post-date">{moment(post.created_at).fromNow()}</span>
-          <p className="post-body" dangerouslySetInnerHTML={{ __html: convertPost(post.body) }} />
+          <div onClick={() => navigate(`/posts/${post.id}`)}>
+            <strong>{post.user.display_name}</strong>
+            <span className="post-username">@{post.user.username}</span>
+            <span className="post-date">{moment(post.created_at).fromNow()}</span>
+            <p className="post-body" dangerouslySetInnerHTML={{ __html: convertPost(post.body) }} />
+          </div>
           <div className="gifs">
             {post.gif && (
               <GifElement src={post.gif} originalSrc={post.original_gif_url} key={post.gif} />
@@ -88,9 +92,12 @@ export function PostCard({ post, user, setPosts, posts }: PostCardProps) {
         <IconButton className="icon-button">
           <AddCommentRounded />
         </IconButton>
+        {post.reply_count > 0 && <span className="reply-count">{post.reply_count}</span>}
+        <span className="spacer" />
         <IconButton className="icon-button">
           <ReplyOutlined />
         </IconButton>
+        <span className="spacer" />
         <IconButton onClick={likePost}>
           <FavoriteOutlined
             className={
