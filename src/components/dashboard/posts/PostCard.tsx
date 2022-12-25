@@ -13,12 +13,13 @@ import { useNavigate } from 'react-router-dom'
 
 interface PostCardProps {
   post: Post
-  setPosts: (posts: Post[]) => void
-  posts: Post[]
+  setPosts?: (posts: Post[]) => void
+  setPost?: (post: Post) => void
+  posts?: Post[]
   user?: User
 }
 
-export function PostCard({ post, user, setPosts, posts }: PostCardProps) {
+export function PostCard({ post, user, setPosts, setPost, posts }: PostCardProps) {
   const navigate = useNavigate()
   /*
    * Replaces new lines with br tags and auto links urls.
@@ -45,13 +46,17 @@ export function PostCard({ post, user, setPosts, posts }: PostCardProps) {
     try {
       const result = await new DashboardService().likePost(post.id)
 
-      const postsCopy = [...posts]
+      if (setPosts != null && posts != null) {
+        const postsCopy = [...posts]
 
-      const i = postsCopy.indexOf(post)
+        const i = postsCopy.indexOf(post)
 
-      postsCopy.splice(i, 1, result.data.post)
+        postsCopy.splice(i, 1, result.data.post)
 
-      setPosts(postsCopy)
+        setPosts(postsCopy)
+      } else if (setPost != null) {
+        setPost(result.data.post)
+      }
     } catch (e: any) {
       console.log(e)
     }

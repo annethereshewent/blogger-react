@@ -9,6 +9,7 @@ import { Gif } from '../../../types/post/Gif'
 import { tagRegex } from '../../../util/tagRegex'
 import twemoji from 'twemoji'
 import { getRange, moveCaretAtEmoji, moveCaretToEnd } from '../../../util/moveCaret'
+import { updatePostField } from '../../../util/updatePostField'
 
 interface PostFieldProps {
   avatar: string | undefined
@@ -33,20 +34,7 @@ export function PostField({ avatar, posts, setPosts, setOpen }: PostFieldProps) 
   const editableDiv = useRef<HTMLDivElement>(null)
 
   function handlePostChange(e: React.ChangeEvent<HTMLDivElement>) {
-    // this will match all emojis and prevent false matches like numbers or # * (which \p${Emoji}` matches)
-    const emojiRegex = /(?=\p{Emoji})(?!\p{Number})(?!\*)(?!#)/u
-    if (emojiRegex.test(e.currentTarget.innerText)) {
-      if (editableDiv.current != null) {
-        twemoji.parse(editableDiv.current, {
-          folder: 'svg',
-          ext: '.svg',
-          className: `emoji emoji-${emojiNumber}`
-        })
-        moveCaretAtEmoji(editableDiv.current, `emoji-${emojiNumber}`)
-        setEmojiNumber(emojiNumber + 1)
-      }
-    }
-    setPost(e.currentTarget.innerHTML || '')
+    updatePostField(e, emojiNumber, setEmojiNumber, setPost, editableDiv.current)
   }
 
   // returns unique tags only

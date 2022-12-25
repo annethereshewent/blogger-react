@@ -25,6 +25,7 @@ interface PostAddonsProps {
   setRange: (range: Range) => void
   emojiNumber: number
   setEmojiNumber: (num: number) => void
+  style?: React.CSSProperties
 }
 
 export function PostAddons({
@@ -39,7 +40,8 @@ export function PostAddons({
   range,
   emojiNumber,
   setEmojiNumber,
-  setRange
+  setRange,
+  style
 }: PostAddonsProps) {
   const [open, setOpen] = useState(false)
   const [openEmoji, setOpenEmoji] = useState(false)
@@ -96,7 +98,7 @@ export function PostAddons({
 
   return (
     <div>
-      <div className="post-addons">
+      <div className="post-addons" style={style}>
         <Tooltip TransitionProps={{ timeout: 1500 }} title="image">
           <IconButton className="item" onClick={() => openFileUpload()}>
             <ImageOutlined />
