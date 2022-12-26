@@ -317,7 +317,7 @@ a, a:visited {
     margin-top: 20px;
     padding-left: 50px;
     .liked {
-      color: red;
+      color: #ff0066;
     }
     .like-count, .reply-count {
       color: $blogger_gray_accent;
@@ -372,7 +372,6 @@ a, a:visited {
     margin-left: 80px;
   }
   .reply-actions {
-    display: flex;
     .reply-button {
       float: right;
     }

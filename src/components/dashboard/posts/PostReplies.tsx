@@ -56,7 +56,13 @@ export function PostReplies() {
             )}
           </div>
           {replies.map((reply) => (
-            <ReplyCard key={reply.id} reply={reply} />
+            <ReplyCard
+              key={reply.id}
+              reply={reply}
+              replies={replies}
+              user={user}
+              setReplies={setReplies}
+            />
           ))}
         </DashboardContainer>
       )}

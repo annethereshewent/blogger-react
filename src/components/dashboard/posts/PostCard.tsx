@@ -46,7 +46,7 @@ export function PostCard({ post, user, setPosts, setPost, posts }: PostCardProps
   const [image, setImage] = useState<Image | null>(null)
 
   return (
-    <div id={`post-${post.id}`} className="post-card">
+    <div className="post-card">
       <div className="post">
         <Avatar src={post.user.avatars.small} className="post-avatar" />
         <div className="post-wrapper">

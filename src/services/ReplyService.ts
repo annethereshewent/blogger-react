@@ -12,4 +12,8 @@ export class ReplyService extends BaseService {
       body
     })
   }
+
+  async likeReply(id: number) {
+    return await this.client.post(`/api/v1/users/replies/${id}/likes`)
+  }
 }
