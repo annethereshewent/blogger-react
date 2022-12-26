@@ -8,11 +8,19 @@ interface PostModalProps {
   open: boolean
   setOpen: (open: boolean) => void
   avatar: string | undefined
-  posts: Post[]
-  setPosts: (posts: Post[]) => void
+  posts?: Post[]
+  setPosts?: (posts: Post[]) => void
+  setShowSnackbar?: (show: boolean) => void
 }
 
-export function PostModal({ open, setOpen, avatar, posts, setPosts }: PostModalProps) {
+export function PostModal({
+  open,
+  setOpen,
+  avatar,
+  posts,
+  setPosts,
+  setShowSnackbar
+}: PostModalProps) {
   function onClose() {
     setOpen(false)
   }
@@ -22,7 +30,13 @@ export function PostModal({ open, setOpen, avatar, posts, setPosts }: PostModalP
       <Card id="post-modal" style={{ ...modalStyleLarge, borderRadius: '15px' }}>
         <CloseButton handleClose={onClose} />
         <CardContent>
-          <PostField avatar={avatar} posts={posts} setPosts={setPosts} setOpen={setOpen} />
+          <PostField
+            avatar={avatar}
+            posts={posts}
+            setPosts={setPosts}
+            setOpen={setOpen}
+            setShowSnackbar={setShowSnackbar}
+          />
         </CardContent>
       </Card>
     </Modal>

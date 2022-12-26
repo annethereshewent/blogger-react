@@ -13,8 +13,9 @@ import { ReplyField } from './ReplyField'
 import { Image } from '../../../types/post/Image'
 import { ImageModal } from './ImageModal'
 import InfiniteScroll from 'react-infinite-scroll-component'
-import { CircularProgress } from '@mui/material'
+import { CircularProgress, Snackbar } from '@mui/material'
 import { PostService } from '../../../services/PostService'
+import { PostModal } from './PostModal'
 
 export function PostReplies() {
   const { postId } = useParams()
@@ -26,6 +27,8 @@ export function PostReplies() {
   const [image, setImage] = useState<Image | null>(null)
   const [page, setPage] = useState(1)
   const [hasMore, setHasMore] = useState(true)
+  const [openPostModal, setOpenPostModal] = useState(false)
+  const [showSnackbar, setShowSnackbar] = useState(false)
 
   useUser(setLoading, setUser, null, false)
 
@@ -75,8 +78,6 @@ export function PostReplies() {
     }
   }
 
-  function setOpenPostModal() {}
-
   return (
     <div id="post-replies">
       {post && (
@@ -114,6 +115,18 @@ export function PostReplies() {
         </DashboardContainer>
       )}
       <ImageModal image={image} setImage={setImage} />
+      <PostModal
+        open={openPostModal}
+        avatar={user?.avatars?.small}
+        setOpen={setOpenPostModal}
+        setShowSnackbar={setShowSnackbar}
+      />
+      <Snackbar
+        open={showSnackbar}
+        autoHideDuration={1000}
+        onClose={() => setShowSnackbar(false)}
+        message="Post sent!"
+      />
     </div>
   )
 }

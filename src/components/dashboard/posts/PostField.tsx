@@ -1,4 +1,4 @@
-import { Avatar, Button, CircularProgress, InputProps, TextField } from '@mui/material'
+import { Avatar, Button, CircularProgress } from '@mui/material'
 import { useRef, useState } from 'react'
 import { DashboardService } from '../../../services/DashboardService'
 import { Post } from '../../../types/post/Post'
@@ -7,18 +7,18 @@ import { GifElement } from './GifElement'
 import { PostRequest } from '../../../types/post/PostRequest'
 import { Gif } from '../../../types/post/Gif'
 import { tagRegex } from '../../../util/tagRegex'
-import twemoji from 'twemoji'
-import { getRange, moveCaretAtEmoji, moveCaretToEnd } from '../../../util/moveCaret'
+import { getRange } from '../../../util/moveCaret'
 import { updatePostField } from '../../../util/updatePostField'
 
 interface PostFieldProps {
   avatar: string | undefined
-  posts: Post[]
-  setPosts: (posts: Post[]) => void
+  posts?: Post[]
+  setPosts?: (posts: Post[]) => void
   setOpen?: (open: boolean) => void
+  setShowSnackbar?: (showSnackbar: boolean) => void
 }
 
-export function PostField({ avatar, posts, setPosts, setOpen }: PostFieldProps) {
+export function PostField({ avatar, posts, setPosts, setOpen, setShowSnackbar }: PostFieldProps) {
   const [post, setPost] = useState('')
   const [loading, setLoading] = useState(false)
   const [inputStyles, setInputStyles] = useState({})
@@ -89,7 +89,11 @@ export function PostField({ avatar, posts, setPosts, setOpen }: PostFieldProps) 
         newPost = data.post
       }
 
-      setPosts([newPost, ...posts])
+      if (setPosts != null && posts != null) {
+        setPosts([newPost, ...posts])
+      } else if (setShowSnackbar != null) {
+        setShowSnackbar(true)
+      }
     } catch (e) {
       // @ TODO: add error handling
     } finally {
