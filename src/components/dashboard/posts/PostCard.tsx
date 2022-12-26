@@ -1,12 +1,9 @@
 import { AddCommentRounded, FavoriteOutlined, ReplyOutlined } from '@mui/icons-material'
 import { Avatar, IconButton } from '@mui/material'
-import linkifyHtml from 'linkifyjs/lib/linkify-html'
 import { Image } from '../../../types/post/Image'
 import { Post } from '../../../types/post/Post'
 import moment from 'moment'
 import { GifElement } from './GifElement'
-import { ImageModal } from './ImageModal'
-import { useState } from 'react'
 import { DashboardService } from '../../../services/DashboardService'
 import { User } from '../../../types/user/User'
 import { useNavigate } from 'react-router-dom'
@@ -18,9 +15,10 @@ interface PostCardProps {
   setPost?: (post: Post) => void
   posts?: Post[]
   user?: User
+  setImage: (image: Image | null) => void
 }
 
-export function PostCard({ post, user, setPosts, setPost, posts }: PostCardProps) {
+export function PostCard({ post, user, setPosts, setPost, posts, setImage }: PostCardProps) {
   const navigate = useNavigate()
 
   async function likePost() {
@@ -42,8 +40,6 @@ export function PostCard({ post, user, setPosts, setPost, posts }: PostCardProps
       console.log(e)
     }
   }
-
-  const [image, setImage] = useState<Image | null>(null)
 
   return (
     <div className="post-card">
@@ -95,7 +91,6 @@ export function PostCard({ post, user, setPosts, setPost, posts }: PostCardProps
         </IconButton>
         {post.like_count > 0 && <span className="like-count">{post.like_count}</span>}
       </div>
-      <ImageModal image={image} setImage={setImage} />
     </div>
   )
 }

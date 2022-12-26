@@ -50,7 +50,7 @@ export function ReplyField({ user, post, setReplies, replies }: ReplyFieldProps)
 
       const { data } = result
 
-      setReplies([...replies, data.reply])
+      setReplies([data.reply, ...replies])
     } catch (e) {
       console.log(e)
     } finally {

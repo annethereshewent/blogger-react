@@ -1,4 +1,5 @@
 import { User } from '../user/User'
+import { Image } from './Image'
 import { Like } from './Post'
 
 export interface Reply {
@@ -10,4 +11,6 @@ export interface Reply {
   reply_count: number
   likes: Like[]
   like_count: number
+  images: Image[]
+  gif: string
 }
