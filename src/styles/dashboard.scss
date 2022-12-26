@@ -36,19 +36,6 @@ a, a:visited {
     margin-top: -20px;
     text-align: center;
   }
-  // .avatar-editor {
-  //   margin-top: 20px;
-  //   .avatar-editor-slider {
-  //     margin: 0 auto;
-  //     width: 80%;
-  //   }
-  //   .avatar-apply-btn {
-  //     width: 75x;
-  //     float: right;
-  //     margin-right: 20px;
-  //     margin-bottom: 10px;
-  //   }
-  // }
   .avatar-image-container {
     margin: 0 auto;
     padding-bottom: 20px;
@@ -505,5 +492,15 @@ a, a:visited {
   .search-result-link {
     text-decoration: none;
     color: inherit;
+  }
+}
+
+.new-image {
+  position: relative;
+  .close-button {
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    left: 200px;
   }
 }

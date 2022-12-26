@@ -8,16 +8,25 @@ import { Reply } from '../../../types/post/Reply'
 import { User } from '../../../types/user/User'
 import { getRange } from '../../../util/moveCaret'
 import { updatePostField } from '../../../util/updatePostField'
+import { GifElement } from './GifElement'
 import { PostAddons } from './PostAddons'
+import { PostImage } from './PostImage'
 
 interface ReplyFieldProps {
   user: User
-  post: Post
+  replyable: Post | Reply
   replies: Reply[]
   setReplies: (replies: Reply[]) => void
+  replyableType: string
 }
 
-export function ReplyField({ user, post, setReplies, replies }: ReplyFieldProps) {
+export function ReplyField({
+  user,
+  replyable,
+  setReplies,
+  replies,
+  replyableType
+}: ReplyFieldProps) {
   const [loading, setLoading] = useState(false)
   const [body, setBody] = useState('')
   const [emojiNumber, setEmojiNumber] = useState(1)
@@ -44,13 +53,41 @@ export function ReplyField({ user, post, setReplies, replies }: ReplyFieldProps)
   }
 
   async function handleReplyClick() {
+    const replyService = new ReplyService()
     setLoading(true)
     try {
-      const result = await new ReplyService().createReply(post.id, 'Post', body)
+      const images = files.length > 0
+      const replyRequest: { [key: string]: any } = {
+        replyable_id: replyable.id,
+        replyable_type: replyableType,
+        body,
+        images
+      }
+
+      if (gif.src !== '') {
+        replyRequest.gif = gif.src
+        replyRequest.original_gif_url = gif.original_src
+      }
+
+      const result = await replyService.createReply(replyable.id, replyRequest)
 
       const { data } = result
 
-      setReplies([data.reply, ...replies])
+      let newReply = data.reply
+
+      // finally upload any images
+      if (files.length) {
+        const formData = new FormData()
+        for (let i = 0; i < files.length; i++) {
+          formData.append('files[]', files[i])
+        }
+
+        const result = await replyService.uploadImages(newReply.id, formData)
+        const { data } = result
+
+        newReply = data.reply
+      }
+      setReplies([newReply, ...replies])
     } catch (e) {
       console.log(e)
     } finally {
@@ -58,6 +95,7 @@ export function ReplyField({ user, post, setReplies, replies }: ReplyFieldProps)
         editableDiv.current.innerHTML = ''
       }
       setBody('')
+      setImages([])
       setLoading(false)
     }
   }
@@ -65,7 +103,8 @@ export function ReplyField({ user, post, setReplies, replies }: ReplyFieldProps)
   return (
     <div className="reply-field">
       <h5 className="reply-title">
-        Replying to <Link to={`/profile/${post.user.username}`}>@{post.user.username}</Link>
+        Replying to{' '}
+        <Link to={`/profile/${replyable.user.username}`}>@{replyable.user.username}</Link>
       </h5>
       <div className="reply-input-area">
         <Avatar src={user.avatars.small} className="reply-avatar" />
@@ -78,6 +117,12 @@ export function ReplyField({ user, post, setReplies, replies }: ReplyFieldProps)
             placeholder="Post your reply"
             onBlur={handleBlur}
           />
+          {gif.src !== '' && <GifElement src={gif.src} originalSrc={gif.original_src} />}
+          <div className="images-row">
+            {images.map((image) => (
+              <PostImage key={image} image={image} images={images} setImages={setImages} />
+            ))}
+          </div>
           <div className="reply-actions">
             <PostAddons
               style={{ marginLeft: 0 }}

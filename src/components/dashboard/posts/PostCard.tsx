@@ -8,6 +8,7 @@ import { DashboardService } from '../../../services/DashboardService'
 import { User } from '../../../types/user/User'
 import { useNavigate } from 'react-router-dom'
 import { convertPost } from '../../../util/convertPost'
+import { useRef } from 'react'
 
 interface PostCardProps {
   post: Post
@@ -20,6 +21,8 @@ interface PostCardProps {
 
 export function PostCard({ post, user, setPosts, setPost, posts, setImage }: PostCardProps) {
   const navigate = useNavigate()
+  const imagesRef = useRef<HTMLDivElement>(null)
+  const gifRef = useRef<HTMLDivElement>(null)
 
   async function likePost() {
     try {
@@ -41,23 +44,31 @@ export function PostCard({ post, user, setPosts, setPost, posts, setImage }: Pos
     }
   }
 
+  function checkNavigate(e: React.MouseEvent<HTMLDivElement>) {
+    const element = e.target as HTMLElement
+
+    if (!['img', 'video'].includes(element.tagName.toLowerCase())) {
+      navigate(`/posts/${post.id}`)
+    }
+  }
+
   return (
     <div className="post-card">
       <div className="post">
         <Avatar src={post.user.avatars.small} className="post-avatar" />
-        <div className="post-wrapper">
-          <div onClick={() => navigate(`/posts/${post.id}`)}>
+        <div onClick={checkNavigate} className="post-wrapper">
+          <div>
             <strong>{post.user.display_name}</strong>
             <span className="post-username">@{post.user.username}</span>
             <span className="post-date">{moment(post.created_at).fromNow()}</span>
             <p className="post-body" dangerouslySetInnerHTML={{ __html: convertPost(post) }} />
           </div>
-          <div className="gifs">
+          <div ref={gifRef} className="gifs">
             {post.gif && (
               <GifElement src={post.gif} originalSrc={post.original_gif_url} key={post.gif} />
             )}
           </div>
-          <div className="images">
+          <div ref={imagesRef} className="images">
             {post.images.map((image) => (
               <img
                 alt="alt text"

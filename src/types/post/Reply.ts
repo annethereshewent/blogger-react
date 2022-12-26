@@ -13,4 +13,5 @@ export interface Reply {
   like_count: number
   images: Image[]
   gif: string
+  original_gif_url: string
 }

@@ -17,7 +17,7 @@ export function ImageModal({ image, setImage }: ImageModalProps) {
       open={image != null}
       onClose={() => setImage(null)}
     >
-      <img alt="large img" src={image?.original || ''} />
+      <img alt="large img" src={image?.original || ''} style={{ maxWidth: '700px' }} />
     </Modal>
   )
 }

@@ -85,7 +85,13 @@ export function PostReplies() {
           <div>
             <PostCard post={post} setPost={setPost} setImage={setImage} />
             {user && (
-              <ReplyField user={user} post={post} replies={replies} setReplies={setReplies} />
+              <ReplyField
+                user={user}
+                replyable={post}
+                replies={replies}
+                setReplies={setReplies}
+                replyableType="Post"
+              />
             )}
           </div>
           {replies.length > 0 && (
@@ -123,6 +129,7 @@ export function PostReplies() {
       />
       <Snackbar
         open={showSnackbar}
+        color="success"
         autoHideDuration={1000}
         onClose={() => setShowSnackbar(false)}
         message="Post sent!"

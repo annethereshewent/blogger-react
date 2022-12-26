@@ -7,6 +7,7 @@ import { Image } from '../../../types/post/Image'
 import { Reply } from '../../../types/post/Reply'
 import { User } from '../../../types/user/User'
 import { convertPost } from '../../../util/convertPost'
+import { GifElement } from './GifElement'
 
 interface ReplyCardProps {
   reply: Reply
@@ -50,18 +51,23 @@ export function ReplyCard({ reply, user, replies, setReplies, setImage }: ReplyC
             <span className="reply-date">{moment(reply.created_at).fromNow()}</span>
             <p className="reply-body" dangerouslySetInnerHTML={{ __html: convertPost(reply) }} />
           </div>
+          <div className="gifs">
+            {reply.gif && (
+              <GifElement src={reply.gif} originalSrc={reply.original_gif_url} key={reply.gif} />
+            )}
+          </div>
+          <div className="images">
+            {reply.images.map((image) => (
+              <img
+                alt="alt text"
+                key={image.preview}
+                src={image.preview}
+                style={{ width: '45%' }}
+                onClick={() => setImage(image)}
+              />
+            ))}
+          </div>
         </div>
-      </div>
-      <div className="images">
-        {reply.images.map((image) => (
-          <img
-            alt="alt text"
-            key={image.preview}
-            src={image.preview}
-            style={{ width: '45%' }}
-            onClick={() => setImage(image)}
-          />
-        ))}
       </div>
       <div className="reply-actions">
         <IconButton className="icon-button">

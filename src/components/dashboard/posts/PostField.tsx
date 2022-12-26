@@ -9,6 +9,7 @@ import { Gif } from '../../../types/post/Gif'
 import { tagRegex } from '../../../util/tagRegex'
 import { getRange } from '../../../util/moveCaret'
 import { updatePostField } from '../../../util/updatePostField'
+import { PostImage } from './PostImage'
 
 interface PostFieldProps {
   avatar: string | undefined
@@ -150,11 +151,10 @@ export function PostField({ avatar, posts, setPosts, setOpen, setShowSnackbar }:
           placeholder="What's on your mind?"
         />
       </div>
-      <div className="images" />
       {gif.src !== '' && <GifElement src={gif.src} originalSrc={gif.original_src} />}
       <div className="images-row">
         {images.map((image) => (
-          <img alt="alt text" key={image} src={image} style={{ width: '45%' }} />
+          <PostImage key={image} image={image} images={images} setImages={setImages} />
         ))}
       </div>
       <div className="post-buttons-wrapper">
