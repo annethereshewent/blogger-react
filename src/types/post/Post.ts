@@ -16,6 +16,6 @@ export interface Post {
   likes: Like[]
 }
 
-interface Like {
+export interface Like {
   username: string
 }

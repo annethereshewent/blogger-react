@@ -278,7 +278,7 @@ a, a:visited {
       }
     }
   }
-  .post-card {
+  .post-card, .reply-card {
     padding-top: 20px;
     padding-left: 40px;
     .images {
@@ -290,20 +290,20 @@ a, a:visited {
         margin-bottom: 5px;
       }
     }
-    .post {
+    .post, .reply {
       cursor: pointer;
       .post-avatar {
         margin-top: 20px;
       }
       display: flex;
-      .post-wrapper {
+      .post-wrapper, .reply-wrapper {
         margin-top: 20px;
         margin-right: 20px;
         margin-left: 20px;
         .gif-element {
           cursor: pointer;
         }
-        .post-date, .post-username {
+        .post-date, .post-username, .reply-date, .reply-username {
           font-size: 16px;
           margin-left: 5px;
           color: $blogger_gray_accent;
@@ -313,8 +313,7 @@ a, a:visited {
     border-bottom: 1px solid $blogger_border_gray;
   }
 
-
-  .post-actions {
+  .post-actions, .reply-actions {
     margin-top: 20px;
     padding-left: 50px;
     .liked {

@@ -10,6 +10,7 @@ import { useState } from 'react'
 import { DashboardService } from '../../../services/DashboardService'
 import { User } from '../../../types/user/User'
 import { useNavigate } from 'react-router-dom'
+import { convertPost } from '../../../util/convertPost'
 
 interface PostCardProps {
   post: Post
@@ -21,26 +22,6 @@ interface PostCardProps {
 
 export function PostCard({ post, user, setPosts, setPost, posts }: PostCardProps) {
   const navigate = useNavigate()
-  /*
-   * Replaces new lines with br tags and auto links urls.
-   * @TODO: sanitization already happens
-   * on the backend, optionally add it to client side
-   */
-  function convertPost(body: string): string {
-    if (body != null) {
-      let bodyHtml = linkifyHtml(body.replace(/\n/g, '<br/>'), { target: '_blank' })
-
-      if (post.tags != null) {
-        for (const tag of post.tags) {
-          const tagRegex = new RegExp(`#${tag}\\b`, 'g')
-          bodyHtml = bodyHtml.replace(tagRegex, `<a href="/tags/${tag}">#${tag}</a>`)
-        }
-      }
-
-      return bodyHtml
-    }
-    return ''
-  }
 
   async function likePost() {
     try {
@@ -73,7 +54,7 @@ export function PostCard({ post, user, setPosts, setPost, posts }: PostCardProps
             <strong>{post.user.display_name}</strong>
             <span className="post-username">@{post.user.username}</span>
             <span className="post-date">{moment(post.created_at).fromNow()}</span>
-            <p className="post-body" dangerouslySetInnerHTML={{ __html: convertPost(post.body) }} />
+            <p className="post-body" dangerouslySetInnerHTML={{ __html: convertPost(post) }} />
           </div>
           <div className="gifs">
             {post.gif && (
