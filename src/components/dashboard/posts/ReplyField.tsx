@@ -1,18 +1,24 @@
 import { Avatar, Button } from '@mui/material'
 import { useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { ReplyService } from '../../../services/ReplyService'
 import { Gif } from '../../../types/post/Gif'
 import { Post } from '../../../types/post/Post'
+import { Reply } from '../../../types/post/Reply'
 import { User } from '../../../types/user/User'
+import { getRange } from '../../../util/moveCaret'
 import { updatePostField } from '../../../util/updatePostField'
 import { PostAddons } from './PostAddons'
 
 interface ReplyFieldProps {
   user: User
   post: Post
+  replies: Reply[]
+  setReplies: (replies: Reply[]) => void
 }
 
-export function ReplyField({ user, post }: ReplyFieldProps) {
+export function ReplyField({ user, post, setReplies, replies }: ReplyFieldProps) {
+  const [loading, setLoading] = useState(false)
   const [body, setBody] = useState('')
   const [emojiNumber, setEmojiNumber] = useState(1)
   const [images, setImages] = useState<string[]>([])
@@ -28,6 +34,34 @@ export function ReplyField({ user, post }: ReplyFieldProps) {
   function handlePostChange(e: React.ChangeEvent<HTMLDivElement>) {
     updatePostField(e, emojiNumber, setEmojiNumber, setBody, editableDiv.current)
   }
+
+  function handleBlur() {
+    let newRange = getRange()
+
+    if (newRange != null) {
+      setRange(newRange)
+    }
+  }
+
+  async function handleReplyClick() {
+    setLoading(true)
+    try {
+      const result = await new ReplyService().createReply(post.id, 'Post', body)
+
+      const { data } = result
+
+      setReplies([...replies, data.reply])
+    } catch (e) {
+      console.log(e)
+    } finally {
+      if (editableDiv.current != null) {
+        editableDiv.current.innerHTML = ''
+      }
+      setBody('')
+      setLoading(false)
+    }
+  }
+
   return (
     <div className="reply-field">
       <h5 className="reply-title">
@@ -42,6 +76,7 @@ export function ReplyField({ user, post }: ReplyFieldProps) {
             contentEditable={true}
             onInput={handlePostChange}
             placeholder="Post your reply"
+            onBlur={handleBlur}
           />
           <div className="reply-actions">
             <PostAddons
@@ -52,7 +87,6 @@ export function ReplyField({ user, post }: ReplyFieldProps) {
               files={files}
               setFiles={setFiles}
               editableDivRef={editableDiv.current}
-              post={body}
               setPost={setBody}
               range={range}
               emojiNumber={emojiNumber}
@@ -60,7 +94,12 @@ export function ReplyField({ user, post }: ReplyFieldProps) {
               setRange={setRange}
             />
             <div style={{ width: '100%' }}>
-              <Button variant="contained" color="success" className="reply-button">
+              <Button
+                variant="contained"
+                color="success"
+                className="reply-button"
+                onClick={handleReplyClick}
+              >
                 Reply
               </Button>
             </div>

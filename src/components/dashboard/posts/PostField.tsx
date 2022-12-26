@@ -161,7 +161,6 @@ export function PostField({ avatar, posts, setPosts, setOpen }: PostFieldProps) 
           files={files}
           setFiles={setFiles}
           editableDivRef={editableDiv.current}
-          post={post}
           setPost={setPost}
           range={range}
           emojiNumber={emojiNumber}

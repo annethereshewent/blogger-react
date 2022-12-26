@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useUser } from '../../../hooks/useUser'
 import { ReplyService } from '../../../services/ReplyService'
@@ -9,8 +9,6 @@ import { DashboardContainer } from '../DashboardContainer'
 import { PostCard } from './PostCard'
 import '../../../styles/dashboard.scss'
 import { ReplyCard } from './ReplyCard'
-import { Avatar } from '@mui/material'
-import { updatePostField } from '../../../util/updatePostField'
 import { ReplyField } from './ReplyField'
 
 export function PostReplies() {
@@ -20,10 +18,6 @@ export function PostReplies() {
   const [loading, setLoading] = useState(false)
   const [post, setPost] = useState<Post>()
   const [replies, setReplies] = useState<Reply[]>([])
-  const [body, setBody] = useState('')
-  const [emojiNumber, setEmojiNumber] = useState(1)
-
-  const editableDiv = useRef<HTMLDivElement>(null)
 
   useUser(setLoading, setUser, null, false)
 
@@ -49,10 +43,6 @@ export function PostReplies() {
     }
   }
 
-  function handlePostChange(e: React.ChangeEvent<HTMLDivElement>) {
-    updatePostField(e, emojiNumber, setEmojiNumber, setBody, editableDiv.current)
-  }
-
   function setOpenPostModal() {}
 
   return (
@@ -61,7 +51,9 @@ export function PostReplies() {
         <DashboardContainer user={user} title="Thread" setOpenPostModal={setOpenPostModal}>
           <div>
             <PostCard post={post} setPost={setPost} />
-            {user && <ReplyField user={user} post={post} />}
+            {user && (
+              <ReplyField user={user} post={post} replies={replies} setReplies={setReplies} />
+            )}
           </div>
           {replies.map((reply) => (
             <ReplyCard key={reply.id} reply={reply} />
