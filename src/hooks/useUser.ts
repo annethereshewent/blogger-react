@@ -38,6 +38,7 @@ export function useUser(
         setLoading(false)
       }
     }
+
     getUser()
   }, [])
 }

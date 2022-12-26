@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import { User } from '../../types/user/User'
 import { DashboardService } from '../../services/DashboardService'
-import { useNavigate } from 'react-router-dom'
 import { ConfirmationModal } from './ConfirmationModal'
 import { AvatarModal } from './avatar/AvatarModal'
 import '../../styles/dashboard.scss'
@@ -21,8 +20,6 @@ export function Dashboard() {
   const [posts, setPosts] = useState<Post[]>([])
   const [page, setPage] = useState(1)
   const [hasMore, setHasMore] = useState(true)
-
-  const navigate = useNavigate()
 
   const dashboardService = new DashboardService()
 
@@ -67,7 +64,7 @@ export function Dashboard() {
   useEffect(() => {
     getPosts()
     checkAvatarDialog()
-  }, [user])
+  }, [])
 
   return (
     <div>

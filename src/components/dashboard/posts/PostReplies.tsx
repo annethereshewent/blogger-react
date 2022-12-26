@@ -83,7 +83,7 @@ export function PostReplies() {
       {post && (
         <DashboardContainer user={user} title="Thread" setOpenPostModal={setOpenPostModal}>
           <div>
-            <PostCard post={post} setPost={setPost} setImage={setImage} />
+            <PostCard post={post} setPost={setPost} setImage={setImage} user={user} />
             {user && (
               <ReplyField
                 user={user}
