@@ -1,13 +1,12 @@
 import linkifyHtml from 'linkifyjs/lib/linkify-html'
 import { Post } from '../types/post/Post'
-import { Reply } from '../types/post/Reply'
 
 /*
  * Replaces new lines with br tags and auto links urls.
  * @TODO: sanitization already happens
  * on the backend, optionally add it to client side
  */
-export function convertPost(post: Post | Reply): string {
+export function convertPost(post: Post): string {
   if (post.body != null) {
     let bodyHtml = linkifyHtml(post.body.replace(/\n/g, '<br/>'), { target: '_blank' })
 

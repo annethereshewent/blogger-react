@@ -3,19 +3,19 @@ import { useParams } from 'react-router-dom'
 import { useUser } from '../../../hooks/useUser'
 import { ReplyService } from '../../../services/ReplyService'
 import { Post } from '../../../types/post/Post'
-import { Reply } from '../../../types/post/Reply'
 import { User } from '../../../types/user/User'
 import { DashboardContainer } from '../DashboardContainer'
-import { PostCard } from './PostCard'
+import { PostCard } from '../posts/PostCard'
 import '../../../styles/dashboard.scss'
 import { ReplyCard } from './ReplyCard'
 import { ReplyField } from './ReplyField'
 import { Image } from '../../../types/post/Image'
-import { ImageModal } from './ImageModal'
+import { ImageModal } from '../posts/ImageModal'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { CircularProgress, Snackbar } from '@mui/material'
 import { PostService } from '../../../services/PostService'
-import { PostModal } from './PostModal'
+import { PostModal } from '../posts/PostModal'
+import { ReplyModal } from './ReplyModal'
 
 export function PostReplies() {
   const { postId } = useParams()
@@ -23,12 +23,13 @@ export function PostReplies() {
   const [user, setUser] = useState<User>()
   const [loading, setLoading] = useState(false)
   const [post, setPost] = useState<Post>()
-  const [replies, setReplies] = useState<Reply[]>([])
+  const [replies, setReplies] = useState<Post[]>([])
   const [image, setImage] = useState<Image | null>(null)
   const [page, setPage] = useState(1)
   const [hasMore, setHasMore] = useState(true)
   const [openPostModal, setOpenPostModal] = useState(false)
   const [showSnackbar, setShowSnackbar] = useState(false)
+  const [replyable, setReplyable] = useState<Post | null>(null)
 
   useUser(setLoading, setUser, null, false)
 
@@ -83,15 +84,15 @@ export function PostReplies() {
       {post && (
         <DashboardContainer user={user} title="Thread" setOpenPostModal={setOpenPostModal}>
           <div>
-            <PostCard post={post} setPost={setPost} setImage={setImage} user={user} />
+            <PostCard
+              post={post}
+              setPost={setPost}
+              setImage={setImage}
+              user={user}
+              setReplyable={setReplyable}
+            />
             {user && (
-              <ReplyField
-                user={user}
-                replyable={post}
-                replies={replies}
-                setReplies={setReplies}
-                replyableType="Post"
-              />
+              <ReplyField user={user} replyable={post} replies={replies} setReplies={setReplies} />
             )}
           </div>
           {replies.length > 0 && (
@@ -114,6 +115,7 @@ export function PostReplies() {
                   user={user}
                   setReplies={setReplies}
                   setImage={setImage}
+                  setReplyable={setReplyable}
                 />
               ))}
             </InfiniteScroll>
@@ -127,6 +129,9 @@ export function PostReplies() {
         setOpen={setOpenPostModal}
         setShowSnackbar={setShowSnackbar}
       />
+      {user && replyable && (
+        <ReplyModal user={user} replyable={replyable} setReplyable={setReplyable} />
+      )}
       <Snackbar
         open={showSnackbar}
         color="success"

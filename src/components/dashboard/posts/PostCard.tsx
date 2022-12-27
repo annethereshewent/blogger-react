@@ -1,14 +1,13 @@
-import { AddCommentRounded, FavoriteOutlined, ReplyOutlined } from '@mui/icons-material'
-import { Avatar, IconButton } from '@mui/material'
+import { Avatar } from '@mui/material'
 import { Image } from '../../../types/post/Image'
 import { Post } from '../../../types/post/Post'
 import moment from 'moment'
 import { GifElement } from './GifElement'
-import { DashboardService } from '../../../services/DashboardService'
 import { User } from '../../../types/user/User'
 import { useNavigate } from 'react-router-dom'
 import { convertPost } from '../../../util/convertPost'
 import { useRef } from 'react'
+import { PostCardActions } from './PostCardActions'
 
 interface PostCardProps {
   post: Post
@@ -17,32 +16,21 @@ interface PostCardProps {
   posts?: Post[]
   user?: User
   setImage: (image: Image | null) => void
+  setReplyable: (post: Post | null) => void
 }
 
-export function PostCard({ post, user, setPosts, setPost, posts, setImage }: PostCardProps) {
+export function PostCard({
+  post,
+  user,
+  setPosts,
+  setPost,
+  posts,
+  setImage,
+  setReplyable
+}: PostCardProps) {
   const navigate = useNavigate()
   const imagesRef = useRef<HTMLDivElement>(null)
   const gifRef = useRef<HTMLDivElement>(null)
-
-  async function likePost() {
-    try {
-      const result = await new DashboardService().likePost(post.id)
-
-      if (setPosts != null && posts != null) {
-        const postsCopy = [...posts]
-
-        const i = postsCopy.indexOf(post)
-
-        postsCopy.splice(i, 1, result.data.post)
-
-        setPosts(postsCopy)
-      } else if (setPost != null) {
-        setPost(result.data.post)
-      }
-    } catch (e: any) {
-      console.log(e)
-    }
-  }
 
   function checkNavigate(e: React.MouseEvent<HTMLDivElement>) {
     const element = e.target as HTMLElement
@@ -81,27 +69,14 @@ export function PostCard({ post, user, setPosts, setPost, posts, setImage }: Pos
           </div>
         </div>
       </div>
-      <div className="post-actions">
-        <IconButton className="icon-button">
-          <AddCommentRounded />
-        </IconButton>
-        {post.reply_count > 0 && <span className="reply-count">{post.reply_count}</span>}
-        <span className="spacer" />
-        <IconButton className="icon-button">
-          <ReplyOutlined />
-        </IconButton>
-        <span className="spacer" />
-        <IconButton onClick={likePost}>
-          <FavoriteOutlined
-            className={
-              post.likes.filter((like) => like.username === user?.username).length === 1
-                ? 'liked'
-                : ''
-            }
-          />
-        </IconButton>
-        {post.like_count > 0 && <span className="like-count">{post.like_count}</span>}
-      </div>
+      <PostCardActions
+        user={user}
+        post={post}
+        setPost={setPost}
+        setPosts={setPosts}
+        posts={posts}
+        setReplyable={setReplyable}
+      />
     </div>
   )
 }

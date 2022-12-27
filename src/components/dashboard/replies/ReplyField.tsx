@@ -4,20 +4,20 @@ import { Link } from 'react-router-dom'
 import { ReplyService } from '../../../services/ReplyService'
 import { Gif } from '../../../types/post/Gif'
 import { Post } from '../../../types/post/Post'
-import { Reply } from '../../../types/post/Reply'
 import { User } from '../../../types/user/User'
 import { getRange } from '../../../util/moveCaret'
 import { updatePostField } from '../../../util/updatePostField'
-import { GifElement } from './GifElement'
-import { PostAddons } from './PostAddons'
-import { PostImage } from './PostImage'
+import { GifElement } from '../posts/GifElement'
+import { PostAddons } from '../posts/PostAddons'
+import { PostImage } from '../posts/PostImage'
 
 interface ReplyFieldProps {
   user: User
-  replyable: Post | Reply
-  replies: Reply[]
-  setReplies: (replies: Reply[]) => void
-  replyableType: string
+  replyable: Post
+  replies?: Post[]
+  setReplies?: (replies: Post[]) => void
+  style?: React.CSSProperties
+  setReplyable?: (replyable: Post | null) => void
 }
 
 export function ReplyField({
@@ -25,7 +25,8 @@ export function ReplyField({
   replyable,
   setReplies,
   replies,
-  replyableType
+  style,
+  setReplyable
 }: ReplyFieldProps) {
   const [loading, setLoading] = useState(false)
   const [body, setBody] = useState('')
@@ -55,11 +56,12 @@ export function ReplyField({
   async function handleReplyClick() {
     const replyService = new ReplyService()
     setLoading(true)
+
     try {
       const images = files.length > 0
       const replyRequest: { [key: string]: any } = {
         replyable_id: replyable.id,
-        replyable_type: replyableType,
+        replyable_type: replyable.is_reply ? 'Reply' : 'Post',
         body,
         images
       }
@@ -87,7 +89,9 @@ export function ReplyField({
 
         newReply = data.reply
       }
-      setReplies([newReply, ...replies])
+      if (replies != null && setReplies != null) {
+        setReplies([newReply, ...replies])
+      }
     } catch (e) {
       console.log(e)
     } finally {
@@ -97,11 +101,14 @@ export function ReplyField({
       setBody('')
       setImages([])
       setLoading(false)
+      if (setReplyable != null) {
+        setReplyable(null)
+      }
     }
   }
 
   return (
-    <div className="reply-field">
+    <div className="reply-field" style={style}>
       <h5 className="reply-title">
         Replying to{' '}
         <Link to={`/profile/${replyable.user.username}`}>@{replyable.user.username}</Link>

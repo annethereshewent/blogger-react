@@ -11,7 +11,7 @@ import '@fontsource/roboto/400.css'
 import '@fontsource/roboto/500.css'
 import '@fontsource/roboto/700.css'
 import { checkRefreshToken } from './util/checkRefreshToken'
-import { PostReplies } from './components/dashboard/posts/PostReplies'
+import { PostReplies } from './components/dashboard/replies/PostReplies'
 
 function App() {
   const theme = createTheme({

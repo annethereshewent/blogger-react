@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react'
 import { User } from '../../../types/user/User'
 import { ImageModal } from './ImageModal'
 import { Image } from '../../../types/post/Image'
+import { ReplyModal } from '../replies/ReplyModal'
 
 interface PostsContainerProps {
   user?: User
@@ -26,6 +27,7 @@ export function PostsContainer({
   setPosts
 }: PostsContainerProps) {
   const [image, setImage] = useState<Image | null>(null)
+  const [replyable, setReplyable] = useState<Post | null>(null)
 
   useEffect(() => {
     twemoji.parse(
@@ -55,10 +57,14 @@ export function PostsContainer({
             setPosts={setPosts}
             user={user}
             setImage={setImage}
+            setReplyable={setReplyable}
           />
         ))}
       </InfiniteScroll>
       <ImageModal image={image} setImage={setImage} />
+      {replyable && user && (
+        <ReplyModal user={user} replyable={replyable} setReplyable={setReplyable} />
+      )}
     </div>
   )
 }

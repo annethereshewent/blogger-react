@@ -4,41 +4,30 @@ import moment from 'moment'
 import { useNavigate } from 'react-router-dom'
 import { ReplyService } from '../../../services/ReplyService'
 import { Image } from '../../../types/post/Image'
-import { Reply } from '../../../types/post/Reply'
+import { Post } from '../../../types/post/Post'
 import { User } from '../../../types/user/User'
 import { convertPost } from '../../../util/convertPost'
-import { GifElement } from './GifElement'
+import { GifElement } from '../posts/GifElement'
+import { ReplyCardActions } from './ReplyCardActions'
 
 interface ReplyCardProps {
-  reply: Reply
+  reply: Post
   user?: User
-  replies?: Reply[]
-  setReplies?: (replies: Reply[]) => void
+  replies?: Post[]
+  setReplies?: (replies: Post[]) => void
+  setReplyable: (replyable: Post | null) => void
   setImage: (image: Image | null) => void
 }
 
-export function ReplyCard({ reply, user, replies, setReplies, setImage }: ReplyCardProps) {
+export function ReplyCard({
+  reply,
+  user,
+  replies,
+  setReplies,
+  setImage,
+  setReplyable
+}: ReplyCardProps) {
   const navigate = useNavigate()
-
-  async function likeReply() {
-    try {
-      const result = await new ReplyService().likeReply(reply.id)
-
-      const { data } = result
-
-      if (setReplies != null && replies != null) {
-        const repliesCopy = [...replies]
-
-        const i = repliesCopy.indexOf(reply)
-
-        repliesCopy.splice(i, 1, result.data.reply)
-
-        setReplies(repliesCopy)
-      }
-    } catch (e) {
-      console.log(e)
-    }
-  }
 
   return (
     <div id="reply-card" className="post-card">
@@ -69,27 +58,13 @@ export function ReplyCard({ reply, user, replies, setReplies, setImage }: ReplyC
           </div>
         </div>
       </div>
-      <div className="reply-actions">
-        <IconButton className="icon-button">
-          <AddCommentRounded />
-        </IconButton>
-        {reply.reply_count > 0 && <span className="reply-count">{reply.reply_count}</span>}
-        <span className="spacer" />
-        <IconButton className="icon-button">
-          <ReplyOutlined />
-        </IconButton>
-        <span className="spacer" />
-        <IconButton onClick={likeReply}>
-          <FavoriteOutlined
-            className={
-              reply.likes.filter((like) => like.username === user?.username).length === 1
-                ? 'liked'
-                : ''
-            }
-          />
-        </IconButton>
-        {reply.like_count > 0 && <span className="like-count">{reply.like_count}</span>}
-      </div>
+      <ReplyCardActions
+        reply={reply}
+        setReplies={setReplies}
+        user={user}
+        replies={replies}
+        setReplyable={setReplyable}
+      />
     </div>
   )
 }
