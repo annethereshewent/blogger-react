@@ -15,6 +15,7 @@ export interface Post {
   reply_count: number
   likes: Like[]
   is_reply: boolean
+  reply_id: number
 }
 
 export interface Like {

@@ -60,6 +60,7 @@ export function PostsContainer({
             setImage={setImage}
             setReplyable={setReplyable}
             setOpen={setOpen}
+            displayThreadLink={true}
           />
         ))}
       </InfiniteScroll>

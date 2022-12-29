@@ -4,7 +4,7 @@ import { Post } from '../../../types/post/Post'
 import moment from 'moment'
 import { GifElement } from './GifElement'
 import { User } from '../../../types/user/User'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { convertPost } from '../../../util/convertPost'
 import { useRef } from 'react'
 import { PostCardActions } from './PostCardActions'
@@ -18,6 +18,7 @@ interface PostCardProps {
   setImage: (image: Image | null) => void
   setReplyable: (post: Post) => void
   setOpen?: (open: boolean) => void
+  displayThreadLink?: boolean
 }
 
 export function PostCard({
@@ -28,7 +29,8 @@ export function PostCard({
   posts,
   setImage,
   setReplyable,
-  setOpen
+  setOpen,
+  displayThreadLink
 }: PostCardProps) {
   const navigate = useNavigate()
   const imagesRef = useRef<HTMLDivElement>(null)
@@ -37,9 +39,17 @@ export function PostCard({
   function checkNavigate(e: React.MouseEvent<HTMLDivElement>) {
     const element = e.target as HTMLElement
 
-    if (!['img', 'video'].includes(element.tagName.toLowerCase())) {
+    if (!['img', 'video', 'a'].includes(element.tagName.toLowerCase())) {
       navigate(`/posts/${post.id}`)
     }
+  }
+
+  function getThreadId(): number {
+    if (post.reply_id != null) {
+      return post.reply_id
+    }
+
+    return post.id
   }
 
   return (
@@ -69,6 +79,11 @@ export function PostCard({
               />
             ))}
           </div>
+          {(post.reply_count > 0 || post.is_reply) && displayThreadLink && (
+            <div>
+              <Link to={`/posts/${getThreadId()}`}>Show this thread</Link>
+            </div>
+          )}
         </div>
       </div>
       <PostCardActions
