@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useUser } from '../../../hooks/useUser'
-import { ReplyService } from '../../../services/ReplyService'
 import { Post } from '../../../types/post/Post'
 import { User } from '../../../types/user/User'
 import { DashboardContainer } from '../DashboardContainer'
@@ -60,7 +59,7 @@ export function PostReplies() {
     if (postId != null) {
       setLoading(true)
       try {
-        const result = await new ReplyService().getReplies(parseInt(postId), 'Post', page)
+        const result = await new PostService().getReplies(parseInt(postId), 'Post', page)
 
         const { data } = result
 

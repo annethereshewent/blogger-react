@@ -1,6 +1,6 @@
 import { AddCommentRounded, FavoriteOutlined, ReplyOutlined } from '@mui/icons-material'
 import { IconButton } from '@mui/material'
-import { ReplyService } from '../../../services/ReplyService'
+import { DashboardService } from '../../../services/DashboardService'
 import { Post } from '../../../types/post/Post'
 import { User } from '../../../types/user/User'
 
@@ -24,7 +24,7 @@ export function ReplyCardActions({
   async function likeReply() {
     if (user != null) {
       try {
-        const result = await new ReplyService().likeReply(reply.id)
+        const result = await new DashboardService().likePost(reply.id)
 
         const { data } = result
 

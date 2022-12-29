@@ -1,9 +1,10 @@
 import { Avatar, Button } from '@mui/material'
 import { useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { ReplyService } from '../../../services/ReplyService'
+import { DashboardService } from '../../../services/DashboardService'
 import { Gif } from '../../../types/post/Gif'
 import { Post } from '../../../types/post/Post'
+import { PostRequest } from '../../../types/post/PostRequest'
 import { User } from '../../../types/user/User'
 import { getRange } from '../../../util/moveCaret'
 import { updatePostField } from '../../../util/updatePostField'
@@ -60,14 +61,13 @@ export function ReplyField({
   }
 
   async function handleReplyClick() {
-    const replyService = new ReplyService()
+    const dashboardService = new DashboardService()
     setLoading(true)
 
     try {
       const images = files.length > 0
-      const replyRequest: { [key: string]: any } = {
-        replyable_id: replyable.id,
-        replyable_type: replyable.is_reply ? 'Reply' : 'Post',
+      const replyRequest: PostRequest = {
+        reply_id: replyable.id,
         body,
         images
       }
@@ -77,11 +77,11 @@ export function ReplyField({
         replyRequest.original_gif_url = gif.original_src
       }
 
-      const result = await replyService.createReply(replyable.id, replyRequest)
+      const result = await dashboardService.submitPost(replyRequest)
 
       const { data } = result
 
-      let newReply: Post = data.reply
+      let newReply: Post = data.post
 
       // finally upload any images
       if (files.length) {
@@ -90,10 +90,10 @@ export function ReplyField({
           formData.append('files[]', files[i])
         }
 
-        const result = await replyService.uploadImages(newReply.id, formData)
+        const result = await dashboardService.uploadImages(newReply.id, formData)
         const { data } = result
 
-        newReply = data.reply
+        newReply = data.post
       }
       if (replies != null && setReplies != null) {
         if (!replyable.is_reply) {
