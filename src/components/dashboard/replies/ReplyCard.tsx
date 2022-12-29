@@ -15,8 +15,9 @@ interface ReplyCardProps {
   user?: User
   replies?: Post[]
   setReplies?: (replies: Post[]) => void
-  setReplyable: (replyable: Post | null) => void
+  setReplyable: (replyable: Post) => void
   setImage: (image: Image | null) => void
+  setOpen: (open: boolean) => void
 }
 
 export function ReplyCard({
@@ -25,7 +26,8 @@ export function ReplyCard({
   replies,
   setReplies,
   setImage,
-  setReplyable
+  setReplyable,
+  setOpen
 }: ReplyCardProps) {
   const navigate = useNavigate()
 
@@ -64,6 +66,7 @@ export function ReplyCard({
         user={user}
         replies={replies}
         setReplyable={setReplyable}
+        setOpen={setOpen}
       />
     </div>
   )

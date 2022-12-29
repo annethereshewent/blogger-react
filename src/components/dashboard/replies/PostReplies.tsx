@@ -29,7 +29,8 @@ export function PostReplies() {
   const [hasMore, setHasMore] = useState(true)
   const [openPostModal, setOpenPostModal] = useState(false)
   const [showSnackbar, setShowSnackbar] = useState(false)
-  const [replyable, setReplyable] = useState<Post | null>(null)
+  const [replyable, setReplyable] = useState<Post>()
+  const [open, setOpen] = useState(false)
 
   useUser(setLoading, setUser, null, false)
 
@@ -92,7 +93,14 @@ export function PostReplies() {
               setReplyable={setReplyable}
             />
             {user && (
-              <ReplyField user={user} replyable={post} replies={replies} setReplies={setReplies} />
+              <ReplyField
+                user={user}
+                replyable={post}
+                replies={replies}
+                setReplies={setReplies}
+                post={post}
+                setPost={setPost}
+              />
             )}
           </div>
           {replies.length > 0 && (
@@ -116,6 +124,7 @@ export function PostReplies() {
                   setReplies={setReplies}
                   setImage={setImage}
                   setReplyable={setReplyable}
+                  setOpen={setOpen}
                 />
               ))}
             </InfiniteScroll>
@@ -130,7 +139,17 @@ export function PostReplies() {
         setShowSnackbar={setShowSnackbar}
       />
       {user && replyable && (
-        <ReplyModal user={user} replyable={replyable} setReplyable={setReplyable} />
+        <ReplyModal
+          user={user}
+          replyable={replyable}
+          setReplyable={setReplyable}
+          posts={replies}
+          setPosts={setReplies}
+          post={post}
+          setPost={setPost}
+          open={open}
+          setOpen={setOpen}
+        />
       )}
       <Snackbar
         open={showSnackbar}

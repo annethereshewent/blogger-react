@@ -9,7 +9,8 @@ interface ReplyCardActionsProps {
   user?: User
   replies?: Post[]
   setReplies?: (replies: Post[]) => void
-  setReplyable: (replyable: Post | null) => void
+  setReplyable: (replyable: Post) => void
+  setOpen: (open: boolean) => void
 }
 
 export function ReplyCardActions({
@@ -17,7 +18,8 @@ export function ReplyCardActions({
   replies,
   setReplies,
   user,
-  setReplyable
+  setReplyable,
+  setOpen
 }: ReplyCardActionsProps) {
   async function likeReply() {
     if (user != null) {
@@ -43,6 +45,7 @@ export function ReplyCardActions({
 
   function openReplyModal() {
     setReplyable(reply)
+    setOpen(true)
   }
 
   return (

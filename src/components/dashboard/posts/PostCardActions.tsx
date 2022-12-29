@@ -10,7 +10,8 @@ interface PostCardActionsProps {
   posts?: Post[]
   setPost?: (post: Post) => void
   user?: User
-  setReplyable: (replyable: Post | null) => void
+  setReplyable: (replyable: Post) => void
+  setOpen?: (open: boolean) => void
 }
 
 export function PostCardActions({
@@ -19,7 +20,8 @@ export function PostCardActions({
   setPost,
   posts,
   user,
-  setReplyable
+  setReplyable,
+  setOpen
 }: PostCardActionsProps) {
   async function likePost() {
     try {
@@ -42,8 +44,9 @@ export function PostCardActions({
   }
 
   async function openReplyModal() {
-    if (user != null) {
+    if (user != null && setOpen != null) {
       setReplyable(post)
+      setOpen(true)
     }
   }
 

@@ -7,18 +7,40 @@ import { modalStyleLarge } from '../../../util/modalStyles'
 import { CloseButton } from '../../shared/CloseButton'
 import { ReplyField } from './ReplyField'
 
+/**
+ * note that posts can be either posts or replies
+ * the only difference between the two is a flag
+ * set on the backend that tells the difference
+ */
 interface ReplyModalProps {
-  replyable: Post | null
-  setReplyable: (replyable: Post | null) => void
+  open: boolean
+  setOpen: (open: boolean) => void
+  replyable: Post
+  posts: Post[]
+  setReplyable: (replyable: Post) => void
+  setPosts: (replyables: Post[]) => void
   user: User
+  // setPost and post are only set in the PostReplies component, for updating the reply count
+  setPost?: (post: Post) => void
+  post?: Post
 }
 
-export function ReplyModal({ replyable, user, setReplyable }: ReplyModalProps) {
+export function ReplyModal({
+  user,
+  setReplyable,
+  setPosts,
+  posts,
+  replyable,
+  open,
+  setOpen,
+  post,
+  setPost
+}: ReplyModalProps) {
   function onClose() {
-    setReplyable(null)
+    setOpen(false)
   }
   return (
-    <Modal id="reply-modal" open={replyable != null}>
+    <Modal id="reply-modal" open={open}>
       <Card style={{ ...modalStyleLarge, borderRadius: '15px' }}>
         <CloseButton handleClose={onClose} />
         {replyable && (
@@ -43,6 +65,11 @@ export function ReplyModal({ replyable, user, setReplyable }: ReplyModalProps) {
                 replyable={replyable}
                 style={{ borderBottom: 'none' }}
                 setReplyable={setReplyable}
+                replies={posts}
+                setReplies={setPosts}
+                setOpen={setOpen}
+                post={post}
+                setPost={setPost}
               />
             </div>
           </CardContent>

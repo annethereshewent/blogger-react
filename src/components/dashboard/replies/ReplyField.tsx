@@ -17,7 +17,10 @@ interface ReplyFieldProps {
   replies?: Post[]
   setReplies?: (replies: Post[]) => void
   style?: React.CSSProperties
-  setReplyable?: (replyable: Post | null) => void
+  setReplyable?: (replyable: Post) => void
+  setOpen?: (open: boolean) => void
+  post?: Post
+  setPost?: (post: Post) => void
 }
 
 export function ReplyField({
@@ -26,7 +29,10 @@ export function ReplyField({
   setReplies,
   replies,
   style,
-  setReplyable
+  setReplyable,
+  setOpen,
+  post,
+  setPost
 }: ReplyFieldProps) {
   const [loading, setLoading] = useState(false)
   const [body, setBody] = useState('')
@@ -75,7 +81,7 @@ export function ReplyField({
 
       const { data } = result
 
-      let newReply = data.reply
+      let newReply: Post = data.reply
 
       // finally upload any images
       if (files.length) {
@@ -90,7 +96,27 @@ export function ReplyField({
         newReply = data.reply
       }
       if (replies != null && setReplies != null) {
-        setReplies([newReply, ...replies])
+        if (!replyable.is_reply) {
+          setReplies([newReply, ...replies])
+        }
+      }
+
+      // finally update the post/reply with the updated reply count
+      if (post?.id === replyable.id && post.is_reply === replyable.is_reply && setPost != null) {
+        setPost(data.replyable)
+      } else if (replies != null && setReplies != null) {
+        // check the replies
+        const i = replies.findIndex(
+          (reply) => reply.id === replyable.id && reply.is_reply === replyable.is_reply
+        )
+
+        if (i !== -1) {
+          const repliesCopy = [...replies]
+
+          repliesCopy.splice(i, 1, data.replyable)
+
+          setReplies(repliesCopy)
+        }
       }
     } catch (e) {
       console.log(e)
@@ -101,8 +127,8 @@ export function ReplyField({
       setBody('')
       setImages([])
       setLoading(false)
-      if (setReplyable != null) {
-        setReplyable(null)
+      if (setOpen != null) {
+        setOpen(false)
       }
     }
   }

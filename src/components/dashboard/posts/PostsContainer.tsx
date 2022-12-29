@@ -27,7 +27,8 @@ export function PostsContainer({
   setPosts
 }: PostsContainerProps) {
   const [image, setImage] = useState<Image | null>(null)
-  const [replyable, setReplyable] = useState<Post | null>(null)
+  const [replyable, setReplyable] = useState<Post>()
+  const [open, setOpen] = useState(false)
 
   useEffect(() => {
     twemoji.parse(
@@ -58,12 +59,21 @@ export function PostsContainer({
             user={user}
             setImage={setImage}
             setReplyable={setReplyable}
+            setOpen={setOpen}
           />
         ))}
       </InfiniteScroll>
       <ImageModal image={image} setImage={setImage} />
       {replyable && user && (
-        <ReplyModal user={user} replyable={replyable} setReplyable={setReplyable} />
+        <ReplyModal
+          user={user}
+          replyable={replyable}
+          setReplyable={setReplyable}
+          posts={posts}
+          setPosts={setPosts}
+          open={open}
+          setOpen={setOpen}
+        />
       )}
     </div>
   )

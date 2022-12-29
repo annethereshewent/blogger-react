@@ -16,7 +16,8 @@ interface PostCardProps {
   posts?: Post[]
   user?: User
   setImage: (image: Image | null) => void
-  setReplyable: (post: Post | null) => void
+  setReplyable: (post: Post) => void
+  setOpen?: (open: boolean) => void
 }
 
 export function PostCard({
@@ -26,7 +27,8 @@ export function PostCard({
   setPost,
   posts,
   setImage,
-  setReplyable
+  setReplyable,
+  setOpen
 }: PostCardProps) {
   const navigate = useNavigate()
   const imagesRef = useRef<HTMLDivElement>(null)
@@ -76,6 +78,7 @@ export function PostCard({
         setPosts={setPosts}
         posts={posts}
         setReplyable={setReplyable}
+        setOpen={setOpen}
       />
     </div>
   )
