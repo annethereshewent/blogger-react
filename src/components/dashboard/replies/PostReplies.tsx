@@ -1,6 +1,4 @@
-import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
-import { useUser } from '../../../hooks/useUser'
+import { useState } from 'react'
 import { Post } from '../../../types/post/Post'
 import { User } from '../../../types/user/User'
 import { DashboardContainer } from '../DashboardContainer'
@@ -12,78 +10,50 @@ import { Image } from '../../../types/post/Image'
 import { ImageModal } from '../posts/ImageModal'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { CircularProgress, Snackbar } from '@mui/material'
-import { PostService } from '../../../services/PostService'
 import { PostModal } from '../posts/PostModal'
 import { ReplyModal } from './ReplyModal'
 
-export function PostReplies() {
-  const { postId } = useParams()
+interface PostRepliesParams {
+  post: Post
+  parent?: Post
+  replies: Post[]
+  user?: User
+  setPost: (post: Post) => void
+  setReplies: (replies: Post[]) => void
+  hasMore: boolean
+  getPostReplies: () => void
+}
 
-  const [user, setUser] = useState<User>()
-  const [loading, setLoading] = useState(false)
-  const [post, setPost] = useState<Post>()
-  const [replies, setReplies] = useState<Post[]>([])
+export function PostReplies({
+  post,
+  parent,
+  replies,
+  user,
+  setPost,
+  setReplies,
+  hasMore,
+  getPostReplies
+}: PostRepliesParams) {
   const [image, setImage] = useState<Image | null>(null)
-  const [page, setPage] = useState(1)
-  const [hasMore, setHasMore] = useState(true)
   const [openPostModal, setOpenPostModal] = useState(false)
   const [showSnackbar, setShowSnackbar] = useState(false)
   const [replyable, setReplyable] = useState<Post>()
   const [open, setOpen] = useState(false)
-
-  useUser(setLoading, setUser, null, false)
-
-  useEffect(() => {
-    getPost()
-    getPostReplies()
-  }, [postId])
-
-  async function getPost() {
-    if (postId != null) {
-      setLoading(true)
-      try {
-        const result = await new PostService().getPost(parseInt(postId))
-
-        const { data } = result
-
-        setPost(data.post)
-      } catch (e) {
-        console.log(e)
-      } finally {
-        setLoading(false)
-      }
-    }
-  }
-
-  async function getPostReplies() {
-    if (postId != null) {
-      setLoading(true)
-      try {
-        const result = await new PostService().getReplies(parseInt(postId), 'Post', page)
-
-        const { data } = result
-
-        if (data.replies.length) {
-          const concatedReplies = replies.concat(data.replies)
-
-          setReplies(concatedReplies)
-          setPage(page + 1)
-        } else {
-          setHasMore(false)
-        }
-      } catch (e) {
-        console.log(e)
-      } finally {
-        setLoading(false)
-      }
-    }
-  }
 
   return (
     <div id="post-replies">
       {post && (
         <DashboardContainer user={user} title="Thread" setOpenPostModal={setOpenPostModal}>
           <div>
+            {parent && (
+              <PostCard
+                post={parent}
+                setPost={setPost}
+                setImage={setImage}
+                user={user}
+                setReplyable={setReplyable}
+              />
+            )}
             <PostCard
               post={post}
               setPost={setPost}

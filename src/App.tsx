@@ -11,7 +11,9 @@ import '@fontsource/roboto/400.css'
 import '@fontsource/roboto/500.css'
 import '@fontsource/roboto/700.css'
 import { checkRefreshToken } from './util/checkRefreshToken'
-import { PostReplies } from './components/dashboard/replies/PostReplies'
+import { PostRepliesContainer } from './components/dashboard/replies/PostRepliesContainer'
+import { ReplyContainer } from './components/dashboard/replies/ReplyContainer'
+import { ReplyContainerWithParent } from './components/dashboard/replies/ReplyContainerWithParent'
 
 function App() {
   const theme = createTheme({
@@ -48,7 +50,8 @@ function App() {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/tags/:tag" element={<Tags />} />
             <Route path="/profile/:username" element={<UserProfile />} />
-            <Route path="/posts/:postId" element={<PostReplies />} />
+            <Route path="/posts/:postId" element={<ReplyContainer />} />
+            <Route path="/replies/:postId" element={<ReplyContainerWithParent />} />
           </Routes>
         </BrowserRouter>
       </div>

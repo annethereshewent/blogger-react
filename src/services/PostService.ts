@@ -8,4 +8,8 @@ export class PostService extends BaseService {
   async getReplies(replyableId: number, replyableType: string, page: number) {
     return await this.client.get(`/api/v1/users/replies/${replyableId}?page=${page}`)
   }
+
+  async getParent(postId: number) {
+    return await this.client.get(`/api/v1/users/posts/${postId}/parent`)
+  }
 }
