@@ -12,9 +12,12 @@ export interface Post {
   gif: string
   original_gif_url: string
   like_count: number
+  reply_count: number
   likes: Like[]
+  is_reply: boolean
+  reply_id: number
 }
 
-interface Like {
+export interface Like {
   username: string
 }

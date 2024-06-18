@@ -4,4 +4,5 @@ export interface PostRequest {
   original_gif_url?: string
   images?: boolean
   tags?: string[]
+  reply_id?: number
 }

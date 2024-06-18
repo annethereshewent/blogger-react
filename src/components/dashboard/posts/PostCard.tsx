@@ -1,77 +1,74 @@
-import { AddCommentRounded, FavoriteOutlined, ReplyOutlined } from '@mui/icons-material'
-import { Avatar, IconButton } from '@mui/material'
-import linkifyHtml from 'linkifyjs/lib/linkify-html'
+import { Avatar } from '@mui/material'
 import { Image } from '../../../types/post/Image'
 import { Post } from '../../../types/post/Post'
 import moment from 'moment'
 import { GifElement } from './GifElement'
-import { ImageModal } from './ImageModal'
-import { useState } from 'react'
-import { DashboardService } from '../../../services/DashboardService'
 import { User } from '../../../types/user/User'
+import { Link, useNavigate } from 'react-router-dom'
+import { convertPost } from '../../../util/convertPost'
+import { useRef } from 'react'
+import { PostCardActions } from './PostCardActions'
 
 interface PostCardProps {
   post: Post
-  setPosts: (posts: Post[]) => void
-  posts: Post[]
+  setPosts?: (posts: Post[]) => void
+  setPost?: (post: Post) => void
+  posts?: Post[]
   user?: User
+  setImage: (image: Image | null) => void
+  setReplyable: (post: Post) => void
+  setOpen?: (open: boolean) => void
+  displayThreadLink?: boolean
 }
 
-export function PostCard({ post, user, setPosts, posts }: PostCardProps) {
-  /*
-   * Replaces new lines with br tags and auto links urls.
-   * @TODO: sanitization already happens
-   * on the backend, optionally add it to client side
-   */
-  function convertPost(body: string): string {
-    if (body != null) {
-      let bodyHtml = linkifyHtml(body.replace(/\n/g, '<br/>'), { target: '_blank' })
+export function PostCard({
+  post,
+  user,
+  setPosts,
+  setPost,
+  posts,
+  setImage,
+  setReplyable,
+  setOpen,
+  displayThreadLink
+}: PostCardProps) {
+  const navigate = useNavigate()
+  const imagesRef = useRef<HTMLDivElement>(null)
+  const gifRef = useRef<HTMLDivElement>(null)
 
-      if (post.tags != null) {
-        for (const tag of post.tags) {
-          const tagRegex = new RegExp(`#${tag}\\b`, 'g')
-          bodyHtml = bodyHtml.replace(tagRegex, `<a href="/tags/${tag}">#${tag}</a>`)
-        }
-      }
+  function checkNavigate(e: React.MouseEvent<HTMLDivElement>) {
+    const element = e.target as HTMLElement
 
-      return bodyHtml
-    }
-    return ''
-  }
-
-  async function likePost() {
-    try {
-      const result = await new DashboardService().likePost(post.id)
-
-      const postsCopy = [...posts]
-
-      const i = postsCopy.indexOf(post)
-
-      postsCopy.splice(i, 1, result.data.post)
-
-      setPosts(postsCopy)
-    } catch (e: any) {
-      console.log(e)
+    if (!['img', 'video', 'a'].includes(element.tagName.toLowerCase())) {
+      navigate(`/posts/${post.id}`)
     }
   }
 
-  const [image, setImage] = useState<Image | null>(null)
+  function getThreadId(): number {
+    if (post.reply_id != null) {
+      return post.reply_id
+    }
+
+    return post.id
+  }
 
   return (
-    <div id={`post-${post.id}`} className="post-card">
+    <div className="post-card">
       <div className="post">
         <Avatar src={post.user.avatars.small} className="post-avatar" />
-        <div className="post-wrapper">
-          <strong>{post.user.display_name}</strong>
-          <span className="post-username">@{post.user.username}</span>
-          <span className="post-date">{moment(post.created_at).fromNow()}</span>
-          <p className="post-body" dangerouslySetInnerHTML={{ __html: convertPost(post.body) }} />
-          <div className="gifs">
+        <div onClick={checkNavigate} className="post-wrapper">
+          <div>
+            <strong>{post.user.display_name}</strong>
+            <span className="post-username">@{post.user.username}</span>
+            <span className="post-date">{moment(post.created_at).fromNow()}</span>
+            <p className="post-body" dangerouslySetInnerHTML={{ __html: convertPost(post) }} />
+          </div>
+          <div ref={gifRef} className="gifs">
             {post.gif && (
               <GifElement src={post.gif} originalSrc={post.original_gif_url} key={post.gif} />
             )}
           </div>
-          <div className="images">
+          <div ref={imagesRef} className="images">
             {post.images.map((image) => (
               <img
                 alt="alt text"
@@ -82,27 +79,22 @@ export function PostCard({ post, user, setPosts, posts }: PostCardProps) {
               />
             ))}
           </div>
+          {(post.reply_count > 0 || post.is_reply) && displayThreadLink && (
+            <div>
+              <Link to={`/posts/${getThreadId()}`}>Show this thread</Link>
+            </div>
+          )}
         </div>
       </div>
-      <div className="post-actions">
-        <IconButton className="icon-button">
-          <AddCommentRounded />
-        </IconButton>
-        <IconButton className="icon-button">
-          <ReplyOutlined />
-        </IconButton>
-        <IconButton onClick={likePost}>
-          <FavoriteOutlined
-            className={
-              post.likes.filter((like) => like.username === user?.username).length === 1
-                ? 'liked'
-                : ''
-            }
-          />
-        </IconButton>
-        {post.like_count > 0 && <span className="like-count">{post.like_count}</span>}
-      </div>
-      <ImageModal image={image} setImage={setImage} />
+      <PostCardActions
+        user={user}
+        post={post}
+        setPost={setPost}
+        setPosts={setPosts}
+        posts={posts}
+        setReplyable={setReplyable}
+        setOpen={setOpen}
+      />
     </div>
   )
 }

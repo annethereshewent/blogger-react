@@ -10,7 +10,7 @@ import EmojiPicker, {
   SkinTonePickerLocation
 } from 'emoji-picker-react'
 import twemoji from 'twemoji'
-import { getRange, moveCaretAtEmoji, moveCaretToEnd } from '../../../util/moveCaret'
+import { getRange, moveCaretAtEmoji } from '../../../util/moveCaret'
 
 interface PostAddonsProps {
   setGif: (gif: Gif) => void
@@ -19,12 +19,12 @@ interface PostAddonsProps {
   files: File[]
   setFiles: (files: File[]) => void
   editableDivRef: HTMLDivElement | null
-  post: string
   setPost: (post: string) => void
   range?: Range
   setRange: (range: Range) => void
   emojiNumber: number
   setEmojiNumber: (num: number) => void
+  style?: React.CSSProperties
 }
 
 export function PostAddons({
@@ -34,12 +34,12 @@ export function PostAddons({
   files,
   setFiles,
   editableDivRef,
-  post,
   setPost,
   range,
   emojiNumber,
   setEmojiNumber,
-  setRange
+  setRange,
+  style
 }: PostAddonsProps) {
   const [open, setOpen] = useState(false)
   const [openEmoji, setOpenEmoji] = useState(false)
@@ -83,6 +83,7 @@ export function PostAddons({
       })
       moveCaretAtEmoji(editableDivRef, `emoji-${emojiNumber}`)
       setPost(editableDivRef.innerHTML)
+      setEmojiNumber(emojiNumber + 1)
 
       // finally set the range to where the caret currently is just in case
       let newRange = getRange()
@@ -96,7 +97,7 @@ export function PostAddons({
 
   return (
     <div>
-      <div className="post-addons">
+      <div className="post-addons" style={style}>
         <Tooltip TransitionProps={{ timeout: 1500 }} title="image">
           <IconButton className="item" onClick={() => openFileUpload()}>
             <ImageOutlined />

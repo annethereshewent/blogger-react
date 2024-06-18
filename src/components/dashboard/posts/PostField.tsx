@@ -1,4 +1,4 @@
-import { Avatar, Button, CircularProgress, InputProps, TextField } from '@mui/material'
+import { Avatar, Button, CircularProgress } from '@mui/material'
 import { useRef, useState } from 'react'
 import { DashboardService } from '../../../services/DashboardService'
 import { Post } from '../../../types/post/Post'
@@ -7,17 +7,19 @@ import { GifElement } from './GifElement'
 import { PostRequest } from '../../../types/post/PostRequest'
 import { Gif } from '../../../types/post/Gif'
 import { tagRegex } from '../../../util/tagRegex'
-import twemoji from 'twemoji'
-import { getRange, moveCaretAtEmoji, moveCaretToEnd } from '../../../util/moveCaret'
+import { getRange } from '../../../util/moveCaret'
+import { updatePostField } from '../../../util/updatePostField'
+import { PostImage } from './PostImage'
 
 interface PostFieldProps {
   avatar: string | undefined
-  posts: Post[]
-  setPosts: (posts: Post[]) => void
+  posts?: Post[]
+  setPosts?: (posts: Post[]) => void
   setOpen?: (open: boolean) => void
+  setShowSnackbar?: (showSnackbar: boolean) => void
 }
 
-export function PostField({ avatar, posts, setPosts, setOpen }: PostFieldProps) {
+export function PostField({ avatar, posts, setPosts, setOpen, setShowSnackbar }: PostFieldProps) {
   const [post, setPost] = useState('')
   const [loading, setLoading] = useState(false)
   const [inputStyles, setInputStyles] = useState({})
@@ -33,20 +35,7 @@ export function PostField({ avatar, posts, setPosts, setOpen }: PostFieldProps) 
   const editableDiv = useRef<HTMLDivElement>(null)
 
   function handlePostChange(e: React.ChangeEvent<HTMLDivElement>) {
-    // this will match all emojis and prevent false matches like numbers or # * (which \p${Emoji}` matches)
-    const emojiRegex = /(?=\p{Emoji})(?!\p{Number})(?!\*)(?!#)/u
-    if (emojiRegex.test(e.currentTarget.innerText)) {
-      if (editableDiv.current != null) {
-        twemoji.parse(editableDiv.current, {
-          folder: 'svg',
-          ext: '.svg',
-          className: `emoji emoji-${emojiNumber}`
-        })
-        moveCaretAtEmoji(editableDiv.current, `emoji-${emojiNumber}`)
-        setEmojiNumber(emojiNumber + 1)
-      }
-    }
-    setPost(e.currentTarget.innerHTML || '')
+    updatePostField(e, emojiNumber, setEmojiNumber, setPost, editableDiv.current)
   }
 
   // returns unique tags only
@@ -101,7 +90,11 @@ export function PostField({ avatar, posts, setPosts, setOpen }: PostFieldProps) 
         newPost = data.post
       }
 
-      setPosts([newPost, ...posts])
+      if (setPosts != null && posts != null) {
+        setPosts([newPost, ...posts])
+      } else if (setShowSnackbar != null) {
+        setShowSnackbar(true)
+      }
     } catch (e) {
       // @ TODO: add error handling
     } finally {
@@ -158,11 +151,10 @@ export function PostField({ avatar, posts, setPosts, setOpen }: PostFieldProps) 
           placeholder="What's on your mind?"
         />
       </div>
-      <div className="images" />
       {gif.src !== '' && <GifElement src={gif.src} originalSrc={gif.original_src} />}
       <div className="images-row">
         {images.map((image) => (
-          <img alt="alt text" key={image} src={image} style={{ width: '45%' }} />
+          <PostImage key={image} image={image} images={images} setImages={setImages} />
         ))}
       </div>
       <div className="post-buttons-wrapper">
@@ -173,7 +165,6 @@ export function PostField({ avatar, posts, setPosts, setOpen }: PostFieldProps) 
           files={files}
           setFiles={setFiles}
           editableDivRef={editableDiv.current}
-          post={post}
           setPost={setPost}
           range={range}
           emojiNumber={emojiNumber}

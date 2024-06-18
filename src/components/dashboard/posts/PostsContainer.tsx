@@ -3,8 +3,11 @@ import { PostCard } from './PostCard'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { CircularProgress } from '@mui/material'
 import twemoji from 'twemoji'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { User } from '../../../types/user/User'
+import { ImageModal } from './ImageModal'
+import { Image } from '../../../types/post/Image'
+import { ReplyModal } from '../replies/ReplyModal'
 
 interface PostsContainerProps {
   user?: User
@@ -23,6 +26,10 @@ export function PostsContainer({
   user,
   setPosts
 }: PostsContainerProps) {
+  const [image, setImage] = useState<Image | null>(null)
+  const [replyable, setReplyable] = useState<Post>()
+  const [open, setOpen] = useState(false)
+
   useEffect(() => {
     twemoji.parse(
       document.body,
@@ -44,9 +51,31 @@ export function PostsContainer({
         }
       >
         {posts.map((post) => (
-          <PostCard key={post.id} post={post} posts={posts} setPosts={setPosts} user={user} />
+          <PostCard
+            key={post.id}
+            post={post}
+            posts={posts}
+            setPosts={setPosts}
+            user={user}
+            setImage={setImage}
+            setReplyable={setReplyable}
+            setOpen={setOpen}
+            displayThreadLink={true}
+          />
         ))}
       </InfiniteScroll>
+      <ImageModal image={image} setImage={setImage} />
+      {replyable && user && (
+        <ReplyModal
+          user={user}
+          replyable={replyable}
+          setReplyable={setReplyable}
+          posts={posts}
+          setPosts={setPosts}
+          open={open}
+          setOpen={setOpen}
+        />
+      )}
     </div>
   )
 }

@@ -12,6 +12,10 @@ html, body, root {
 [contenteditable] {
   outline: 0px solid transparent;
 }
+a, a:visited {
+  color: $blogger_link;
+  text-decoration: none;
+}
 
 .avatar-editor {
   margin-top: 20px;
@@ -32,19 +36,6 @@ html, body, root {
     margin-top: -20px;
     text-align: center;
   }
-  // .avatar-editor {
-  //   margin-top: 20px;
-  //   .avatar-editor-slider {
-  //     margin: 0 auto;
-  //     width: 80%;
-  //   }
-  //   .avatar-apply-btn {
-  //     width: 75x;
-  //     float: right;
-  //     margin-right: 20px;
-  //     margin-bottom: 10px;
-  //   }
-  // }
   .avatar-image-container {
     margin: 0 auto;
     padding-bottom: 20px;
@@ -274,60 +265,56 @@ html, body, root {
       }
     }
   }
-  #posts-container {
-    .post-card {
-      padding-top: 20px;
-      padding-left: 40px;
-      .images {
-        display: flex;
-        flex-wrap: wrap;
-        img {
-          border-radius: 15px;
-          margin-right: 5px;
-          margin-bottom: 5px;
-        }
-      }
-      .post {
-        .post-avatar {
-          margin-top: 20px;
-        }
-        a, a:visited {
-          color: $blogger_link;
-          text-decoration: none;
-        }
-        display: flex;
-        .post-wrapper {
-          margin-top: 20px;
-          margin-right: 20px;
-          margin-left: 20px;
-          .gif-element {
-            cursor: pointer;
-          }
-          .post-date, .post-username {
-            font-size: 16px;
-            margin-left: 5px;
-            color: $blogger_gray_accent;
-          }
-        }
-      }
-      border-bottom: 1px solid $blogger_border_gray;
-    }
-    .post-actions {
-      margin-top: 20px;
-      padding-left: 50px;
-      .liked {
-        color: red;
-      }
-      .like-count {
-        color: $blogger_gray_accent;
-        font-size: 12px;
-      }
-      .icon-button {
-        margin-right: 30%;
+  .post-card, .reply-card {
+    padding-top: 20px;
+    padding-left: 40px;
+    .images {
+      display: flex;
+      flex-wrap: wrap;
+      img {
+        border-radius: 15px;
+        margin-right: 5px;
+        margin-bottom: 5px;
       }
     }
-
+    .post, .reply {
+      cursor: pointer;
+      .post-avatar {
+        margin-top: 20px;
+      }
+      display: flex;
+      .post-wrapper, .reply-wrapper {
+        margin-top: 20px;
+        margin-right: 20px;
+        margin-left: 20px;
+        .gif-element {
+          cursor: pointer;
+        }
+        .post-date, .post-username, .reply-date, .reply-username {
+          font-size: 16px;
+          margin-left: 5px;
+          color: $blogger_gray_accent;
+        }
+      }
+    }
+    border-bottom: 1px solid $blogger_border_gray;
   }
+
+  .post-actions, .reply-actions {
+    margin-top: 20px;
+    padding-left: 50px;
+    .liked {
+      color: #ff0066;
+    }
+    .like-count, .reply-count {
+      color: $blogger_gray_accent;
+      font-size: 12px;
+    }
+    .spacer {
+      margin-right: 30%;
+    }
+  }
+
 }
 #post-modal {
   .post-text-field {
@@ -364,6 +351,73 @@ html, body, root {
 
 .gif-container {
   cursor: pointer;
+}
+
+#post-replies {
+  .reply-title {
+    color: $blogger_gray_accent;
+    margin-left: 80px;
+  }
+  .reply-actions {
+    .reply-button {
+      float: right;
+    }
+  }
+}
+
+.reply-field {
+  border-bottom: 1px solid $blogger_border_gray;
+  padding-bottom: 10px;
+  .reply-input-area {
+    display: flex;
+    margin-top: 20px;
+    .reply-avatar {
+      margin-left: 20px;
+      margin-right: 20px;
+    }
+    .reply-input {
+      width: 100%;
+      min-height: 70px;
+    }
+    .reply-input[contentEditable="true"]:empty:before {
+      font-size: 24px;
+      content: attr(placeholder);
+      color: $blogger_border_gray;
+    }
+  }
+  .reply-button {
+    float: right;
+  }
+}
+
+#reply-modal {
+  .reply {
+    padding-top: 20px;
+    padding-left: 20px;
+    margin-top: -20px;
+    border-left: 3px solid $blogger_border_gray;
+    margin-left: 20px;
+  }
+  .replied-post {
+    margin-left: 20px;
+    border-left: 3px solid $blogger_border_gray;
+    padding-bottom: 20px;
+    .replied-wrapper {
+      margin-left: -20px;
+      display: flex;
+      .replied-avatar {
+        margin-right: 20px;
+      }
+      .replied-post-contents {
+        .replied-username {
+          margin-left: 5px;
+        }
+        .replied-date {
+          margin-left: 5px;
+        }
+      }
+    }
+  }
 }
 
 #post-field {
@@ -472,5 +526,15 @@ html, body, root {
   .search-result-link {
     text-decoration: none;
     color: inherit;
+  }
+}
+
+.new-image {
+  position: relative;
+  .close-button {
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    left: 200px;
   }
 }
