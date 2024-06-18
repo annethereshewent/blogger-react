@@ -25,7 +25,7 @@ export function PostRepliesContainer({ withParent }: PostRepliesContainerParams)
 
   useEffect(() => {
     getPost()
-    getPostReplies(true)
+    getPostReplies()
 
     if (withParent) {
       getParent()
@@ -67,12 +67,11 @@ export function PostRepliesContainer({ withParent }: PostRepliesContainerParams)
     }
   }
 
-  async function getPostReplies(ignorePage: boolean = false) {
-    const actualPage = ignorePage ? 1 : page
+  async function getPostReplies() {
     if (postId != null) {
       setLoading(true)
       try {
-        const result = await new PostService().getReplies(parseInt(postId), 'Post', actualPage)
+        const result = await new PostService().getReplies(parseInt(postId), 'Post', page)
         const { data } = result
 
         if (data.replies.length) {
