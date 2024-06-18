@@ -96,9 +96,10 @@ export function ReplyField({
         newReply = data.post
       }
       if (replies != null && setReplies != null) {
-        if (!replyable.is_reply) {
-          setReplies([newReply, ...replies])
-        }
+        // if (!replyable.is_reply) {
+        //   setReplies([newReply, ...replies])
+        // }
+        setReplies([...replies, newReply])
       }
 
       // finally update the post/reply with the updated reply count
