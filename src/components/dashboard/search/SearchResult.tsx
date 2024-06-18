@@ -1,4 +1,4 @@
-import { Avatar, Badge, Chip, ListItem, ListItemAvatar, ListItemText } from '@mui/material'
+import { Avatar, Chip, ListItem, ListItemAvatar, ListItemText } from '@mui/material'
 import { UserSearchResult } from '../../../types/user/UserSearchResult'
 
 interface SearchResultProps {

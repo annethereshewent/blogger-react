@@ -22,11 +22,11 @@ export function DashboardHeader({ title, count }: DashboardHeaderProps) {
     }
 
     setSearch(e.target.value)
-    setTimer(
-      setTimeout(async () => {
-        if (e.target.value !== '') {
+
+    if (e.target.value !== '') {
+      setTimer(
+        setTimeout(async () => {
           try {
-            console.log('finally making service call')
             const result = await new UserService().searchUsers(e.target.value)
 
             const { data } = result
@@ -35,9 +35,19 @@ export function DashboardHeader({ title, count }: DashboardHeaderProps) {
           } catch (e) {
             //@TODO
           }
-        }
-      }, 800)
-    )
+        }, 800)
+      )
+    } else {
+      setUserResults([])
+    }
+    document.addEventListener('click', (event) => {
+      const node = document.getElementById('search-results')
+
+      if (!node?.contains(event.target as Node)) {
+        setUserResults([])
+        setSearch('')
+      }
+    })
   }
   return (
     <Grid id="dashboard-header" container>
@@ -55,28 +65,30 @@ export function DashboardHeader({ title, count }: DashboardHeaderProps) {
         </div>
       </Grid>
       <Grid className="search-column" item xs={1} lg={3}>
-        <TextField
-          className="search-text-field"
-          fullWidth
-          value={search}
-          placeholder="Search Blogger"
-          onChange={handleSearch}
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <SearchOutlined />
-              </InputAdornment>
-            )
-          }}
-        />
-        {userResults && (
-          <SearchList
-            userResults={userResults}
-            setUserResults={setUserResults}
-            query={search}
-            setQuery={setSearch}
+        <div id="search-results">
+          <TextField
+            className="search-text-field"
+            fullWidth
+            value={search}
+            placeholder="Search Blogger"
+            onChange={handleSearch}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <SearchOutlined />
+                </InputAdornment>
+              )
+            }}
           />
-        )}
+          {userResults && (
+            <SearchList
+              userResults={userResults}
+              setUserResults={setUserResults}
+              query={search}
+              setQuery={setSearch}
+            />
+          )}
+        </div>
       </Grid>
     </Grid>
   )

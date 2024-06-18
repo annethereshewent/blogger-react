@@ -1,5 +1,5 @@
 import { List } from '@mui/material'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { UserSearchResult } from '../../../types/user/UserSearchResult'
 import { SearchResult } from './SearchResult'
 
@@ -18,14 +18,18 @@ export function SearchList({ userResults, setUserResults, query, setQuery }: Sea
     navigate(`/profile/${username}`)
   }
   return (
-    <List id="search-list" sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
-      {userResults.map((result) => (
-        <SearchResult
-          onClick={() => handleClick(result.username)}
-          key={result.username}
-          item={result}
-        />
-      ))}
-    </List>
+    <div>
+      {userResults.length > 0 && (
+        <List id="search-list" sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+          {userResults.map((result) => (
+            <SearchResult
+              onClick={() => handleClick(result.username)}
+              key={result.username}
+              item={result}
+            />
+          ))}
+        </List>
+      )}
+    </div>
   )
 }
