@@ -75,9 +75,9 @@ export function PostRepliesContainer({ withParent }: PostRepliesContainerParams)
         const { data } = result
 
         if (data.replies.length) {
-          const concatedReplies = replies.concat(data.replies)
+          const concatenateddReplies = replies.concat(data.replies)
 
-          setReplies(concatedReplies)
+          setReplies(concatenateddReplies)
           setPage(page + 1)
         } else {
           setHasMore(false)
