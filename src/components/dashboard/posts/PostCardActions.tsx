@@ -1,16 +1,16 @@
 import { AddCommentRounded, FavoriteOutlined, ReplyOutlined } from '@mui/icons-material'
 import { IconButton } from '@mui/material'
 import { DashboardService } from '../../../services/DashboardService'
-import { Post } from '../../../types/post/Post'
+import { Post, PublishedPost } from '../../../types/post/Post'
 import { User } from '../../../types/user/User'
 
 interface PostCardActionsProps {
-  post: Post
+  post: PublishedPost
   setPosts?: (posts: Post[]) => void
   posts?: Post[]
   setPost?: (post: Post) => void
   user?: User
-  setReplyable: (replyable: Post) => void
+  setReplyable: (replyable: PublishedPost) => void
   setOpen?: (open: boolean) => void
 }
 

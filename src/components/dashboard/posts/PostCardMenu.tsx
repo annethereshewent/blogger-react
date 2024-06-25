@@ -11,12 +11,12 @@ import {
 import { Menu as MenuIcon } from '@mui/icons-material'
 import { useRef, useState } from 'react'
 import { DashboardService } from '../../../services/DashboardService'
-import { Post } from '../../../types/post/Post'
+import { Post, PublishedPost } from '../../../types/post/Post'
 import { User } from '../../../types/user/User'
 import { modalStyle } from '../../../util/modalStyles'
 
 interface PostCardMenuProps {
-  post: Post
+  post: PublishedPost
   posts?: Post[]
   user?: User
   setPosts?: (posts: Post[]) => void
@@ -45,9 +45,13 @@ export function PostCardMenu({ post, posts, user, setPosts }: PostCardMenuProps)
 
         const i = postsCopy.indexOf(post)
 
-        postsCopy.splice(i, 1)
+        if (i !== -1) {
+          postsCopy.splice(i, 1)
 
-        setPosts(postsCopy)
+          setPosts(postsCopy)
+        } else {
+          // TODO: deal with deleting the main post
+        }
       }
     } catch (e: any) {
       console.log(e)

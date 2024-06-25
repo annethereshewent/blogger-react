@@ -3,7 +3,7 @@ import { useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { DashboardService } from '../../../services/DashboardService'
 import { Gif } from '../../../types/post/Gif'
-import { Post } from '../../../types/post/Post'
+import { Post, PublishedPost } from '../../../types/post/Post'
 import { PostRequest } from '../../../types/post/PostRequest'
 import { User } from '../../../types/user/User'
 import { getRange } from '../../../util/moveCaret'
@@ -14,13 +14,13 @@ import { PostImage } from '../posts/PostImage'
 
 interface ReplyFieldProps {
   user: User
-  replyable: Post
+  replyable: PublishedPost
   replies?: Post[]
   setReplies?: (replies: Post[]) => void
   style?: React.CSSProperties
-  setReplyable?: (replyable: Post) => void
+  setReplyable?: (replyable: PublishedPost) => void
   setOpen?: (open: boolean) => void
-  post?: Post
+  post?: PublishedPost
   setPost?: (post: Post) => void
 }
 
@@ -81,7 +81,7 @@ export function ReplyField({
 
       const { data } = result
 
-      let newReply: Post = data.post
+      let newReply: PublishedPost = data.post
 
       // finally upload any images
       if (files.length) {
@@ -108,7 +108,8 @@ export function ReplyField({
       } else if (replies != null && setReplies != null) {
         // check the replies
         const i = replies.findIndex(
-          (reply) => reply.id === replyable.id && reply.is_reply === replyable.is_reply
+          (reply) =>
+            !reply.deleted && reply.id === replyable.id && reply.is_reply === replyable.is_reply
         )
 
         if (i !== -1) {

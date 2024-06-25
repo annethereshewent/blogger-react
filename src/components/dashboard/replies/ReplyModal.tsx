@@ -1,6 +1,6 @@
 import { Avatar, Card, CardContent, Modal } from '@mui/material'
 import moment from 'moment'
-import { Post } from '../../../types/post/Post'
+import { Post, PublishedPost } from '../../../types/post/Post'
 import { User } from '../../../types/user/User'
 import { convertPost } from '../../../util/convertPost'
 import { modalStyleLarge } from '../../../util/modalStyles'
@@ -15,14 +15,14 @@ import { ReplyField } from './ReplyField'
 interface ReplyModalProps {
   open: boolean
   setOpen: (open: boolean) => void
-  replyable: Post
+  replyable: PublishedPost
   posts: Post[]
-  setReplyable: (replyable: Post) => void
+  setReplyable: (replyable: PublishedPost) => void
   setPosts: (replyables: Post[]) => void
   user: User
   // setPost and post are only set in the PostReplies component, for updating the reply count
   setPost?: (post: Post) => void
-  post?: Post
+  post?: PublishedPost
 }
 
 export function ReplyModal({

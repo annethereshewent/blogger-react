@@ -1,6 +1,6 @@
 import { Avatar, IconButton } from '@mui/material'
 import { Image } from '../../../types/post/Image'
-import { Post } from '../../../types/post/Post'
+import { Post, PublishedPost } from '../../../types/post/Post'
 import moment from 'moment'
 import { GifElement } from './GifElement'
 import { User } from '../../../types/user/User'
@@ -11,13 +11,13 @@ import { PostCardActions } from './PostCardActions'
 import { PostCardMenu } from './PostCardMenu'
 
 interface PostCardProps {
-  post: Post
+  post: PublishedPost
   setPosts?: (posts: Post[]) => void
   setPost?: (post: Post) => void
   posts?: Post[]
   user?: User
   setImage: (image: Image | null) => void
-  setReplyable: (post: Post) => void
+  setReplyable: (post: PublishedPost) => void
   setOpen?: (open: boolean) => void
   displayThreadLink?: boolean
 }

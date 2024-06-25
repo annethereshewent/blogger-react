@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Post } from '../../../types/post/Post'
+import { Post, PublishedPost } from '../../../types/post/Post'
 import { User } from '../../../types/user/User'
 import { DashboardContainer } from '../DashboardContainer'
 import { PostCard } from '../posts/PostCard'
@@ -37,7 +37,7 @@ export function PostReplies({
   const [image, setImage] = useState<Image | null>(null)
   const [openPostModal, setOpenPostModal] = useState(false)
   const [showSnackbar, setShowSnackbar] = useState(false)
-  const [replyable, setReplyable] = useState<Post>()
+  const [replyable, setReplyable] = useState<PublishedPost>()
   const [open, setOpen] = useState(false)
 
   return (
@@ -89,7 +89,7 @@ export function PostReplies({
                 </div>
               }
             >
-              {replies.map((reply) => (
+              {/* {replies.map((reply) => (
                 <ReplyCard
                   key={reply.id}
                   reply={reply}
@@ -100,6 +100,27 @@ export function PostReplies({
                   setReplyable={setReplyable}
                   setOpen={setOpen}
                 />
+              ))} */}
+              {replies.map((reply) => (
+                <div>
+                  {reply.deleted && (
+                    <div className="deleted-post">
+                      This post has been deleted by the original poster
+                    </div>
+                  )}
+                  {!reply.deleted && (
+                    <ReplyCard
+                      key={reply.id}
+                      reply={reply}
+                      replies={replies}
+                      user={user}
+                      setReplies={setReplies}
+                      setImage={setImage}
+                      setReplyable={setReplyable}
+                      setOpen={setOpen}
+                    />
+                  )}
+                </div>
               ))}
             </InfiniteScroll>
           )}
@@ -112,7 +133,7 @@ export function PostReplies({
         setOpen={setOpenPostModal}
         setShowSnackbar={setShowSnackbar}
       />
-      {user && replyable && (
+      {user && replyable && !post.deleted && (
         <ReplyModal
           user={user}
           replyable={replyable}

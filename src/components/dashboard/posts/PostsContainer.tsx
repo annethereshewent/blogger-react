@@ -1,4 +1,4 @@
-import { Post } from '../../../types/post/Post'
+import { Post, PublishedPost } from '../../../types/post/Post'
 import { PostCard } from './PostCard'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { CircularProgress } from '@mui/material'
@@ -27,7 +27,7 @@ export function PostsContainer({
   setPosts
 }: PostsContainerProps) {
   const [image, setImage] = useState<Image | null>(null)
-  const [replyable, setReplyable] = useState<Post>()
+  const [replyable, setReplyable] = useState<PublishedPost>()
   const [open, setOpen] = useState(false)
 
   useEffect(() => {
@@ -51,17 +51,24 @@ export function PostsContainer({
         }
       >
         {posts.map((post) => (
-          <PostCard
-            key={post.id}
-            post={post}
-            posts={posts}
-            setPosts={setPosts}
-            user={user}
-            setImage={setImage}
-            setReplyable={setReplyable}
-            setOpen={setOpen}
-            displayThreadLink={true}
-          />
+          <div>
+            {post.deleted && (
+              <div className="deleted-post">This post has been deleted by the original poster</div>
+            )}
+            {!post.deleted && (
+              <PostCard
+                key={post.id}
+                post={post}
+                posts={posts}
+                setPosts={setPosts}
+                user={user}
+                setImage={setImage}
+                setReplyable={setReplyable}
+                setOpen={setOpen}
+                displayThreadLink={true}
+              />
+            )}
+          </div>
         ))}
       </InfiniteScroll>
       <ImageModal image={image} setImage={setImage} />
