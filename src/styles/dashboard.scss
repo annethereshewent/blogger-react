@@ -4,6 +4,12 @@ html, body, root {
   height: 100vh;
 }
 
+#delete-post-modal {
+  .delete-actions {
+    float: right;
+  }
+}
+
 .emoji {
   height: 18px;
   display: inline-box;
@@ -282,11 +288,19 @@ a, a:visited {
       .post-avatar {
         margin-top: 20px;
       }
+      .post-card-menu {
+        margin-top: 10px;
+        margin-right: 20px;
+      }
       display: flex;
       .post-wrapper, .reply-wrapper {
+        width: 100%;
         margin-top: 20px;
         margin-right: 20px;
         margin-left: 20px;
+        .post-body {
+          word-break: break-word;
+        }
         .gif-element {
           cursor: pointer;
         }
@@ -362,6 +376,13 @@ a, a:visited {
     .reply-button {
       float: right;
     }
+  }
+  .deleted-post {
+    margin: auto;
+    width: 60%;
+    border-radius: 15px;
+    background: #201832;
+    border: 1px solid $blogger_background_dark;
   }
 }
 

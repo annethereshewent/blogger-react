@@ -1,16 +1,16 @@
 import { AddCommentRounded, FavoriteOutlined, ReplyOutlined } from '@mui/icons-material'
 import { IconButton } from '@mui/material'
 import { DashboardService } from '../../../services/DashboardService'
-import { Post } from '../../../types/post/Post'
+import { Post, PublishedPost } from '../../../types/post/Post'
 import { User } from '../../../types/user/User'
 
 interface PostCardActionsProps {
-  post: Post
+  post: PublishedPost
   setPosts?: (posts: Post[]) => void
   posts?: Post[]
   setPost?: (post: Post) => void
   user?: User
-  setReplyable: (replyable: Post) => void
+  setReplyable: (replyable: PublishedPost) => void
   setOpen?: (open: boolean) => void
 }
 
@@ -24,22 +24,24 @@ export function PostCardActions({
   setOpen
 }: PostCardActionsProps) {
   async function likePost() {
-    try {
-      const result = await new DashboardService().likePost(post.id)
+    if (user != null) {
+      try {
+        const result = await new DashboardService().likePost(post.id)
 
-      if (setPosts != null && posts != null) {
-        const postsCopy = [...posts]
+        if (setPosts != null && posts != null) {
+          const postsCopy = [...posts]
 
-        const i = postsCopy.indexOf(post)
+          const i = postsCopy.indexOf(post)
 
-        postsCopy.splice(i, 1, result.data.post)
+          postsCopy.splice(i, 1, result.data.post)
 
-        setPosts(postsCopy)
-      } else if (setPost != null) {
-        setPost(result.data.post)
+          setPosts(postsCopy)
+        } else if (setPost != null) {
+          setPost(result.data.post)
+        }
+      } catch (e: any) {
+        console.log(e)
       }
-    } catch (e: any) {
-      console.log(e)
     }
   }
 

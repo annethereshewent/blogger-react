@@ -1,7 +1,7 @@
 import { Image } from './Image'
 import { User } from '../user/User'
 
-export interface Post {
+export type PublishedPost = {
   id: number
   body: string
   user: User
@@ -16,7 +16,15 @@ export interface Post {
   likes: Like[]
   is_reply: boolean
   reply_id: number
+  deleted: false
 }
+
+export type DeletedPost = {
+  id: number
+  deleted: true
+}
+
+export type Post = PublishedPost | DeletedPost
 
 export interface Like {
   username: string

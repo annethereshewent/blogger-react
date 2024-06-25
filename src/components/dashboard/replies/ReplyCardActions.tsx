@@ -1,15 +1,15 @@
 import { AddCommentRounded, FavoriteOutlined, ReplyOutlined } from '@mui/icons-material'
 import { IconButton } from '@mui/material'
 import { DashboardService } from '../../../services/DashboardService'
-import { Post } from '../../../types/post/Post'
+import { Post, PublishedPost } from '../../../types/post/Post'
 import { User } from '../../../types/user/User'
 
 interface ReplyCardActionsProps {
-  reply: Post
+  reply: PublishedPost
   user?: User
   replies?: Post[]
   setReplies?: (replies: Post[]) => void
-  setReplyable: (replyable: Post) => void
+  setReplyable: (replyable: PublishedPost) => void
   setOpen: (open: boolean) => void
 }
 
@@ -33,7 +33,7 @@ export function ReplyCardActions({
 
           const i = repliesCopy.indexOf(reply)
 
-          repliesCopy.splice(i, 1, data.reply)
+          repliesCopy.splice(i, 1, data.post)
 
           setReplies(repliesCopy)
         }

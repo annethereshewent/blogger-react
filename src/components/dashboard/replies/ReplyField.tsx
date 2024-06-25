@@ -3,7 +3,7 @@ import { useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { DashboardService } from '../../../services/DashboardService'
 import { Gif } from '../../../types/post/Gif'
-import { Post } from '../../../types/post/Post'
+import { Post, PublishedPost } from '../../../types/post/Post'
 import { PostRequest } from '../../../types/post/PostRequest'
 import { User } from '../../../types/user/User'
 import { getRange } from '../../../util/moveCaret'
@@ -14,11 +14,10 @@ import { PostImage } from '../posts/PostImage'
 
 interface ReplyFieldProps {
   user: User
-  replyable: Post
+  replyable: PublishedPost
   replies?: Post[]
   setReplies?: (replies: Post[]) => void
   style?: React.CSSProperties
-  setReplyable?: (replyable: Post) => void
   setOpen?: (open: boolean) => void
   post?: Post
   setPost?: (post: Post) => void
@@ -30,7 +29,6 @@ export function ReplyField({
   setReplies,
   replies,
   style,
-  setReplyable,
   setOpen,
   post,
   setPost
@@ -81,7 +79,7 @@ export function ReplyField({
 
       const { data } = result
 
-      let newReply: Post = data.post
+      let newReply: PublishedPost = data.post
 
       // finally upload any images
       if (files.length) {
@@ -96,20 +94,15 @@ export function ReplyField({
         newReply = data.post
       }
       if (replies != null && setReplies != null) {
-        // if (!replyable.is_reply) {
-        //   setReplies([newReply, ...replies])
-        // }
         setReplies([...replies, newReply])
       }
 
       // finally update the post/reply with the updated reply count
-      if (post?.id === replyable.id && post.is_reply === replyable.is_reply && setPost != null) {
+      if (!post?.deleted && post?.id === replyable.id && setPost != null) {
         setPost(data.replyable)
       } else if (replies != null && setReplies != null) {
         // check the replies
-        const i = replies.findIndex(
-          (reply) => reply.id === replyable.id && reply.is_reply === replyable.is_reply
-        )
+        const i = replies.findIndex((reply) => !reply.deleted && reply.id === replyable.id)
 
         if (i !== -1) {
           const repliesCopy = [...replies]

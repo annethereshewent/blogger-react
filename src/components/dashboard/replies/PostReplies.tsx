@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Post } from '../../../types/post/Post'
+import { Post, PublishedPost } from '../../../types/post/Post'
 import { User } from '../../../types/user/User'
 import { DashboardContainer } from '../DashboardContainer'
 import { PostCard } from '../posts/PostCard'
@@ -19,6 +19,7 @@ interface PostRepliesParams {
   replies: Post[]
   user?: User
   setPost: (post: Post) => void
+  setParent: (post: Post) => void
   setReplies: (replies: Post[]) => void
   hasMore: boolean
   getPostReplies: () => void
@@ -31,13 +32,14 @@ export function PostReplies({
   user,
   setPost,
   setReplies,
+  setParent,
   hasMore,
   getPostReplies
 }: PostRepliesParams) {
   const [image, setImage] = useState<Image | null>(null)
   const [openPostModal, setOpenPostModal] = useState(false)
   const [showSnackbar, setShowSnackbar] = useState(false)
-  const [replyable, setReplyable] = useState<Post>()
+  const [replyable, setReplyable] = useState<PublishedPost>()
   const [open, setOpen] = useState(false)
 
   return (
@@ -45,23 +47,29 @@ export function PostReplies({
       {post && (
         <DashboardContainer user={user} title="Thread" setOpenPostModal={setOpenPostModal}>
           <div>
-            {parent && (
+            {parent != null && !parent.deleted && (
               <PostCard
                 post={parent}
-                setPost={setPost}
+                setPost={setParent}
                 setImage={setImage}
                 user={user}
                 setReplyable={setReplyable}
               />
             )}
-            <PostCard
-              post={post}
-              setPost={setPost}
-              setImage={setImage}
-              user={user}
-              setReplyable={setReplyable}
-            />
-            {user && (
+            {(parent?.deleted || post.deleted) && (
+              <div className="deleted-post">This post has been deleted by the original poster</div>
+            )}
+            {!post.deleted && (
+              <PostCard
+                post={post}
+                setPost={setPost}
+                setImage={setImage}
+                user={user}
+                setReplyable={setReplyable}
+                setOpen={setOpen}
+              />
+            )}
+            {user && !post.deleted && (
               <ReplyField
                 user={user}
                 replyable={post}
@@ -85,16 +93,26 @@ export function PostReplies({
               }
             >
               {replies.map((reply) => (
-                <ReplyCard
-                  key={reply.id}
-                  reply={reply}
-                  replies={replies}
-                  user={user}
-                  setReplies={setReplies}
-                  setImage={setImage}
-                  setReplyable={setReplyable}
-                  setOpen={setOpen}
-                />
+                <div key={reply.deleted ? -1 : reply.id}>
+                  {reply.deleted && (
+                    <div className="deleted-post">
+                      This post has been deleted by the original poster
+                    </div>
+                  )}
+                  {!reply.deleted && (
+                    <ReplyCard
+                      parent={post}
+                      setParent={setPost}
+                      reply={reply}
+                      replies={replies}
+                      user={user}
+                      setReplies={setReplies}
+                      setImage={setImage}
+                      setReplyable={setReplyable}
+                      setOpen={setOpen}
+                    />
+                  )}
+                </div>
               ))}
             </InfiniteScroll>
           )}
@@ -110,11 +128,10 @@ export function PostReplies({
       {user && replyable && (
         <ReplyModal
           user={user}
+          post={post}
           replyable={replyable}
-          setReplyable={setReplyable}
           posts={replies}
           setPosts={setReplies}
-          post={post}
           setPost={setPost}
           open={open}
           setOpen={setOpen}

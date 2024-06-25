@@ -2,18 +2,21 @@ import { Avatar } from '@mui/material'
 import moment from 'moment'
 import { useNavigate } from 'react-router-dom'
 import { Image } from '../../../types/post/Image'
-import { Post } from '../../../types/post/Post'
+import { Post, PublishedPost } from '../../../types/post/Post'
 import { User } from '../../../types/user/User'
 import { convertPost } from '../../../util/convertPost'
 import { GifElement } from '../posts/GifElement'
 import { ReplyCardActions } from './ReplyCardActions'
+import { PostCardMenu } from '../posts/PostCardMenu'
 
 interface ReplyCardProps {
-  reply: Post
+  parent: Post
+  setParent: (post: Post) => void
+  reply: PublishedPost
   user?: User
   replies?: Post[]
   setReplies?: (replies: Post[]) => void
-  setReplyable: (replyable: Post) => void
+  setReplyable: (replyable: PublishedPost) => void
   setImage: (image: Image | null) => void
   setOpen: (open: boolean) => void
 }
@@ -25,7 +28,9 @@ export function ReplyCard({
   setReplies,
   setImage,
   setReplyable,
-  setOpen
+  setOpen,
+  parent,
+  setParent
 }: ReplyCardProps) {
   const navigate = useNavigate()
 
@@ -57,6 +62,14 @@ export function ReplyCard({
             ))}
           </div>
         </div>
+        <PostCardMenu
+          user={user}
+          parent={parent}
+          post={reply}
+          posts={replies}
+          setPosts={setReplies}
+          setParent={setParent}
+        />
       </div>
       <ReplyCardActions
         reply={reply}
