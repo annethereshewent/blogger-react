@@ -5,23 +5,27 @@ import { DeletedPost, Post } from '../../../types/post/Post'
 import { DashboardService } from '../../../services/DashboardService'
 
 interface ConfirmDeleteModalProps {
+  parent?: Post
   post: Post
   posts?: Post[]
   modalOpen: boolean
   setPosts?: (posts: Post[]) => void
   setPost?: (post: Post) => void
+  setParent?: (post: Post) => void
   setMenuOpen: (open: boolean) => void
   setModalOpen: (open: boolean) => void
 }
 
 export function ConfirmDeleteModal({
+  parent,
   post,
   posts,
   modalOpen,
+  setPost,
   setPosts,
+  setParent,
   setMenuOpen,
-  setModalOpen,
-  setPost
+  setModalOpen
 }: ConfirmDeleteModalProps) {
   const [loading, setLoading] = useState(false)
 
@@ -49,6 +53,13 @@ export function ConfirmDeleteModal({
               postsCopy.splice(i, 1)
 
               setPosts(postsCopy)
+            }
+
+            // lastly update reply count for parent of this post
+            if (setParent != null && parent != null && !parent.deleted) {
+              parent.reply_count--
+
+              setParent(parent)
             }
           } else if (setPost != null) {
             const deletedPost: DeletedPost = { deleted: true }

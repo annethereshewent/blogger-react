@@ -6,14 +6,24 @@ import { ConfirmDeleteModal } from './ConfirmDeleteModal'
 import { Post } from '../../../types/post/Post'
 
 interface PostCardMenuProps {
+  parent?: Post
   post: Post
   posts?: Post[]
   user?: User
   setPosts?: (posts: Post[]) => void
   setPost?: (post: Post) => void
+  setParent?: (post: Post) => void
 }
 
-export function PostCardMenu({ post, posts, user, setPosts, setPost }: PostCardMenuProps) {
+export function PostCardMenu({
+  parent,
+  post,
+  posts,
+  user,
+  setPosts,
+  setPost,
+  setParent
+}: PostCardMenuProps) {
   const anchorRef = useRef<HTMLDivElement>(null)
   const [menuOpen, setMenuOpen] = useState(false)
   const [modalOpen, setModalOpen] = useState(false)
@@ -62,7 +72,9 @@ export function PostCardMenu({ post, posts, user, setPosts, setPost }: PostCardM
       <ConfirmDeleteModal
         setPost={setPost}
         setPosts={setPosts}
+        setParent={setParent}
         modalOpen={modalOpen}
+        parent={parent}
         post={post}
         posts={posts}
         setMenuOpen={setMenuOpen}

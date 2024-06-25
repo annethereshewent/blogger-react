@@ -101,6 +101,8 @@ export function PostReplies({
                   )}
                   {!reply.deleted && (
                     <ReplyCard
+                      parent={post}
+                      setParent={setPost}
                       reply={reply}
                       replies={replies}
                       user={user}

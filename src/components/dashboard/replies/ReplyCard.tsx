@@ -10,6 +10,8 @@ import { ReplyCardActions } from './ReplyCardActions'
 import { PostCardMenu } from '../posts/PostCardMenu'
 
 interface ReplyCardProps {
+  parent: Post
+  setParent: (post: Post) => void
   reply: PublishedPost
   user?: User
   replies?: Post[]
@@ -26,7 +28,9 @@ export function ReplyCard({
   setReplies,
   setImage,
   setReplyable,
-  setOpen
+  setOpen,
+  parent,
+  setParent
 }: ReplyCardProps) {
   const navigate = useNavigate()
 
@@ -58,7 +62,14 @@ export function ReplyCard({
             ))}
           </div>
         </div>
-        <PostCardMenu user={user} post={reply} posts={replies} setPosts={setReplies} />
+        <PostCardMenu
+          user={user}
+          parent={parent}
+          post={reply}
+          posts={replies}
+          setPosts={setReplies}
+          setParent={setParent}
+        />
       </div>
       <ReplyCardActions
         reply={reply}
