@@ -55,7 +55,7 @@ export function Tags() {
 
   useEffect(() => {
     getPosts()
-  }, [user])
+  }, [])
 
   return (
     <div>
