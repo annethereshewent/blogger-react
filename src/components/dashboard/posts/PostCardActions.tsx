@@ -24,13 +24,9 @@ export function PostCardActions({
   setOpen
 }: PostCardActionsProps) {
   async function likePost() {
-    console.log('what')
-
     if (user != null) {
       try {
         const result = await new DashboardService().likePost(post.id)
-
-        console.log(result.data.post)
 
         if (setPosts != null && posts != null) {
           const postsCopy = [...posts]
