@@ -377,6 +377,13 @@ a, a:visited {
       float: right;
     }
   }
+  .deleted-post {
+    margin: auto;
+    width: 60%;
+    border-radius: 15px;
+    background: #201832;
+    border: 1px solid $blogger_background_dark;
+  }
 }
 
 .reply-field {

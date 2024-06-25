@@ -45,7 +45,7 @@ export function PostReplies({
       {post && (
         <DashboardContainer user={user} title="Thread" setOpenPostModal={setOpenPostModal}>
           <div>
-            {parent && (
+            {parent != null && !parent.deleted && (
               <PostCard
                 post={parent}
                 setPost={setPost}
@@ -53,6 +53,9 @@ export function PostReplies({
                 user={user}
                 setReplyable={setReplyable}
               />
+            )}
+            {parent?.deleted && (
+              <div className="deleted-post">This post has been deleted by the original poster</div>
             )}
             <PostCard
               post={post}
