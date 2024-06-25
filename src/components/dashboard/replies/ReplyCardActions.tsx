@@ -28,12 +28,14 @@ export function ReplyCardActions({
 
         const { data } = result
 
+        console.log(data)
+
         if (setReplies != null && replies != null) {
           const repliesCopy = [...replies]
 
           const i = repliesCopy.indexOf(reply)
 
-          repliesCopy.splice(i, 1, data.reply)
+          repliesCopy.splice(i, 1, data.post)
 
           setReplies(repliesCopy)
         }

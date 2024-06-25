@@ -19,7 +19,7 @@ export type PublishedPost = {
   deleted: false
 }
 
-type DeletedPost = {
+export type DeletedPost = {
   deleted: true
 }
 

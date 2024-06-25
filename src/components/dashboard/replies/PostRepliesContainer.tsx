@@ -99,6 +99,7 @@ export function PostRepliesContainer({ withParent }: PostRepliesContainerParams)
           parent={parent}
           replies={replies}
           setPost={setPost}
+          setParent={setParent}
           setReplies={setReplies}
           hasMore={hasMore}
           getPostReplies={getPostReplies}

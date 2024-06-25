@@ -24,22 +24,28 @@ export function PostCardActions({
   setOpen
 }: PostCardActionsProps) {
   async function likePost() {
-    try {
-      const result = await new DashboardService().likePost(post.id)
+    console.log('what')
 
-      if (setPosts != null && posts != null) {
-        const postsCopy = [...posts]
+    if (user != null) {
+      try {
+        const result = await new DashboardService().likePost(post.id)
 
-        const i = postsCopy.indexOf(post)
+        console.log(result.data.post)
 
-        postsCopy.splice(i, 1, result.data.post)
+        if (setPosts != null && posts != null) {
+          const postsCopy = [...posts]
 
-        setPosts(postsCopy)
-      } else if (setPost != null) {
-        setPost(result.data.post)
+          const i = postsCopy.indexOf(post)
+
+          postsCopy.splice(i, 1, result.data.post)
+
+          setPosts(postsCopy)
+        } else if (setPost != null) {
+          setPost(result.data.post)
+        }
+      } catch (e: any) {
+        console.log(e)
       }
-    } catch (e: any) {
-      console.log(e)
     }
   }
 

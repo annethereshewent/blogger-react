@@ -7,6 +7,7 @@ import { User } from '../../../types/user/User'
 import { convertPost } from '../../../util/convertPost'
 import { GifElement } from '../posts/GifElement'
 import { ReplyCardActions } from './ReplyCardActions'
+import { PostCardMenu } from '../posts/PostCardMenu'
 
 interface ReplyCardProps {
   reply: PublishedPost
@@ -57,6 +58,7 @@ export function ReplyCard({
             ))}
           </div>
         </div>
+        <PostCardMenu user={user} post={reply} posts={replies} setPosts={setReplies} />
       </div>
       <ReplyCardActions
         reply={reply}

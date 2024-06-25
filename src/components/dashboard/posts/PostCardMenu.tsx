@@ -11,18 +11,19 @@ import {
 import { Menu as MenuIcon } from '@mui/icons-material'
 import { useRef, useState } from 'react'
 import { DashboardService } from '../../../services/DashboardService'
-import { Post, PublishedPost } from '../../../types/post/Post'
+import { DeletedPost, Post } from '../../../types/post/Post'
 import { User } from '../../../types/user/User'
 import { modalStyle } from '../../../util/modalStyles'
 
 interface PostCardMenuProps {
-  post: PublishedPost
+  post: Post
   posts?: Post[]
   user?: User
   setPosts?: (posts: Post[]) => void
+  setPost?: (post: Post) => void
 }
 
-export function PostCardMenu({ post, posts, user, setPosts }: PostCardMenuProps) {
+export function PostCardMenu({ post, posts, user, setPosts, setPost }: PostCardMenuProps) {
   const anchorRef = useRef<HTMLDivElement>(null)
   const [menuOpen, setMenuOpen] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -34,23 +35,30 @@ export function PostCardMenu({ post, posts, user, setPosts }: PostCardMenuProps)
 
   async function deletePost() {
     try {
-      setLoading(true)
-      const result = await new DashboardService().deletePost(post.id)
+      if (!post.deleted) {
+        setLoading(true)
+        const result = await new DashboardService().deletePost(post.id)
 
-      const { data } = result
+        const { data } = result
 
-      if (data.success && setPosts != null) {
-        // should be ok to use '!!' here if setPosts is not null.
-        const postsCopy = [...posts!!]
+        if (data.success) {
+          if (setPosts != null) {
+            // should be ok to use '!!' here if setPosts is not null.
+            const postsCopy = [...posts!!]
 
-        const i = postsCopy.indexOf(post)
+            const i = postsCopy.indexOf(post)
 
-        if (i !== -1) {
-          postsCopy.splice(i, 1)
+            if (i !== -1) {
+              console.log('i isnt equal to -1')
+              postsCopy.splice(i, 1)
 
-          setPosts(postsCopy)
-        } else {
-          // TODO: deal with deleting the main post
+              setPosts(postsCopy)
+            }
+          } else if (setPost != null) {
+            const deletedPost: DeletedPost = { deleted: true }
+
+            setPost(deletedPost)
+          }
         }
       }
     } catch (e: any) {
@@ -77,7 +85,7 @@ export function PostCardMenu({ post, posts, user, setPosts }: PostCardMenuProps)
 
   return (
     <div ref={anchorRef} className="post-card-menu">
-      {user && (
+      {user && !post.deleted && (
         <div>
           <IconButton className="hamburger" onClick={openMenu}>
             <MenuIcon />

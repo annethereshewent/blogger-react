@@ -51,13 +51,12 @@ export function PostsContainer({
         }
       >
         {posts.map((post) => (
-          <div>
+          <div key={post.deleted ? -1 : post.id}>
             {post.deleted && (
               <div className="deleted-post">This post has been deleted by the original poster</div>
             )}
             {!post.deleted && (
               <PostCard
-                key={post.id}
                 post={post}
                 posts={posts}
                 setPosts={setPosts}

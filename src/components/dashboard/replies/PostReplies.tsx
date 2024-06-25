@@ -19,6 +19,7 @@ interface PostRepliesParams {
   replies: Post[]
   user?: User
   setPost: (post: Post) => void
+  setParent: (post: Post) => void
   setReplies: (replies: Post[]) => void
   hasMore: boolean
   getPostReplies: () => void
@@ -31,6 +32,7 @@ export function PostReplies({
   user,
   setPost,
   setReplies,
+  setParent,
   hasMore,
   getPostReplies
 }: PostRepliesParams) {
@@ -48,7 +50,7 @@ export function PostReplies({
             {parent != null && !parent.deleted && (
               <PostCard
                 post={parent}
-                setPost={setPost}
+                setPost={setParent}
                 setImage={setImage}
                 user={user}
                 setReplyable={setReplyable}
@@ -89,20 +91,8 @@ export function PostReplies({
                 </div>
               }
             >
-              {/* {replies.map((reply) => (
-                <ReplyCard
-                  key={reply.id}
-                  reply={reply}
-                  replies={replies}
-                  user={user}
-                  setReplies={setReplies}
-                  setImage={setImage}
-                  setReplyable={setReplyable}
-                  setOpen={setOpen}
-                />
-              ))} */}
               {replies.map((reply) => (
-                <div>
+                <div key={reply.deleted ? -1 : reply.id}>
                   {reply.deleted && (
                     <div className="deleted-post">
                       This post has been deleted by the original poster
@@ -110,7 +100,6 @@ export function PostReplies({
                   )}
                   {!reply.deleted && (
                     <ReplyCard
-                      key={reply.id}
                       reply={reply}
                       replies={replies}
                       user={user}
