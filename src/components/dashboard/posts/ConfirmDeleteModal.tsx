@@ -62,7 +62,7 @@ export function ConfirmDeleteModal({
               setParent(parent)
             }
           } else if (setPost != null) {
-            const deletedPost: DeletedPost = { deleted: true }
+            const deletedPost: DeletedPost = { id: post.id, deleted: true }
 
             setPost(deletedPost)
           }

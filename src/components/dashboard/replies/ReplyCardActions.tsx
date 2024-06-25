@@ -28,8 +28,6 @@ export function ReplyCardActions({
 
         const { data } = result
 
-        console.log(data)
-
         if (setReplies != null && replies != null) {
           const repliesCopy = [...replies]
 

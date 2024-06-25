@@ -20,6 +20,7 @@ export type PublishedPost = {
 }
 
 export type DeletedPost = {
+  id: number
   deleted: true
 }
 

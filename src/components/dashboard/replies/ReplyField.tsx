@@ -102,10 +102,7 @@ export function ReplyField({
         setPost(data.replyable)
       } else if (replies != null && setReplies != null) {
         // check the replies
-        const i = replies.findIndex(
-          (reply) =>
-            !reply.deleted && reply.id === replyable.id && reply.is_reply === replyable.is_reply
-        )
+        const i = replies.findIndex((reply) => !reply.deleted && reply.id === replyable.id)
 
         if (i !== -1) {
           const repliesCopy = [...replies]
