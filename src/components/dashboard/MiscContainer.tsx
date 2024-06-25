@@ -6,7 +6,7 @@ export function MiscContainer() {
         <div className="item">Privacy Policy</div>
         <div className="item">Cookie Policy</div>
         <div className="item">Accessibility</div>
-        <div className="item">© 2022 Blogger, Inc.</div>
+        <div className="item">© 2024 Blogger, Inc.</div>
       </div>
     </div>
   )
