@@ -1,4 +1,4 @@
-import { Avatar } from '@mui/material'
+import { Avatar, IconButton } from '@mui/material'
 import { Image } from '../../../types/post/Image'
 import { Post } from '../../../types/post/Post'
 import moment from 'moment'
@@ -8,6 +8,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { convertPost } from '../../../util/convertPost'
 import { useRef } from 'react'
 import { PostCardActions } from './PostCardActions'
+import { PostCardMenu } from './PostCardMenu'
 
 interface PostCardProps {
   post: Post
@@ -85,6 +86,7 @@ export function PostCard({
             </div>
           )}
         </div>
+        <PostCardMenu post={post} posts={posts} user={user} setPosts={setPosts} />
       </div>
       <PostCardActions
         user={user}

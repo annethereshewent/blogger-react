@@ -14,6 +14,10 @@ export class DashboardService extends BaseService {
     return await this.client.post('/api/v1/users/posts', postRequest)
   }
 
+  async deletePost(postId: number) {
+    return await this.client.delete(`/api/v1/users/posts/${postId}`)
+  }
+
   async fetchPosts(page = 1) {
     return await this.client.get(`/api/v1/users/posts?page=${page}`)
   }
