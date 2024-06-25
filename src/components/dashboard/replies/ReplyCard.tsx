@@ -11,7 +11,6 @@ import { PostCardMenu } from '../posts/PostCardMenu'
 
 interface ReplyCardProps {
   reply: PublishedPost
-  replyable?: PublishedPost
   user?: User
   replies?: Post[]
   setReplies?: (replies: Post[]) => void
@@ -22,7 +21,6 @@ interface ReplyCardProps {
 
 export function ReplyCard({
   reply,
-  replyable,
   user,
   replies,
   setReplies,
@@ -60,14 +58,7 @@ export function ReplyCard({
             ))}
           </div>
         </div>
-        <PostCardMenu
-          user={user}
-          post={reply}
-          replyable={replyable}
-          posts={replies}
-          setPosts={setReplies}
-          setReplyable={setReplyable}
-        />
+        <PostCardMenu user={user} post={reply} posts={replies} setPosts={setReplies} />
       </div>
       <ReplyCardActions
         reply={reply}

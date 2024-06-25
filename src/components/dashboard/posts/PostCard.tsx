@@ -16,7 +16,6 @@ interface PostCardProps {
   posts?: Post[]
   user?: User
   setImage: (image: Image | null) => void
-  replyable?: PublishedPost
   setReplyable: (post: PublishedPost) => void
   setOpen?: (open: boolean) => void
   displayThreadLink?: boolean
@@ -24,7 +23,6 @@ interface PostCardProps {
 
 export function PostCard({
   post,
-  replyable,
   user,
   setPosts,
   setPost,
@@ -85,15 +83,7 @@ export function PostCard({
             </div>
           )}
         </div>
-        <PostCardMenu
-          post={post}
-          replyable={replyable}
-          posts={posts}
-          user={user}
-          setPosts={setPosts}
-          setPost={setPost}
-          setReplyable={setReplyable}
-        />
+        <PostCardMenu post={post} posts={posts} user={user} setPosts={setPosts} setPost={setPost} />
       </div>
       <PostCardActions
         user={user}
