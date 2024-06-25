@@ -46,7 +46,6 @@ export function ConfirmDeleteModal({
             const i = postsCopy.indexOf(post)
 
             if (i !== -1) {
-              console.log('i isnt equal to -1')
               postsCopy.splice(i, 1)
 
               setPosts(postsCopy)

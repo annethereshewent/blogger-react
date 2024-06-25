@@ -1,20 +1,9 @@
-import {
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  IconButton,
-  Menu,
-  MenuItem,
-  Modal
-} from '@mui/material'
+import { IconButton, Menu, MenuItem } from '@mui/material'
 import { Menu as MenuIcon } from '@mui/icons-material'
 import { useRef, useState } from 'react'
-import { DashboardService } from '../../../services/DashboardService'
-import { DeletedPost, Post } from '../../../types/post/Post'
 import { User } from '../../../types/user/User'
-import { modalStyle } from '../../../util/modalStyles'
 import { ConfirmDeleteModal } from './ConfirmDeleteModal'
+import { Post } from '../../../types/post/Post'
 
 interface PostCardMenuProps {
   post: Post
