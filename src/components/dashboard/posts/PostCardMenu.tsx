@@ -11,19 +11,29 @@ import {
 import { Menu as MenuIcon } from '@mui/icons-material'
 import { useRef, useState } from 'react'
 import { DashboardService } from '../../../services/DashboardService'
-import { DeletedPost, Post } from '../../../types/post/Post'
+import { DeletedPost, Post, PublishedPost } from '../../../types/post/Post'
 import { User } from '../../../types/user/User'
 import { modalStyle } from '../../../util/modalStyles'
 
 interface PostCardMenuProps {
   post: Post
+  replyable?: PublishedPost
   posts?: Post[]
   user?: User
   setPosts?: (posts: Post[]) => void
   setPost?: (post: Post) => void
+  setReplyable: (post: PublishedPost) => void
 }
 
-export function PostCardMenu({ post, posts, user, setPosts, setPost }: PostCardMenuProps) {
+export function PostCardMenu({
+  post,
+  replyable,
+  posts,
+  user,
+  setPosts,
+  setPost,
+  setReplyable
+}: PostCardMenuProps) {
   const anchorRef = useRef<HTMLDivElement>(null)
   const [menuOpen, setMenuOpen] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -49,10 +59,16 @@ export function PostCardMenu({ post, posts, user, setPosts, setPost }: PostCardM
             const i = postsCopy.indexOf(post)
 
             if (i !== -1) {
-              console.log('i isnt equal to -1')
               postsCopy.splice(i, 1)
 
               setPosts(postsCopy)
+
+              // finally update the reply count on the original post
+              if (replyable != null) {
+                replyable.reply_count--
+
+                setReplyable(replyable)
+              }
             }
           } else if (setPost != null) {
             const deletedPost: DeletedPost = { deleted: true }

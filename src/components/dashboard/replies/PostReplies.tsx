@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Post, PublishedPost } from '../../../types/post/Post'
 import { User } from '../../../types/user/User'
 import { DashboardContainer } from '../DashboardContainer'
@@ -42,6 +42,12 @@ export function PostReplies({
   const [replyable, setReplyable] = useState<PublishedPost>()
   const [open, setOpen] = useState(false)
 
+  useEffect(() => {
+    if (!post.deleted) {
+      setReplyable(post)
+    }
+  }, [post])
+
   return (
     <div id="post-replies">
       {post && (
@@ -53,6 +59,7 @@ export function PostReplies({
                 setPost={setParent}
                 setImage={setImage}
                 user={user}
+                replyable={replyable}
                 setReplyable={setReplyable}
               />
             )}
@@ -62,6 +69,7 @@ export function PostReplies({
             {!post.deleted && (
               <PostCard
                 post={post}
+                replyable={replyable}
                 setPost={setPost}
                 setImage={setImage}
                 user={user}
@@ -101,6 +109,7 @@ export function PostReplies({
                   {!reply.deleted && (
                     <ReplyCard
                       reply={reply}
+                      replyable={replyable}
                       replies={replies}
                       user={user}
                       setReplies={setReplies}
