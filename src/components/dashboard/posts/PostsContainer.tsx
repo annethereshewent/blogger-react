@@ -75,7 +75,6 @@ export function PostsContainer({
         <ReplyModal
           user={user}
           replyable={replyable}
-          setReplyable={setReplyable}
           posts={posts}
           setPosts={setPosts}
           open={open}

@@ -18,9 +18,8 @@ interface ReplyFieldProps {
   replies?: Post[]
   setReplies?: (replies: Post[]) => void
   style?: React.CSSProperties
-  setReplyable?: (replyable: PublishedPost) => void
   setOpen?: (open: boolean) => void
-  post?: PublishedPost
+  post?: Post
   setPost?: (post: Post) => void
 }
 
@@ -30,7 +29,6 @@ export function ReplyField({
   setReplies,
   replies,
   style,
-  setReplyable,
   setOpen,
   post,
   setPost
@@ -96,14 +94,11 @@ export function ReplyField({
         newReply = data.post
       }
       if (replies != null && setReplies != null) {
-        // if (!replyable.is_reply) {
-        //   setReplies([newReply, ...replies])
-        // }
         setReplies([...replies, newReply])
       }
 
       // finally update the post/reply with the updated reply count
-      if (post?.id === replyable.id && post.is_reply === replyable.is_reply && setPost != null) {
+      if (!post?.deleted && post?.id === replyable.id && setPost != null) {
         setPost(data.replyable)
       } else if (replies != null && setReplies != null) {
         // check the replies

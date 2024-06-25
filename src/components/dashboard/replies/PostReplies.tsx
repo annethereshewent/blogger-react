@@ -66,6 +66,7 @@ export function PostReplies({
                 setImage={setImage}
                 user={user}
                 setReplyable={setReplyable}
+                setOpen={setOpen}
               />
             )}
             {user && !post.deleted && (
@@ -125,8 +126,8 @@ export function PostReplies({
       {user && replyable && (
         <ReplyModal
           user={user}
+          post={post}
           replyable={replyable}
-          setReplyable={setReplyable}
           posts={replies}
           setPosts={setReplies}
           setPost={setPost}

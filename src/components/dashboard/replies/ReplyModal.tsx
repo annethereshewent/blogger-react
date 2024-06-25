@@ -17,17 +17,15 @@ interface ReplyModalProps {
   setOpen: (open: boolean) => void
   replyable: PublishedPost
   posts: Post[]
-  setReplyable: (replyable: PublishedPost) => void
   setPosts: (replyables: Post[]) => void
   user: User
   // setPost and post are only set in the PostReplies component, for updating the reply count
   setPost?: (post: Post) => void
-  post?: PublishedPost
+  post?: Post
 }
 
 export function ReplyModal({
   user,
-  setReplyable,
   setPosts,
   posts,
   replyable,
@@ -64,7 +62,6 @@ export function ReplyModal({
                 user={user}
                 replyable={replyable}
                 style={{ borderBottom: 'none' }}
-                setReplyable={setReplyable}
                 replies={posts}
                 setReplies={setPosts}
                 setOpen={setOpen}
