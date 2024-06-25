@@ -1,4 +1,4 @@
-import { Button, Card, CardActions, CardContent, Modal } from '@mui/material'
+import { Button, Card, CardActions, CardContent, CircularProgress, Modal } from '@mui/material'
 import { modalStyle } from '../../../util/modalStyles'
 import { useState } from 'react'
 import { DeletedPost, Post } from '../../../types/post/Post'
@@ -94,6 +94,11 @@ export function ConfirmDeleteModal({
           <Button type="button" variant="contained" color="primary" onClick={handleClose}>
             Cancel
           </Button>
+          {loading && (
+            <div style={{ textAlign: 'center' }}>
+              <CircularProgress style={{ textAlign: 'center' }} color="error" />
+            </div>
+          )}
         </CardActions>
       </Card>
     </Modal>
