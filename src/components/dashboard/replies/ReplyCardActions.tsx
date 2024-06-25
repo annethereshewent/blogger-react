@@ -46,6 +46,7 @@ export function ReplyCardActions({
   }
 
   function openReplyModal() {
+    console.log('they just strut?')
     setReplyable(reply)
     setOpen(true)
   }

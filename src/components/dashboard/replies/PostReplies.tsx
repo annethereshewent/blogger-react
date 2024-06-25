@@ -122,14 +122,13 @@ export function PostReplies({
         setOpen={setOpenPostModal}
         setShowSnackbar={setShowSnackbar}
       />
-      {user && replyable && !post.deleted && (
+      {user && replyable && (
         <ReplyModal
           user={user}
           replyable={replyable}
           setReplyable={setReplyable}
           posts={replies}
           setPosts={setReplies}
-          post={post}
           setPost={setPost}
           open={open}
           setOpen={setOpen}
