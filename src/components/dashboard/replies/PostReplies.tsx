@@ -54,17 +54,19 @@ export function PostReplies({
                 setReplyable={setReplyable}
               />
             )}
-            {parent?.deleted && (
+            {(parent?.deleted || post.deleted) && (
               <div className="deleted-post">This post has been deleted by the original poster</div>
             )}
-            <PostCard
-              post={post}
-              setPost={setPost}
-              setImage={setImage}
-              user={user}
-              setReplyable={setReplyable}
-            />
-            {user && (
+            {!post.deleted && (
+              <PostCard
+                post={post}
+                setPost={setPost}
+                setImage={setImage}
+                user={user}
+                setReplyable={setReplyable}
+              />
+            )}
+            {user && !post.deleted && (
               <ReplyField
                 user={user}
                 replyable={post}
